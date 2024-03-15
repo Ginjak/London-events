@@ -2,6 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { AllEvents } from "../../context/allEvents";
 import "./hero.css";
 
+import { generateRandomNumber } from "../../eventsActions/utilityFunctions";
+import { imageSizeApi } from "../../eventsActions/utilityFunctions";
+
 const Hero = () => {
   const {
     events,
@@ -29,13 +32,13 @@ const Hero = () => {
   }, [eventImg]); // Run this effect whenever eventImg changes
 
   const handleClick = async () => {
-    setIsLoading(true); // Set loading state to true before fetching new data
+    setIsLoading(true);
     try {
-      await fetchEvents(); // Wait for data fetching
+      await fetchEvents();
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
-      setIsLoading(false); // Set loading state to false after data is fetched, regardless of success or failure
+      setIsLoading(false);
     }
   };
 
