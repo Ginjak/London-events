@@ -33,7 +33,7 @@ export const fetchEvents = async (
 ) => {
   const apiKey = "HjQcNIEkdwsQswwBQhfE1PO0smAoxyu4";
   const apiUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apiKey}&countryCode=${country}&city=${city}&startDateTime=${startDate}&endDateTime=${endDate}&segmentName=${eventType}&size=${limit}`;
-  console.log("API URL:", apiUrl);
+  // console.log("API URL:", apiUrl);
 
   try {
     const response = await axios.get(apiUrl);
@@ -47,7 +47,7 @@ export const fetchEvents = async (
       }
     });
 
-    console.log("Unique Events:", uniqueEvents);
+    // console.log("Unique Events:", uniqueEvents);
     return uniqueEvents;
   } catch (error) {
     console.error("API Error:", error);

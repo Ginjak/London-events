@@ -1,0 +1,17 @@
+.uk-flag {
+  width: 20px;
+  border-radius: 4px;
+}
+
+.city {
+  text-decoration: none;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  transition: color 0.2s ease-in-out;
+}
+.city:hover {
+  color: #ddd;
+  transition: color 0.2s ease-in-out;
+}

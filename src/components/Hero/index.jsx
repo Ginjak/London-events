@@ -1,73 +1,63 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AllEvents } from "../../context/allEvents";
+import React, { useState, useEffect } from "react";
 import "./hero.css";
-
-import { generateRandomNumber } from "../../eventsActions/utilityFunctions";
-import { imageSizeApi } from "../../eventsActions/utilityFunctions";
-
+import { fetchEvents } from "../../eventsActions/eventsActions";
+import {
+  generateRandomNumber,
+  imageSizeApi,
+} from "../../eventsActions/utilityFunctions";
 const Hero = () => {
-  const {
-    events,
-    eventType,
-    fetchEvents,
-    setEventType,
-    fetchEventImage,
-    setEventImg,
-    eventImg,
-  } = useContext(AllEvents);
-  const [heroBackground, setHeroBackground] = useState("#ddd");
+  // useState
+  const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isLoadingMain, setIsLoadingMain] = useState(true);
+  const [heroBg, setHeroBg] = useState("");
+  const [eventName, setEventName] = useState("");
+  const [eventCity, setEventCity] = useState("");
+  const [eventDate, setEventDate] = useState("");
 
+  // Function to get default API data and set it to events
   useEffect(() => {
-    fetchEventImage();
-  }, []);
+    const fetchData = async () => {
+      try {
+        const data = await fetchEvents();
+        setEvents(data);
+        setIsLoading(false);
 
-  useEffect(() => {
-    if (eventImg && eventImg.length > 0) {
-      setHeroBackground(eventImg[0].images[6].url);
-      setIsLoadingMain(false); // Data fetching is complete
-      setIsLoading(false); // Data fetching is complete
+        if (data.length > 0) {
+          const rndNumber = generateRandomNumber(data.length);
+          setHeroBg(imageSizeApi(data[rndNumber].images, 1135));
+          setEventName(data[rndNumber].name);
+          setEventCity(data[rndNumber].city); // Example of updating other state variables
+          setEventDate(data[rndNumber].date); // Example of updating other state variables
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (events.length === 0) {
+      fetchData();
     }
-  }, [eventImg]); // Run this effect whenever eventImg changes
+  }, [events]);
 
-  const handleClick = async () => {
-    setIsLoading(true);
-    try {
-      await fetchEvents();
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const heroStyle = {
-    background: `url(${heroBackground})`,
+  const heroBgUrl = {
+    background: `url(${heroBg})`,
   };
 
   return (
     <>
-      {isLoadingMain && (
+      {isLoading && (
         <div className="loading-wraper">
-          <h1>Loading</h1>
+          <div
+            className="large-spinner spinner-border text-white"
+            role="status"
+          >
+            <span className="visually-hidden">Loading...</span>
+          </div>
         </div>
       )}
-      <div className="hero position-relative" style={heroStyle}>
+      <div className="hero" style={heroBgUrl}>
         <div className="container-xxl position-relative">
-          <h1 className="bg-warning">Hero Section</h1>
-          {isLoading && (
-            <div
-              className="spinner-grow text-white d-block small-spinner"
-              role="status"
-            >
-              <span className="sr-only"></span>
-            </div>
-          )}
-          {!isLoading && events.length > 0 && (
-            <p className="text-white">{events[0].name}</p>
-          )}
-          <button onClick={handleClick}>Get Data</button>
+          <h1 className="text-white">TEst</h1>
         </div>
       </div>
     </>

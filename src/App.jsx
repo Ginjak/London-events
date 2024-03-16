@@ -1,16 +1,15 @@
 import React from "react";
 import "./App.css";
 import Hero from "./components/Hero";
-import { EventsProvider } from "./context/allEvents";
 import Header from "./components/Header";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <>
       <Header>
-        <EventsProvider>
-          <Hero />
-        </EventsProvider>
+        <Navbar />
+        <Hero />
       </Header>
     </>
   );
