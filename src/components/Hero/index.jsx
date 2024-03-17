@@ -1,12 +1,17 @@
+// Hero.js
 import React, { useState, useEffect } from "react";
 import "./hero.css";
+import { useFormCity } from "../../context/CityContext";
 import { fetchEvents } from "../../eventsActions/eventsActions";
 import {
   generateRandomNumber,
   imageSizeApi,
 } from "../../eventsActions/utilityFunctions";
+
 const Hero = () => {
-  // useState
+  // Use the useFormCity hook to access formCity value
+  const { formCity } = useFormCity();
+
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [heroBg, setHeroBg] = useState("");
@@ -14,30 +19,29 @@ const Hero = () => {
   const [eventCity, setEventCity] = useState("");
   const [eventDate, setEventDate] = useState("");
 
-  // Function to get default API data and set it to events
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchEvents();
+        setIsLoading(true); // Set isLoading to true when fetching data
+        const data = await fetchEvents(undefined, formCity);
         setEvents(data);
-        setIsLoading(false);
-
         if (data.length > 0) {
           const rndNumber = generateRandomNumber(data.length);
-          setHeroBg(imageSizeApi(data[rndNumber].images, 1135));
+          setHeroBg(imageSizeApi(data[rndNumber].images, 1200));
           setEventName(data[rndNumber].name);
-          setEventCity(data[rndNumber].city); // Example of updating other state variables
-          setEventDate(data[rndNumber].date); // Example of updating other state variables
+          setEventCity(data[rndNumber].city);
+          setEventDate(data[rndNumber].date);
         }
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false); // Set isLoading to false after data is fetched
       }
     };
 
-    if (events.length === 0) {
-      fetchData();
-    }
-  }, [events]);
+    // Call fetchData when formCity changes
+    fetchData();
+  }, [formCity]); // Update when formCity changes
 
   const heroBgUrl = {
     background: `url(${heroBg})`,
@@ -57,7 +61,11 @@ const Hero = () => {
       )}
       <div className="hero" style={heroBgUrl}>
         <div className="container-xxl position-relative">
-          <h1 className="text-white">TEst</h1>
+          <h1 className="text-white">Test</h1>
+          {/* Render event details */}
+          <p>{eventName}</p>
+          <p>{eventCity}</p>
+          <p>{eventDate}</p>
         </div>
       </div>
     </>

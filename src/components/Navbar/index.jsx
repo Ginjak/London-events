@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useFormCity } from "../../context/CityContext";
 import { fetchEvents } from "../../eventsActions/eventsActions";
 import "./navbar.css";
 
 const Navbar = () => {
-  const [formCity, setFormCity] = useState("");
+  const { formCity, setFormCity } = useFormCity();
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [citySelected, setCitySelected] = useState(true);
 
@@ -56,7 +57,7 @@ const Navbar = () => {
           <div className="menu text-primary d-flex">
             <img
               className="uk-flag me-3"
-              src="../../../public/images/uk_flag.svg"
+              src="/images/uk_flag.svg"
               alt="United Kingdom Flag"
             />
 
@@ -68,7 +69,7 @@ const Navbar = () => {
               aria-controls="offcanvasCity"
             >
               <i className="fa-solid fa-location-dot me-2"></i>
-              London
+              {formCity}
             </a>
 
             <div
@@ -94,7 +95,6 @@ const Navbar = () => {
               </div>
               <div className="offcanvas-body">
                 <form onSubmit={handleFormSubmit}>
-                  {/* Display all city options */}
                   <div className="ps-0 mb-3 form-check">
                     <input
                       type="radio"
@@ -177,8 +177,8 @@ const Navbar = () => {
                     Submit
                   </button>
                   {!citySelected && (
-                    <div className="container-xxl mt-3">
-                      <div className="alert alert-danger" role="alert">
+                    <div className="container-xxl mt-3 ">
+                      <div className="alert alert-danger fade-in" role="alert">
                         Select a city
                       </div>
                     </div>
