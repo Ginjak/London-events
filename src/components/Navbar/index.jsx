@@ -1,6 +1,45 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { fetchEvents } from "../../eventsActions/eventsActions";
 import "./navbar.css";
+
 const Navbar = () => {
+  const [formCity, setFormCity] = useState("");
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [citySelected, setCitySelected] = useState(true); // State to track if a city is selected
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    const selectedCity = document.querySelector(
+      'input[name="options"]:checked'
+    );
+
+    if (selectedCity) {
+      setFormCity(selectedCity.id);
+      setCitySelected(true); // If a city is selected, set citySelected to true
+    } else {
+      setCitySelected(false); // If no city is selected, set citySelected to false
+    }
+
+    setFormSubmitted(true);
+  };
+
+  const fetchEventsWithUpdatedFormCity = async () => {
+    try {
+      const events = await fetchEvents(undefined, formCity);
+      console.log("Events fetched:", events);
+    } catch (error) {
+      console.error("Error fetching events:", error);
+      // Handle error as needed
+    }
+  };
+
+  useEffect(() => {
+    // Call fetchEventsWithUpdatedFormCity only if formSubmitted is true
+    if (formSubmitted && formCity.trim() !== "") {
+      fetchEventsWithUpdatedFormCity();
+    }
+  }, [formCity, formSubmitted]); // Call fetchEventsWithUpdatedFormCity whenever formCity or formSubmitted changes
+
   return (
     <>
       <nav className="navigation py-3 px-2 fixed-top container-xxl">
@@ -10,7 +49,7 @@ const Navbar = () => {
             <img
               className="uk-flag me-3"
               src="../../../public/images/uk_flag.svg"
-              alt="Unted Kingdom Flag"
+              alt="United Kingdom Flag"
             />
 
             <a
@@ -32,8 +71,11 @@ const Navbar = () => {
               aria-labelledby="offcanvasExampleLabel"
             >
               <div className="offcanvas-header">
-                <h5 className="offcanvas-title" id="offcanvasExampleLabel">
-                  Offcanvas
+                <h5
+                  className="offcanvas-title text-uppercase"
+                  id="offcanvasExampleLabel"
+                >
+                  Select your city!
                 </h5>
                 <button
                   type="button"
@@ -43,45 +85,98 @@ const Navbar = () => {
                 ></button>
               </div>
               <div className="offcanvas-body">
-                <div>
-                  Some text as placeholder. In real life you can have the
-                  elements you have chosen. Like, text, images, lists, etc.
-                </div>
-                <div className="dropdown mt-3">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-bs-toggle="dropdown"
-                  >
-                    Dropdown button
+                <form onSubmit={handleFormSubmit}>
+                  {/* Display all city options */}
+                  <div className="ps-0 mb-3 form-check">
+                    <input
+                      type="radio"
+                      className="btn-check"
+                      name="options"
+                      id="London"
+                      autoComplete="off"
+                    />
+                    <label className="btn btn-secondary" htmlFor="London">
+                      London
+                    </label>
+                  </div>
+                  <div className="ps-0 mb-3 form-check">
+                    <input
+                      type="radio"
+                      className="btn-check"
+                      name="options"
+                      id="Manchester"
+                      autoComplete="off"
+                    />
+                    <label className="btn btn-secondary" htmlFor="Manchester">
+                      Manchester
+                    </label>
+                  </div>
+                  <div className="ps-0 mb-3 form-check">
+                    <input
+                      type="radio"
+                      className="btn-check"
+                      name="options"
+                      id="Liverpool"
+                      autoComplete="off"
+                    />
+                    <label className="btn btn-secondary" htmlFor="Liverpool">
+                      Liverpool
+                    </label>
+                  </div>
+                  <div className="ps-0 mb-3 form-check">
+                    <input
+                      type="radio"
+                      className="btn-check"
+                      name="options"
+                      id="Birmingham"
+                      autoComplete="off"
+                    />
+                    <label className="btn btn-secondary" htmlFor="Birmingham">
+                      Birmingham
+                    </label>
+                  </div>
+                  <div className="ps-0 mb-3 form-check">
+                    <input
+                      type="radio"
+                      className="btn-check"
+                      name="options"
+                      id="Bristol"
+                      autoComplete="off"
+                    />
+                    <label className="btn btn-secondary" htmlFor="Bristol">
+                      Bristol
+                    </label>
+                  </div>
+                  <div className="ps-0 mb-3 form-check">
+                    <input
+                      type="radio"
+                      className="btn-check"
+                      name="options"
+                      id="Leeds"
+                      autoComplete="off"
+                    />
+                    <label className="btn btn-secondary" htmlFor="Leeds">
+                      Leeds
+                    </label>
+                  </div>
+                  {/* Add other city options */}
+                  <button type="submit" className="btn btn-primary">
+                    Submit
                   </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton"
-                  >
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Action
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Another action
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Something else here
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                  {!citySelected && (
+                    <div className="container-xxl mt-3">
+                      <div className="alert alert-danger" role="alert">
+                        Select a city
+                      </div>
+                    </div>
+                  )}
+                </form>
               </div>
             </div>
           </div>
         </div>
       </nav>
+      {/* Add message if no city selected */}
     </>
   );
 };

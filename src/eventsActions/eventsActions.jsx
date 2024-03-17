@@ -47,7 +47,7 @@ export const fetchEvents = async (
       }
     });
 
-    // console.log("Unique Events:", uniqueEvents);
+    console.log("Unique Events:", uniqueEvents);
     return uniqueEvents;
   } catch (error) {
     console.error("API Error:", error);
