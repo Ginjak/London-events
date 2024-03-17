@@ -5,7 +5,7 @@ import "./navbar.css";
 const Navbar = () => {
   const [formCity, setFormCity] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [citySelected, setCitySelected] = useState(true); // State to track if a city is selected
+  const [citySelected, setCitySelected] = useState(true);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -15,9 +15,12 @@ const Navbar = () => {
 
     if (selectedCity) {
       setFormCity(selectedCity.id);
-      setCitySelected(true); // If a city is selected, set citySelected to true
+      setCitySelected(true);
+      const offcanvasCity = document.getElementById("offcanvasCity");
+      offcanvasCity.classList.remove("show");
+      uncheckAllCheckboxes();
     } else {
-      setCitySelected(false); // If no city is selected, set citySelected to false
+      setCitySelected(false);
     }
 
     setFormSubmitted(true);
@@ -29,16 +32,21 @@ const Navbar = () => {
       console.log("Events fetched:", events);
     } catch (error) {
       console.error("Error fetching events:", error);
-      // Handle error as needed
     }
   };
 
+  const uncheckAllCheckboxes = () => {
+    const checkboxes = document.querySelectorAll('input[name="options"]');
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = false;
+    });
+  };
+
   useEffect(() => {
-    // Call fetchEventsWithUpdatedFormCity only if formSubmitted is true
     if (formSubmitted && formCity.trim() !== "") {
       fetchEventsWithUpdatedFormCity();
     }
-  }, [formCity, formSubmitted]); // Call fetchEventsWithUpdatedFormCity whenever formCity or formSubmitted changes
+  }, [formCity, formSubmitted]);
 
   return (
     <>
@@ -55,9 +63,9 @@ const Navbar = () => {
             <a
               className="city"
               data-bs-toggle="offcanvas"
-              href="#offcanvasExample"
+              href="#offcanvasCity"
               role="button"
-              aria-controls="offcanvasExample"
+              aria-controls="offcanvasCity"
             >
               <i className="fa-solid fa-location-dot me-2"></i>
               London
@@ -67,13 +75,13 @@ const Navbar = () => {
               className="offcanvas offcanvas-end"
               data-bs-backdrop="false"
               tabIndex="-1"
-              id="offcanvasExample"
-              aria-labelledby="offcanvasExampleLabel"
+              id="offcanvasCity"
+              aria-labelledby="offcanvasCityLabel"
             >
               <div className="offcanvas-header">
                 <h5
                   className="offcanvas-title text-uppercase"
-                  id="offcanvasExampleLabel"
+                  id="offcanvasCityLabel"
                 >
                   Select your city!
                 </h5>
@@ -160,7 +168,12 @@ const Navbar = () => {
                     </label>
                   </div>
                   {/* Add other city options */}
-                  <button type="submit" className="btn btn-primary">
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    // data-bs-dismiss="offcanvas"
+                    // aria-label="Close"
+                  >
                     Submit
                   </button>
                   {!citySelected && (
