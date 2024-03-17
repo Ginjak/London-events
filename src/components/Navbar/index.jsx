@@ -171,8 +171,8 @@ const Navbar = () => {
                   <button
                     type="submit"
                     className="btn btn-primary"
-                    // data-bs-dismiss="offcanvas"
-                    // aria-label="Close"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
                   >
                     Submit
                   </button>
