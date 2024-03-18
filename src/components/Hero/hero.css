@@ -1,3 +1,7 @@
+.hero-wraper {
+  height: 100vh;
+}
+
 .hero {
   min-height: 100vh;
   background-repeat: no-repeat !important;
@@ -25,4 +29,132 @@
 .loading-wraper .large-spinner {
   width: 100px;
   height: 100px;
+}
+
+/* Hero event details */
+.hero-title {
+  color: var(--white);
+  font-size: 84px;
+  line-height: 1em;
+}
+
+.event-date {
+  width: 75px;
+  height: 75px;
+  background: var(--light-blue);
+  padding: 15px;
+  border-radius: 50%;
+}
+.event-date p,
+.event-time p,
+.event-city p,
+.more-info p {
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  color: var(--white);
+  font-size: 18px;
+  line-height: 18px;
+}
+.event-time {
+  background: var(--dark-blue);
+  margin-left: -20px;
+  z-index: 2;
+}
+
+.event-city {
+  height: 75px;
+  padding-left: 45px;
+  padding-right: 15px;
+  border-radius: 0 37px 37px 0;
+  margin-left: -35px;
+  background: var(--rasin-black);
+  z-index: 1;
+}
+
+.more-info {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  overflow: hidden;
+  transition: width 0.3s ease-in-out;
+  width: 75px;
+  height: 75px;
+  background: var(--light-blue);
+  padding: 15px;
+  border-radius: 38px;
+  font-size: 18px;
+  font-weight: 600;
+  z-index: 6;
+  cursor: pointer;
+}
+.more-info i {
+  margin-left: 16px;
+}
+
+.more-info:hover {
+  width: 195px; /* Adjust width as needed */
+}
+
+.more-info .text {
+  padding-left: 16px;
+  display: inline;
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+}
+
+.more-info:hover .text {
+  display: inline; /* Show the text on hover */
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out 0.2s;
+}
+
+/* Media queries */
+@media (max-width: 1200px) {
+  .hero-title {
+    font-size: 64px;
+  }
+}
+
+@media (max-width: 992px) {
+  .hero-title {
+    font-size: 48px;
+  }
+}
+@media (max-width: 768px) {
+  .hero-details-wraper {
+    margin-top: -130px;
+  }
+  .hero-title {
+    font-size: 34px;
+  }
+}
+@media (max-width: 576px) {
+  .event-date {
+    width: 50px;
+    height: 50px;
+  }
+  .event-date p,
+  .event-time p,
+  .event-city p,
+  .more-info p {
+    font-size: 12px;
+    line-height: 12px;
+  }
+  .event-time {
+    margin-left: -10px;
+  }
+  .event-city {
+    height: 50px;
+    padding-left: 35px;
+    margin-left: -25px;
+  }
+  .more-info {
+    width: 50px;
+    height: 50px;
+    font-size: 12px;
+  }
+  .more-info i {
+    margin-left: 6px;
+  }
 }
