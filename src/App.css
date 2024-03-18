@@ -9,6 +9,10 @@
   --light-blue: #1c6e8c;
   --dark-blue: #274156;
   --rasin-black: #161925;
+  --fire-red: #c1292e;
+  --deep-yellow: #e6af2e;
+  --light-green: #0ead69;
+  --darker-grey: #595959;
 }
 
 * {
@@ -34,4 +38,9 @@ p {
 }
 .grey {
   color: var(--grey);
+}
+
+#events {
+  height: 1000px;
+  background: var(--rasin-black);
 }

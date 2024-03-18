@@ -1,0 +1,61 @@
+.event-category {
+  width: 125px;
+  height: 125px;
+  background: var(--light-blue);
+
+  border-radius: 50%;
+  border: none;
+  font-family: "Raleway", sans-serif;
+  color: var(--white);
+  font-size: 24px;
+  line-height: 24px;
+  font-weight: 600;
+}
+.event-film {
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.event-comedy,
+.event-music,
+.event-sports,
+.category-theater,
+.category-family {
+  margin-left: -30px;
+  transition: box-shadow 0.2s ease-in-out;
+}
+.event-film:hover,
+.event-comedy:hover,
+.event-music:hover,
+.event-sports:hover,
+.category-theater:hover,
+.category-family:hover {
+  transition: box-shadow 0.2s ease-in-out;
+  box-shadow: 0 0 10px 5px rgba(251, 252, 255, 0.1);
+  z-index: 11;
+}
+
+.event-comedy .comedy-txt,
+.event-sports .sports-txt,
+.category-theater .theater-txt {
+  z-index: 10;
+}
+
+.event-comedy {
+  background: var(--dark-blue);
+}
+
+.event-music {
+  background: var(--fire-red);
+}
+
+.event-sports {
+  background: var(--deep-yellow);
+}
+
+.category-theater {
+  background: var(--light-green);
+}
+
+.category-family {
+  background: var(--darker-grey);
+}

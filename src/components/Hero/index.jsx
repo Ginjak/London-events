@@ -1,5 +1,6 @@
 // Hero.js
 import React, { useState, useEffect } from "react";
+import { Link } from "react-scroll";
 import "./hero.css";
 import { useFormCity } from "../../context/CityContext";
 import { fetchEvents } from "../../eventsActions/eventsActions";
@@ -109,6 +110,11 @@ const Hero = () => {
                 </div>
               </div>
             </div>
+          </div>
+          <div class="arrow-next-section demo">
+            <Link to="events" smooth={true} duration={100}>
+              <span></span>
+            </Link>
           </div>
         </div>
       </div>

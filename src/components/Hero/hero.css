@@ -32,6 +32,9 @@
 }
 
 /* Hero event details */
+.hero-details-wraper {
+  margin-top: -130px;
+}
 .hero-title {
   color: var(--white);
   font-size: 84px;
@@ -112,6 +115,65 @@
   transition: opacity 0.3s ease-in-out 0.2s;
 }
 
+/* Arrow to next section */
+
+.demo a {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  z-index: 2;
+  display: inline-block;
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  transition: opacity 0.3s;
+}
+.demo a:hover {
+  opacity: 0.6;
+}
+
+.arrow-next-section a {
+  cursor: pointer;
+  padding-top: 60px;
+}
+.arrow-next-section a span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 46px;
+  height: 46px;
+  margin-left: -23px;
+  border: 2px solid var(--light-blue);
+  border-radius: 100%;
+}
+.arrow-next-section a span::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: "";
+  width: 16px;
+  height: 16px;
+  margin: -12px 0 0 -8px;
+  border-left: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.arrow-next-section a span::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  content: "";
+  width: 44px;
+  height: 44px;
+  box-shadow: 0 0 0 0 rgba(28, 110, 140, 0.8);
+  border-radius: 100%;
+  opacity: 0;
+  -webkit-animation: arrow-animation 3s infinite;
+  animation: arrow-animation 3s infinite;
+  box-sizing: border-box;
+}
+
 /* Media queries */
 @media (max-width: 1200px) {
   .hero-title {
@@ -172,5 +234,21 @@
   }
   to {
     box-shadow: 0 0 20px 4px rgba(39, 65, 86, 0.7); /* Adjusted shadow */
+  }
+}
+
+@keyframes arrow-animation {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  60% {
+    box-shadow: 0 0 0 30px rgba(28, 110, 140, 0.1);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
   }
 }
