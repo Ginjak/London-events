@@ -26,6 +26,39 @@ const EventsByCategory = () => {
             Family
           </button>
         </div>
+        <div className="row cards-wraper row-cols-1 row-cols-md-2 g-4">
+          <div className="col">
+            <div className="custom-card row">
+              <div className="col-3 h-100 d-flex flex-column justify-content-between">
+                <div className="date position-relative mb-3">
+                  <p className="m-0">Mar</p>
+                  <p className="m-0">20</p>
+                </div>
+
+                <div className="time-location-wraper position-relative ">
+                  <p className="card-info">London</p>
+                  <p className="card-info">02 Arena</p>
+                  <p className="card-info">19:30</p>
+                </div>
+              </div>
+              <div className="col-9 overflow-hidden">
+                <div className="card-title position-relative d-flex justify-content-center align-items-center h-100">
+                  <h3>Event name name eventasdasd</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col">
+            <div className="custom-card">
+              <div className="title">
+                <p>Test</p>
+              </div>
+              <div className="time">
+                <p>Time</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

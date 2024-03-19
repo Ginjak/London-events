@@ -7,6 +7,7 @@ import { fetchEvents } from "../../eventsActions/eventsActions";
 import {
   generateRandomNumber,
   imageSizeApi,
+  extractText,
 } from "../../eventsActions/utilityFunctions";
 
 const Hero = () => {
@@ -57,7 +58,11 @@ const Hero = () => {
   const heroBgUrl = {
     background: `url(${heroBg})`,
   };
-
+  console.log(
+    extractText(
+      "Shoreditch Hip-Hop & RNB Party // Floripa Shoreditch // Every Tuesday"
+    )
+  );
   return (
     <>
       {isLoading && (
@@ -76,7 +81,7 @@ const Hero = () => {
             <div className="hero-details-wraper">
               <p className="grey m-0">{eventGenre}</p>
               <h1 className="hero-title text-center text-sm-start">
-                {eventName.slice(0, 30)}
+                {extractText(eventName)}
               </h1>
               <div className="event-details-wraper d-flex flex-column flex-sm-row col mt-5">
                 <div className="col-12 col-sm-6 col-md-5 col-xl-4 col-xxl-3 d-flex justify-content-center justify-content-sm-start mb-3 mb-sm-0">
@@ -111,7 +116,7 @@ const Hero = () => {
               </div>
             </div>
           </div>
-          <div class="arrow-next-section demo">
+          <div className="arrow-next-section demo">
             <Link to="events" smooth={true} duration={100}>
               <span></span>
             </Link>

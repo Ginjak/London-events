@@ -20,4 +20,16 @@ export const imageSizeApi = (images, imgWidth) => {
   return null;
 };
 
-// image={imageSizeApi(event.images), 1024} calling it, target object width images url
+// Function to display a string up till /, //, +, ( characters.
+export const extractText = (str) => {
+  // Regular expression to match "/", "(", "+", or "//"
+  const regex = /[\/(+]|\/\/+/;
+  // Find the index of the first match
+  const matchIndex = str.search(regex);
+  // If no match is found, return the original string
+  if (matchIndex === -1) {
+    return str;
+  }
+  // Return the substring before the first occurrence of the matched character
+  return str.substring(0, matchIndex);
+};

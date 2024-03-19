@@ -6,7 +6,7 @@
   min-height: 100vh;
   background-repeat: no-repeat !important;
   background-size: cover !important;
-  background-position: top center !important;
+  background-position: center center !important;
 }
 .hero:before {
   content: "";
