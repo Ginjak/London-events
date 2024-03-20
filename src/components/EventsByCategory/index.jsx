@@ -26,9 +26,10 @@ const EventsByCategory = () => {
             Family
           </button>
         </div>
-        <div className="row cards-wraper row-cols-1 row-cols-md-2 g-4">
+        <div className="row cards-wraper row-cols-1 row-cols-lg-2 g-3">
           <div className="col">
-            <div className="custom-card row">
+            <div className="custom-card row g-0">
+              <div className="overlay"></div>
               <div className="col-3 h-100 d-flex flex-column justify-content-between">
                 <div className="date position-relative mb-3">
                   <p className="m-0">Mar</p>
@@ -41,9 +42,104 @@ const EventsByCategory = () => {
                   <p className="card-info">19:30</p>
                 </div>
               </div>
-              <div className="col-9 overflow-hidden">
+              <div className="col-9 overflow-hidden position-relative">
                 <div className="card-title position-relative d-flex justify-content-center align-items-center h-100">
                   <h3>Event name name eventasdasd</h3>
+                </div>
+                <div className="card-title-hover text-center">
+                  <h3>Event name name eventasdasd</h3>
+                </div>
+                <div className="price-bubble d-flex">
+                  <div className="event-date d-flex flex-column justify-content-center align-items-center">
+                    <p className="text-center m-0 price">£10.00</p>
+                  </div>
+                  <div className="event-date event-time d-flex flex-column justify-content-center align-items-center">
+                    <p className="text-center m-0">GBP</p>
+                  </div>
+                </div>
+                <div className="more-info-hover">
+                  <div className="card-more-info d-flex flex-row align-items-center">
+                    <i className="fa-solid fa-play"></i>
+                    <p className="text m-0 ">More Details</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col">
+            <div className="custom-card row g-0">
+              <div className="overlay"></div>
+              <div className="col-3 h-100 d-flex flex-column justify-content-between">
+                <div className="date position-relative mb-3">
+                  <p className="m-0">Mar</p>
+                  <p className="m-0">20</p>
+                </div>
+
+                <div className="time-location-wraper position-relative ">
+                  <p className="card-info">London</p>
+                  <p className="card-info">02 Arena</p>
+                  <p className="card-info">19:30</p>
+                </div>
+              </div>
+              <div className="col-9 overflow-hidden position-relative">
+                <div className="card-title position-relative d-flex justify-content-center align-items-center h-100">
+                  <h3>Event name name eventasdasd</h3>
+                </div>
+                <div className="card-title-hover text-center">
+                  <h3>Event name name eventasdasd</h3>
+                </div>
+                <div className="price-bubble d-flex">
+                  <div className="event-date d-flex flex-column justify-content-center align-items-center">
+                    <p className="text-center m-0 price">£10.00</p>
+                  </div>
+                  <div className="event-date event-time d-flex flex-column justify-content-center align-items-center">
+                    <p className="text-center m-0">GBP</p>
+                  </div>
+                </div>
+                <div className="more-info-hover">
+                  <div className="card-more-info d-flex flex-row align-items-center">
+                    <i className="fa-solid fa-play"></i>
+                    <p className="text m-0 ">More Details</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col">
+            <div className="custom-card row g-0">
+              <div className="overlay"></div>
+              <div className="col-3 h-100 d-flex flex-column justify-content-between">
+                <div className="date position-relative mb-3">
+                  <p className="m-0">Mar</p>
+                  <p className="m-0">20</p>
+                </div>
+
+                <div className="time-location-wraper position-relative ">
+                  <p className="card-info">London</p>
+                  <p className="card-info">02 Arena</p>
+                  <p className="card-info">19:30</p>
+                </div>
+              </div>
+              <div className="col-9 overflow-hidden position-relative">
+                <div className="card-title position-relative d-flex justify-content-center align-items-center h-100">
+                  <h3>Event name name eventasdasd</h3>
+                </div>
+                <div className="card-title-hover text-center">
+                  <h3>Event name name eventasdasd</h3>
+                </div>
+                <div className="price-bubble d-flex">
+                  <div className="event-date d-flex flex-column justify-content-center align-items-center">
+                    <p className="text-center m-0 price">£10.00</p>
+                  </div>
+                  <div className="event-date event-time d-flex flex-column justify-content-center align-items-center">
+                    <p className="text-center m-0">GBP</p>
+                  </div>
+                </div>
+                <div className="more-info-hover">
+                  <div className="card-more-info d-flex flex-row align-items-center">
+                    <i className="fa-solid fa-play"></i>
+                    <p className="text m-0 ">More Details</p>
+                  </div>
                 </div>
               </div>
             </div>

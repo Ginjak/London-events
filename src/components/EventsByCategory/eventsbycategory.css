@@ -65,6 +65,9 @@
   position: relative;
   border-radius: 5px;
   background: url("../../../public/images/uk_flag.svg");
+  background-size: cover;
+  background-position: 177px center;
+  transition: background-position 0.1s linear 0.3s;
   height: 400px;
   padding: 25px;
 }
@@ -78,17 +81,18 @@
   background: #000;
   border-radius: 4px;
   transition: all 0.3s ease-in-out;
+  z-index: 5;
 }
 
-.custom-card:hover:before {
-  width: 177px;
-  border-radius: 4px 0 0 4px;
-  transition: all 0.3s ease-in-out;
-}
-
-.custom-card:hover .card-title {
-  margin-left: -300%;
-  transition: all 0.3s ease-in-out;
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  border-radius: 4px;
 }
 .custom-card .date {
   display: flex;
@@ -100,6 +104,7 @@
   border: 2px solid var(--white);
   padding: 15px;
   border-radius: 50%;
+  z-index: 6;
 }
 
 .custom-card .date p {
@@ -110,6 +115,9 @@
   font-weight: 600;
 }
 
+.custom-card .time-location-wraper {
+  z-index: 6;
+}
 .custom-card .card-info {
   font-family: "Raleway", sans-serif;
   color: var(--white);
@@ -124,4 +132,128 @@
   font-family: "Raleway", sans-serif;
   color: var(--white);
   transition: all 0.3s ease-in-out;
+  z-index: 6;
+}
+
+.custom-card .card-title-hover {
+  opacity: 0;
+  color: var(--white);
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translate(-50%);
+  width: 100%;
+  transition: all 0.1s ease-in-out;
+  z-index: 6;
+}
+
+.custom-card .more-info-hover {
+  display: flex;
+  justify-content: end;
+  opacity: 0;
+  color: var(--white);
+  position: absolute;
+  bottom: -35px;
+  left: calc(100% - 140px);
+  transition: all 0.1s ease-in-out;
+  z-index: 6;
+}
+
+.custom-card .more-info-hover .card-more-info {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  overflow: hidden;
+  width: 50px;
+  height: 50px;
+  background: var(--light-blue);
+  padding: 15px;
+  border-radius: 38px;
+  font-size: 18px;
+  font-weight: 600;
+  z-index: 6;
+  transition: width 0.3s linear 0.2s;
+  cursor: pointer;
+}
+.custom-card .more-info-hover .card-more-info i {
+  font-size: 12px;
+  margin-left: 7px;
+}
+
+.custom-card .more-info-hover .card-more-info:hover {
+  width: 135px;
+  transition: width 0.3s linear;
+}
+
+.custom-card .more-info-hover .card-more-info .text {
+  padding-left: 16px;
+  font-size: 12px;
+  display: inline;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.custom-card .price-bubble {
+  position: absolute;
+  bottom: -55px;
+  opacity: 0;
+  left: calc(100% - 250px);
+  transition: all 0.1s ease-in-out;
+  z-index: 1;
+}
+.custom-card .price-bubble .event-date {
+  width: 50px;
+  height: 50px;
+  background: var(--rasin-black);
+}
+.custom-card .price-bubble .event-time {
+  margin-left: -10px;
+  background: var(--dark-blue);
+}
+.custom-card .price-bubble .event-date .price {
+  z-index: 3;
+}
+.custom-card .price-bubble .event-date p {
+  font-size: 12px;
+}
+
+.custom-card .more-info-hover .card-more-info:hover .text {
+  display: inline; /* Show the text on hover */
+  opacity: 1;
+  transition: opacity 0.3s linear 0.3s;
+}
+
+.custom-card:hover {
+  background-position: 0 center;
+  transition: background-position 6s linear;
+}
+.custom-card:hover:before {
+  width: 177px;
+  border-radius: 4px 0 0 4px;
+  transition: all 0.3s ease-in-out;
+}
+
+.custom-card:hover .card-title {
+  margin-left: -300%;
+  transition: all 0.3s ease-in-out;
+}
+
+.custom-card:hover .card-title-hover {
+  /* display: block; */
+  opacity: 1;
+  top: 0px;
+  transition: top 0.2s ease-in-out 0.2s, opacity 0.5s ease-in-out 0.2s;
+}
+
+.custom-card:hover .more-info-hover {
+  opacity: 1;
+  bottom: 0px;
+  transition: bottom 0.2s linear 0.2s, opacity 0.5s linear 0.3s;
+}
+
+.custom-card:hover .price-bubble {
+  bottom: 0;
+  opacity: 1;
+  transition: bottom 0.2s linear 0.2s, opacity 0.5s linear 0.3s;
 }
