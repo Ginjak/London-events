@@ -9,6 +9,7 @@
   font-size: 18px;
   line-height: 18px;
   font-weight: 600;
+  cursor: pointer;
 }
 .event-film,
 .event-music,
@@ -49,38 +50,43 @@
   z-index: 10;
 }
 
+.comedy-check:not(:checked) ~ .event-comedy,
+.film-check:not(:checked) ~ .event-film {
+  transition: box-shadow 0.2s ease-in-out, background 0.2s ease-in-out;
+}
+
 .event-film:hover,
-.event-film:checked {
+.film-check:checked ~ .event-film {
   background: var(--deep-orange);
   transition: box-shadow 0.2s ease-in-out, background 0.2s ease-in-out;
 }
 
 .event-comedy:hover,
-.event-comedy:checked {
+.comedy-check:checked ~ .event-comedy {
   background: var(--purple);
   transition: box-shadow 0.2s ease-in-out, background 0.2s ease-in-out;
 }
 
 .event-music:hover,
-.event-music:checked {
+.music-check:checked ~ .event-music {
   background: var(--fire-red);
   transition: box-shadow 0.2s ease-in-out, background 0.2s ease-in-out;
 }
 
 .event-sports:hover,
-.event-music:checked {
+.sports-check:checked ~ .event-sports {
   background: var(--deep-orange);
   transition: box-shadow 0.2s ease-in-out, background 0.2s ease-in-out;
 }
 
 .category-theater:hover,
-.category-theater:checked {
+.theater-check:checked ~ .category-theater {
   background: var(--light-green);
   transition: box-shadow 0.2s ease-in-out, background 0.2s ease-in-out;
 }
 
 .category-family:hover,
-.category-family:checked {
+.family-check:checked ~ .category-family {
   background: var(--ultra-violet);
   transition: box-shadow 0.2s ease-in-out, background 0.2s ease-in-out;
 }
