@@ -1,18 +1,26 @@
 .event-category {
-  width: 125px;
-  height: 125px;
+  width: 100px;
+  height: 100px;
   background: var(--light-blue);
-
   border-radius: 50%;
   border: none;
   font-family: "Raleway", sans-serif;
   color: var(--white);
-  font-size: 24px;
-  line-height: 24px;
+  font-size: 18px;
+  line-height: 18px;
   font-weight: 600;
 }
-.event-film {
+.event-film,
+.event-music,
+.category-theater {
+  background: var(--lighter-blue);
   transition: box-shadow 0.2s ease-in-out;
+}
+
+.event-comedy,
+.event-sports,
+.category-family {
+  background: var(--dark-blue);
 }
 
 .event-comedy,
@@ -21,8 +29,9 @@
 .category-theater,
 .category-family {
   margin-left: -20px;
-  transition: box-shadow 0.2s ease-in-out;
+  transition: box-shadow 0.2s ease-in-out, background 0.2s ease-in-out;
 }
+
 .event-film:hover,
 .event-comedy:hover,
 .event-music:hover,
@@ -40,24 +49,40 @@
   z-index: 10;
 }
 
-.event-comedy {
-  background: var(--dark-blue);
+.event-film:hover,
+.event-film:checked {
+  background: var(--deep-orange);
+  transition: box-shadow 0.2s ease-in-out, background 0.2s ease-in-out;
 }
 
-.event-music {
+.event-comedy:hover,
+.event-comedy:checked {
+  background: var(--purple);
+  transition: box-shadow 0.2s ease-in-out, background 0.2s ease-in-out;
+}
+
+.event-music:hover,
+.event-music:checked {
   background: var(--fire-red);
+  transition: box-shadow 0.2s ease-in-out, background 0.2s ease-in-out;
 }
 
-.event-sports {
-  background: var(--deep-yellow);
+.event-sports:hover,
+.event-music:checked {
+  background: var(--deep-orange);
+  transition: box-shadow 0.2s ease-in-out, background 0.2s ease-in-out;
 }
 
-.category-theater {
+.category-theater:hover,
+.category-theater:checked {
   background: var(--light-green);
+  transition: box-shadow 0.2s ease-in-out, background 0.2s ease-in-out;
 }
 
-.category-family {
-  background: var(--darker-grey);
+.category-family:hover,
+.category-family:checked {
+  background: var(--ultra-violet);
+  transition: box-shadow 0.2s ease-in-out, background 0.2s ease-in-out;
 }
 
 /* Cards */
@@ -118,6 +143,10 @@
 .custom-card .time-location-wraper {
   z-index: 6;
 }
+.custom-card .date-location-wraper {
+  height: auto;
+}
+
 .custom-card .card-info {
   font-family: "Raleway", sans-serif;
   color: var(--white);
@@ -256,4 +285,56 @@
   bottom: 0;
   opacity: 1;
   transition: bottom 0.2s linear 0.2s, opacity 0.5s linear 0.3s;
+}
+
+@media (max-width: 576px) {
+  .custom-card {
+    background-position: 0px center;
+  }
+
+  .custom-card:before {
+    height: 125px;
+  }
+  .custom-card:hover:before {
+    width: 100%;
+  }
+  .custom-card .date-location-wraper {
+    height: 100px;
+  }
+  .custom-card .card-info {
+    text-align: end;
+  }
+
+  .custom-card .title-wraper {
+    height: calc(100% - 75px);
+  }
+  .custom-card .price-bubble,
+  .custom-card:hover .price-bubble,
+  .custom-card .more-info-hover,
+  .custom-card:hover .more-info-hover {
+    bottom: 25px;
+    opacity: 1;
+  }
+  .custom-card:hover .card-title {
+    margin-left: 0;
+  }
+  .custom-card .card-title-hover {
+    display: none;
+  }
+  .custom-card .more-info-hover .card-more-info {
+    width: 135px;
+  }
+  .custom-card .more-info-hover .card-more-info .text {
+    opacity: 1;
+  }
+  .event-category {
+    border-radius: 0;
+  }
+  .event-comedy,
+  .event-music,
+  .event-sports,
+  .category-theater,
+  .category-family {
+    margin-left: 0;
+  }
 }

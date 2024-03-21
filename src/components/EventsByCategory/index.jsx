@@ -5,8 +5,8 @@ const EventsByCategory = () => {
   return (
     <>
       <div className="container-xxl py-5">
-        <h2 className="white ">Choose a Category</h2>
-        <div className="event-category-wraper d-flex">
+        <h2 className="white mb-4">Choose a Category</h2>
+        <div className="event-category-wraper d-flex flex-sm-row mb-5 flex-wrap flex-sm-no-wrap justify-content-center justify-content-sm-start">
           <button className="event-category event-film d-flex flex-column justify-content-center align-items-center">
             Film
           </button>
@@ -30,7 +30,7 @@ const EventsByCategory = () => {
           <div className="col">
             <div className="custom-card row g-0">
               <div className="overlay"></div>
-              <div className="col-3 h-100 d-flex flex-column justify-content-between">
+              <div className="date-location-wraper col-12 col-sm-3 d-flex flex-sm-column justify-content-between">
                 <div className="date position-relative mb-3">
                   <p className="m-0">Mar</p>
                   <p className="m-0">20</p>
@@ -38,13 +38,13 @@ const EventsByCategory = () => {
 
                 <div className="time-location-wraper position-relative ">
                   <p className="card-info">London</p>
-                  <p className="card-info">02 Arena</p>
+                  <p className="card-info">02 Arena aasdasd asd asd asasda</p>
                   <p className="card-info">19:30</p>
                 </div>
               </div>
-              <div className="col-9 overflow-hidden position-relative">
+              <div className="title-wraper col-12 col-sm-9 overflow-hidden position-relative">
                 <div className="card-title position-relative d-flex justify-content-center align-items-center h-100">
-                  <h3>Event name name eventasdasd</h3>
+                  <h3 className="text-center">Event name name eventasdasd</h3>
                 </div>
                 <div className="card-title-hover text-center">
                   <h3>Event name name eventasdasd</h3>
