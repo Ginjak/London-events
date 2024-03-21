@@ -79,7 +79,7 @@ const Hero = () => {
         <div className="container-xxl position-relative hero-wraper ">
           <div className="h-100 d-flex flex-column justify-content-center py-5">
             <div className="hero-details-wraper">
-              <p className="grey m-0">{eventGenre}</p>
+              <p className="grey mb-2 mb-md-0">{eventGenre}</p>
               <h1 className="hero-title text-center text-sm-start">
                 {extractText(eventName)}
               </h1>

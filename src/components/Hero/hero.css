@@ -222,8 +222,13 @@
   .more-info i {
     margin-left: 6px;
   }
-  .more-info:hover {
+  .more-info:hover,
+  .more-info {
     width: 145px;
+  }
+
+  .more-info .text {
+    opacity: 1;
   }
 }
 

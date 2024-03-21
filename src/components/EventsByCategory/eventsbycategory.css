@@ -337,4 +337,7 @@
   .category-family {
     margin-left: 0;
   }
+  .event-category-wraper {
+    gap: 10px;
+  }
 }

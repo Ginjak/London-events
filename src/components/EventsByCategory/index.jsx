@@ -7,7 +7,7 @@ const EventsByCategory = () => {
       <div className="container-xxl py-5">
         <h2 className="white mb-4">Choose a Category</h2>
         <div className="event-category-wraper d-flex flex-sm-row mb-5 flex-wrap flex-sm-no-wrap justify-content-center justify-content-sm-start">
-          <button className="event-category event-film d-flex flex-column justify-content-center align-items-center">
+          <button className="event-category event-film d-flex flex-column justify-content-center align-items-center ">
             Film
           </button>
           <button className="event-category event-comedy d-flex flex-column justify-content-center align-items-center">
