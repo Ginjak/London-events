@@ -1,9 +1,9 @@
 .hero-wraper {
-  height: 100vh;
+  height: 100lvh;
 }
 
 .hero {
-  min-height: 100vh;
+  min-height: 100lvh;
   background-repeat: no-repeat !important;
   background-size: cover !important;
   background-position: center center !important;
