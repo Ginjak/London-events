@@ -1,16 +1,46 @@
 import React, { useState, useEffect } from "react";
+import { DateRange } from "react-date-range";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 import "./eventsbycategory.css";
 import { useFormCity } from "../../context/CityContext";
 import {
   fetchEvents,
   futureDayForApi,
+  startDateForApi,
 } from "../../eventsActions/eventsActions";
 
 const EventsByCategory = () => {
   const { formCity } = useFormCity();
   const [events, setEvents] = useState([]);
-  const [category, setCategory] = useState("jazz");
+  const [category, setCategory] = useState("KnvZfZ7vAeA");
   const [isLoading, setIsLoading] = useState(true);
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [datesSelected, setDatesSelected] = useState(false);
+  const [dateRange, setDateRange] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(new Date().setDate(new Date().getDate() + 60)),
+      key: "selection",
+    },
+  ]);
+  console.log("Date range:", dateRange);
+  console.log(startDateForApi(futureDayForApi(25)));
+  const handleButtonClick = () => {
+    setShowCalendar(true);
+  };
+
+  const handleSubmit = () => {
+    // Here you can handle the submission of selected dates
+    // For example, you can fetch events based on the selected date range
+    console.log("Selected date range:", dateRange);
+    setShowCalendar(false);
+    setDatesSelected(true);
+  };
+
+  const handleCancel = () => {
+    setShowCalendar(false);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,13 +49,14 @@ const EventsByCategory = () => {
         const data = await fetchEvents(
           undefined,
           formCity,
-          undefined,
-          futureDayForApi(180),
+          startDateForApi(dateRange[0].startDate),
+          startDateForApi(dateRange[0].endDate),
           category,
           50
         );
         setEvents(data);
         setIsLoading(false);
+
         console.log("Button Events loaded:", data);
       } catch (error) {
         console.error(error);
@@ -36,7 +67,8 @@ const EventsByCategory = () => {
 
     // Call fetchData when formCity changes
     fetchData();
-  }, [formCity, category]);
+    setDatesSelected(false);
+  }, [formCity, category, datesSelected]);
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
@@ -46,104 +78,114 @@ const EventsByCategory = () => {
   return (
     <>
       <div className="container-xxl py-5">
+        <div>
+          <button onClick={handleButtonClick}>Select Dates</button>
+          {showCalendar && (
+            <div className="calendar-modal">
+              <DateRange
+                editableDateInputs={true}
+                onChange={(item) => setDateRange([item.selection])}
+                moveRangeOnFirstSelection={false}
+                ranges={dateRange}
+              />
+              <button onClick={handleSubmit}>Submit</button>
+              <button onClick={handleCancel}>Cancel</button>
+            </div>
+          )}
+        </div>
         <h2 className="white mb-4">Choose a Category</h2>
         <div className="event-category-wraper d-flex flex-sm-row mb-5 flex-wrap flex-sm-no-wrap justify-content-center justify-content-sm-start">
           <input
             type="radio"
             className="film-check d-none"
             name="category"
-            id="film"
-            value="metal"
+            id="jazz"
+            value="KnvZfZ7vAvE"
             autoComplete="off"
             onChange={handleCategoryChange}
-            checked={category === "metal"}
           />
           <label
             className="event-category event-film d-flex flex-column justify-content-center align-items-center"
-            htmlFor="film"
+            htmlFor="jazz"
           >
-            Film
+            Jazz
           </label>
           <input
             type="radio"
             className="comedy-check d-none"
             name="category"
-            value="comedy"
-            id="comedy"
+            value="KnvZfZ7vAeA"
+            id="rock"
             autoComplete="off"
+            checked={category === "KnvZfZ7vAeA"}
             onChange={handleCategoryChange}
-            checked={category === "comedy"}
           />
           <label
             className="event-category event-comedy d-flex flex-column justify-content-center align-items-center"
-            htmlFor="comedy"
+            htmlFor="rock"
           >
-            Comedy
+            Rock
           </label>
 
           <input
             type="radio"
             className="music-check d-none"
             name="category"
-            value="music"
-            id="music"
+            value="KnvZfZ7vAvt"
+            id="metal"
             autoComplete="off"
             onChange={handleCategoryChange}
-            checked={category === "music"}
           />
           <label
             className="event-category event-music d-flex flex-column justify-content-center align-items-center"
-            htmlFor="music"
+            htmlFor="metal"
           >
-            Music
+            Metal
           </label>
           <input
             type="radio"
             className="sports-check d-none"
             name="category"
-            value="sports"
-            id="sports"
+            value="KnvZfZ7vAv1"
+            id="hip-hop"
             autoComplete="off"
             onChange={handleCategoryChange}
-            checked={category === "sports"}
           />
           <label
             className="event-category event-sports d-flex flex-column justify-content-center align-items-center"
-            htmlFor="sports"
+            htmlFor="hip-hop"
           >
-            Sports
+            Hip-Hop
           </label>
           <input
             type="radio"
             className="theater-check d-none"
             name="category"
-            value="theater"
-            id="theater"
+            value="KnvZfZ7vAvF"
+            id="dance"
             autoComplete="off"
             onChange={handleCategoryChange}
-            checked={category === "theater"}
           />
           <label
             className="event-category category-theater d-flex flex-column justify-content-center align-items-center"
-            htmlFor="theater"
+            htmlFor="dance"
           >
-            Theater
+            Dance
           </label>
           <input
             type="radio"
             className="family-check d-none"
             name="category"
-            value="family"
-            id="family"
+            value="KnvZfZ7vAev"
+            id="pop"
             autoComplete="off"
             onChange={handleCategoryChange}
-            checked={category === "family"}
           />
           <label
             className="event-category category-family d-flex flex-column justify-content-center align-items-center"
-            htmlFor="family"
+            htmlFor="pop"
           >
-            Family
+            Pop
           </label>
         </div>
         <div className="row cards-wraper row-cols-1 row-cols-lg-2 g-3">

@@ -28,13 +28,14 @@ export const fetchEvents = async (
   city = "London",
   startDate = startDateForApi(new Date()),
   endDate = futureDayForApi(15),
-  eventType = "Music",
+  eventType = "KnvZfZ7vAeA",
   limit = 5
 ) => {
   const apiKey = "HjQcNIEkdwsQswwBQhfE1PO0smAoxyu4";
-  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apiKey}&countryCode=${country}&city=${city}&startDateTime=${startDate}&endDateTime=${endDate}&classificationName=${eventType}&size=${limit}`;
+  // const apiUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apiKey}&countryCode=${country}&city=${city}&startDateTime=${startDate}&endDateTime=${endDate}&classificationName=music&keyword=${eventType}&size=${limit}`;
   // console.log("API URL:", apiUrl);
 
+  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apiKey}&countryCode=${country}&city=${city}&startDateTime=${startDate}&endDateTime=${endDate}&classificationName=music&genreId=${eventType}&size=${limit}`;
   try {
     const response = await axios.get(apiUrl);
     const uniqueEvents = [];
