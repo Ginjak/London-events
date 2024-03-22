@@ -17,6 +17,7 @@ const EventsByCategory = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showCalendar, setShowCalendar] = useState(false);
   const [datesSelected, setDatesSelected] = useState(false);
+  const [showElement, setShowElement] = useState("hidden-main");
   const [dateRange, setDateRange] = useState([
     {
       startDate: new Date(),
@@ -28,6 +29,7 @@ const EventsByCategory = () => {
   console.log(startDateForApi(futureDayForApi(25)));
   const handleButtonClick = () => {
     setShowCalendar(true);
+    setShowElement("show-main");
   };
 
   const handleSubmit = () => {
@@ -36,10 +38,12 @@ const EventsByCategory = () => {
     console.log("Selected date range:", dateRange);
     setShowCalendar(false);
     setDatesSelected(true);
+    setShowElement("hidden-main");
   };
 
   const handleCancel = () => {
     setShowCalendar(false);
+    setShowElement("hidden-main");
   };
 
   useEffect(() => {
@@ -80,6 +84,12 @@ const EventsByCategory = () => {
       <div className="container-xxl py-5">
         <div>
           <button onClick={handleButtonClick}>Select Dates</button>
+          <button className={showElement} onClick={handleSubmit}>
+            Submit
+          </button>
+          <button className={showElement} onClick={handleCancel}>
+            Cancel
+          </button>
           {showCalendar && (
             <div className="calendar-modal">
               <DateRange
@@ -88,8 +98,6 @@ const EventsByCategory = () => {
                 moveRangeOnFirstSelection={false}
                 ranges={dateRange}
               />
-              <button onClick={handleSubmit}>Submit</button>
-              <button onClick={handleCancel}>Cancel</button>
             </div>
           )}
         </div>

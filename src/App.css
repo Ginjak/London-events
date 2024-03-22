@@ -43,6 +43,12 @@ p {
   color: var(--grey);
 }
 
+.hidden-main {
+  display: none;
+}
+.show-main {
+  display: inline-block;
+}
 #events {
   height: 1000px;
   background: var(--rasin-black);
