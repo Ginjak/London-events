@@ -207,135 +207,79 @@ const EventsByCategory = () => {
             Pop
           </label>
         </div>
-        <div className="row cards-wraper row-cols-1 row-cols-lg-2 g-3">
-          <div className="col">
-            <div className="custom-card row g-0">
-              <div className="overlay"></div>
-              <div className="date-location-wraper col-12 col-sm-3 d-flex flex-sm-column justify-content-between">
-                <div className="date position-relative mb-3">
-                  <p className="m-0">Mar</p>
-                  <p className="m-0">20</p>
-                </div>
+        {events.length > 0 ? (
+          <div className="row cards-wraper row-cols-1 row-cols-lg-2 g-3">
+            {events.map((event, index) => (
+              <div className="col" key={event.id}>
+                <div className="custom-card row g-0">
+                  <div className="overlay"></div>
+                  <div className="date-location-wraper col-12 col-sm-3 d-flex flex-sm-column justify-content-between">
+                    <div className="date position-relative mb-3">
+                      <p className="m-0">
+                        {new Date(event.dates.start.dateTime).toLocaleString(
+                          "default",
+                          {
+                            month: "short",
+                          }
+                        )}
+                      </p>
+                      <p className="m-0">
+                        {new Date(event.dates.start.dateTime)
+                          .getDate()
+                          .toString()
+                          .padStart(2, "0")}
+                      </p>
+                    </div>
 
-                <div className="time-location-wraper position-relative ">
-                  <p className="card-info">London</p>
-                  <p className="card-info">02 Arena aasdasd asd asd asasda</p>
-                  <p className="card-info">19:30</p>
-                </div>
-              </div>
-              <div className="title-wraper col-12 col-sm-9 overflow-hidden position-relative">
-                <div className="card-title position-relative d-flex justify-content-center align-items-center h-100">
-                  <h3 className="text-center">Event name name eventasdasd</h3>
-                </div>
-                <div className="card-title-hover text-center">
-                  <h3>Event name name eventasdasd</h3>
-                </div>
-                <div className="price-bubble d-flex">
-                  <div className="event-date d-flex flex-column justify-content-center align-items-center">
-                    <p className="text-center m-0 price">£10.00</p>
+                    <div className="time-location-wraper position-relative ">
+                      <p className="card-info">
+                        {event._embedded.venues[0].city.name}
+                      </p>
+                      <p className="card-info">
+                        {event._embedded.venues[0].name}
+                      </p>
+                      <p className="card-info">
+                        {event.dates.start.localTime
+                          .split(":")
+                          .slice(0, 2)
+                          .join(":")}
+                      </p>
+                    </div>
                   </div>
-                  <div className="event-date event-time d-flex flex-column justify-content-center align-items-center">
-                    <p className="text-center m-0">GBP</p>
-                  </div>
-                </div>
-                <div className="more-info-hover">
-                  <div className="card-more-info d-flex flex-row align-items-center">
-                    <i className="fa-solid fa-play"></i>
-                    <p className="text m-0 ">More Details</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col">
-            <div className="custom-card row g-0">
-              <div className="overlay"></div>
-              <div className="col-3 h-100 d-flex flex-column justify-content-between">
-                <div className="date position-relative mb-3">
-                  <p className="m-0">Mar</p>
-                  <p className="m-0">20</p>
-                </div>
+                  <div className="title-wraper col-12 col-sm-9 overflow-hidden position-relative">
+                    <div className="card-title position-relative d-flex justify-content-center align-items-center h-100">
+                      <h3 className="text-center">{event.name}</h3>
+                    </div>
+                    <div className="card-title-hover text-center">
+                      <h3>{event.name}</h3>
+                    </div>
+                    {event.priceRanges && (
+                      <div className="price-bubble d-flex">
+                        <div className="event-date d-flex flex-column justify-content-center align-items-center">
+                          <p className="text-center m-0 price">
+                            {"£" + Math.floor(event?.priceRanges[0]?.min)}
+                          </p>
+                        </div>
+                        <div className="event-date event-time d-flex flex-column justify-content-center align-items-center">
+                          <p className="text-center m-0">GBP</p>
+                        </div>
+                      </div>
+                    )}
 
-                <div className="time-location-wraper position-relative ">
-                  <p className="card-info">London</p>
-                  <p className="card-info">02 Arena</p>
-                  <p className="card-info">19:30</p>
-                </div>
-              </div>
-              <div className="col-9 overflow-hidden position-relative">
-                <div className="card-title position-relative d-flex justify-content-center align-items-center h-100">
-                  <h3>Event name name eventasdasd</h3>
-                </div>
-                <div className="card-title-hover text-center">
-                  <h3>Event name name eventasdasd</h3>
-                </div>
-                <div className="price-bubble d-flex">
-                  <div className="event-date d-flex flex-column justify-content-center align-items-center">
-                    <p className="text-center m-0 price">£10.00</p>
-                  </div>
-                  <div className="event-date event-time d-flex flex-column justify-content-center align-items-center">
-                    <p className="text-center m-0">GBP</p>
-                  </div>
-                </div>
-                <div className="more-info-hover">
-                  <div className="card-more-info d-flex flex-row align-items-center">
-                    <i className="fa-solid fa-play"></i>
-                    <p className="text m-0 ">More Details</p>
+                    <div className="more-info-hover">
+                      <div className="card-more-info d-flex flex-row align-items-center">
+                        <i className="fa-solid fa-play"></i>
+                        <p className="text m-0 ">More Details</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
-          <div className="col">
-            <div className="custom-card row g-0">
-              <div className="overlay"></div>
-              <div className="col-3 h-100 d-flex flex-column justify-content-between">
-                <div className="date position-relative mb-3">
-                  <p className="m-0">Mar</p>
-                  <p className="m-0">20</p>
-                </div>
-
-                <div className="time-location-wraper position-relative ">
-                  <p className="card-info">London</p>
-                  <p className="card-info">02 Arena</p>
-                  <p className="card-info">19:30</p>
-                </div>
-              </div>
-              <div className="col-9 overflow-hidden position-relative">
-                <div className="card-title position-relative d-flex justify-content-center align-items-center h-100">
-                  <h3>Event name name eventasdasd</h3>
-                </div>
-                <div className="card-title-hover text-center">
-                  <h3>Event name name eventasdasd</h3>
-                </div>
-                <div className="price-bubble d-flex">
-                  <div className="event-date d-flex flex-column justify-content-center align-items-center">
-                    <p className="text-center m-0 price">£10.00</p>
-                  </div>
-                  <div className="event-date event-time d-flex flex-column justify-content-center align-items-center">
-                    <p className="text-center m-0">GBP</p>
-                  </div>
-                </div>
-                <div className="more-info-hover">
-                  <div className="card-more-info d-flex flex-row align-items-center">
-                    <i className="fa-solid fa-play"></i>
-                    <p className="text m-0 ">More Details</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col">
-            <div className="custom-card">
-              <div className="title">
-                <p>Test</p>
-              </div>
-              <div className="time">
-                <p>Time</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        ) : (
+          <p>No Events</p>
+        )}
       </div>
     </>
   );

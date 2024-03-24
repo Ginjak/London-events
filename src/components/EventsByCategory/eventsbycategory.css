@@ -307,7 +307,7 @@
 }
 
 .custom-card:hover .card-title {
-  margin-left: -300%;
+  margin-left: -400%;
   transition: all 0.3s ease-in-out;
 }
 
