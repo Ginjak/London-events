@@ -82,14 +82,25 @@ const EventsByCategory = () => {
   return (
     <>
       <div className="container-xxl py-5">
-        <div>
-          <button onClick={handleButtonClick}>Select Dates</button>
-          <button className={showElement} onClick={handleSubmit}>
-            Submit
+        <h2 className="white mb-4">Choose a Category</h2>
+        <div className="calendar-wraper mb-4">
+          <button className="dates-btn me-2 mb-2" onClick={handleButtonClick}>
+            <i className="fa-solid fa-calendar-days me-3"></i>Select Dates
           </button>
-          <button className={showElement} onClick={handleCancel}>
-            Cancel
-          </button>
+          <div className="dates-submit-cancel-wraper mb-2">
+            <button
+              className={"dates-btn dates-submit me-2 " + showElement}
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
+            <button
+              className={"dates-btn dates-cancel " + showElement}
+              onClick={handleCancel}
+            >
+              Cancel
+            </button>
+          </div>
           {showCalendar && (
             <div className="calendar-modal">
               <DateRange
@@ -101,7 +112,7 @@ const EventsByCategory = () => {
             </div>
           )}
         </div>
-        <h2 className="white mb-4">Choose a Category</h2>
+
         <div className="event-category-wraper d-flex flex-sm-row mb-5 flex-wrap flex-sm-no-wrap justify-content-center justify-content-sm-start">
           <input
             type="radio"

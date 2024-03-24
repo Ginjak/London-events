@@ -1,3 +1,40 @@
+/* Calendar */
+.calendar-modal {
+  font-family: "Raleway", sans-serif;
+  position: absolute;
+  min-height: 380px;
+  z-index: 15;
+}
+.calendar-wraper .dates-btn {
+  border: none;
+  padding: 16px 24px;
+  border-radius: 5px;
+  background: var(--light-blue);
+  color: var(--white);
+  font-family: "Raleway", sans-seri;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 18px;
+  transition: background 0.2s linear, box-shadow 0.2s linear;
+}
+.calendar-wraper .dates-btn i {
+  font-size: 20px;
+}
+.calendar-wraper .dates-btn:hover {
+  background: rgb(35, 138, 175);
+  transition: background 0.2s linear, box-shadow 0.2s linear;
+  box-shadow: 0 0 10px 5px rgba(251, 252, 255, 0.1);
+}
+.dates-submit-cancel-wraper {
+  display: inline-block;
+}
+.calendar-wraper .dates-submit,
+.calendar-wraper .dates-cancel {
+  line-height: 20px;
+  background: var(--dark-blue);
+}
+
 .event-category {
   width: 100px;
   height: 100px;
@@ -294,6 +331,8 @@
 }
 
 @media (max-width: 576px) {
+  /* Calendar */
+
   .custom-card {
     background-position: 0px center;
   }
@@ -345,5 +384,15 @@
   }
   .event-category-wraper {
     gap: 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  /* Calendar */
+  .rdrCalendarWrapper {
+    max-width: 300px;
+  }
+  .rdrMonth {
+    font-size: 11px;
   }
 }
