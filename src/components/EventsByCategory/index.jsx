@@ -9,6 +9,7 @@ import {
   futureDayForApi,
   startDateForApi,
 } from "../../eventsActions/eventsActions";
+import { imageSizeApi } from "../../eventsActions/utilityFunctions";
 
 const EventsByCategory = () => {
   const { formCity } = useFormCity();
@@ -33,8 +34,6 @@ const EventsByCategory = () => {
   };
 
   const handleSubmit = () => {
-    // Here you can handle the submission of selected dates
-    // For example, you can fetch events based on the selected date range
     console.log("Selected date range:", dateRange);
     setShowCalendar(false);
     setDatesSelected(true);
@@ -46,6 +45,8 @@ const EventsByCategory = () => {
     setShowElement("hidden-main");
   };
 
+  // Background image for card
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -56,7 +57,7 @@ const EventsByCategory = () => {
           startDateForApi(dateRange[0].startDate),
           startDateForApi(dateRange[0].endDate),
           category,
-          50
+          100
         );
         setEvents(data);
         setIsLoading(false);
@@ -211,7 +212,12 @@ const EventsByCategory = () => {
           <div className="row cards-wraper row-cols-1 row-cols-lg-2 g-3">
             {events.map((event, index) => (
               <div className="col" key={event.id}>
-                <div className="custom-card row g-0">
+                <div
+                  className="custom-card row g-0"
+                  style={{
+                    backgroundImage: `url(${imageSizeApi(event.images, 900)})`,
+                  }}
+                >
                   <div className="overlay"></div>
                   <div className="date-location-wraper col-12 col-sm-3 d-flex flex-sm-column justify-content-between">
                     <div className="date position-relative mb-3">

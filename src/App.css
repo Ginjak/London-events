@@ -50,6 +50,5 @@ p {
   display: inline-block;
 }
 #events {
-  height: 1000px;
   background: var(--rasin-black);
 }
