@@ -5,7 +5,7 @@
   min-height: 380px;
   z-index: 15;
 }
-.calendar-wraper .dates-btn {
+.dates-btn {
   border: none;
   padding: 16px 24px;
   border-radius: 5px;
@@ -18,10 +18,10 @@
   line-height: 18px;
   transition: background 0.2s linear, box-shadow 0.2s linear;
 }
-.calendar-wraper .dates-btn i {
+.dates-btn i {
   font-size: 20px;
 }
-.calendar-wraper .dates-btn:hover {
+.dates-btn:hover {
   background: rgb(35, 138, 175);
   transition: background 0.2s linear, box-shadow 0.2s linear;
   box-shadow: 0 0 10px 5px rgba(251, 252, 255, 0.1);
@@ -230,6 +230,10 @@
   transition: all 0.1s ease-in-out;
   z-index: 6;
 }
+.custom-card .more-info-hover a {
+  color: var(--white);
+  text-decoration: none;
+}
 
 .custom-card .more-info-hover .card-more-info {
   position: relative;
@@ -312,7 +316,6 @@
 }
 
 .custom-card:hover .card-title-hover {
-  /* display: block; */
   opacity: 1;
   top: 0px;
   transition: top 0.2s ease-in-out 0.2s, opacity 0.5s ease-in-out 0.2s;
@@ -330,6 +333,35 @@
   transition: bottom 0.2s linear 0.2s, opacity 0.5s linear 0.3s;
 }
 
+/* Load more button */
+.load-more {
+  border: 0;
+  font-family: "Raleway", sans-serif;
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--white);
+  padding: 12px 24px;
+  background: red;
+}
+
+/* No events div */
+
+.no-events-wraper {
+  min-height: 400px;
+}
+.no-events-txt {
+  color: var(--white);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 18px;
+  z-index: 3;
+}
+.no-events-img {
+  position: absolute;
+  z-index: 1;
+  opacity: 0.2;
+}
 @media (max-width: 576px) {
   /* Calendar */
 

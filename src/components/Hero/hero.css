@@ -92,6 +92,10 @@
   animation: pulse 2s infinite alternate;
   cursor: pointer;
 }
+a.more-info {
+  color: var(--white);
+  text-decoration: none;
+}
 .more-info i {
   margin-left: 16px;
 }

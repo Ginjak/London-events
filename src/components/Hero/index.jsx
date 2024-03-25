@@ -1,8 +1,10 @@
 // Hero.js
 import React, { useState, useEffect } from "react";
-import { Link } from "react-scroll";
+import { Link as ScrollLink } from "react-scroll";
+import { Link } from "react-router-dom";
 import "./hero.css";
 import { useFormCity } from "../../context/CityContext";
+import { useEventId } from "../../context/EventIdContext";
 import { fetchEvents } from "../../eventsActions/eventsActions";
 import {
   generateRandomNumber,
@@ -13,7 +15,7 @@ import {
 const Hero = () => {
   // Use the useFormCity hook to access formCity value
   const { formCity } = useFormCity();
-
+  const { eventId, setEventId } = useEventId();
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [heroBg, setHeroBg] = useState("");
@@ -39,6 +41,7 @@ const Hero = () => {
           setEventDate(data[rndNumber].dates.start.localDate);
           setEventTime(data[rndNumber].dates.start.localTime);
           setEventGenre(data[rndNumber].classifications[0].genre.name);
+          setEventId(data[rndNumber].id);
         }
       } catch (error) {
         console.error(error);
@@ -58,11 +61,9 @@ const Hero = () => {
   const heroBgUrl = {
     background: `url(${heroBg})`,
   };
-  console.log(
-    extractText(
-      "Shoreditch Hip-Hop & RNB Party // Floripa Shoreditch // Every Tuesday"
-    )
-  );
+  const getEventId = (eventId) => {
+    console.log(eventId);
+  };
   return (
     <>
       {isLoading && (
@@ -108,18 +109,22 @@ const Hero = () => {
                   </div>
                 </div>
                 <div className="ms-3 more-info-wraper white col-12 col-sm-6 col-md-7 col-xl-8 col-xxl-9 start d-flex justify-content-center justify-content-sm-start">
-                  <div className="more-info d-flex flex-row align-items-center">
+                  <Link
+                    onClick={() => getEventId(eventId)}
+                    to={`/event/${eventId}`}
+                    className="more-info d-flex flex-row align-items-center"
+                  >
                     <i className="fa-solid fa-play"></i>
                     <p className="text m-0 ">More Details</p>
-                  </div>
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
           <div className="arrow-next-section demo">
-            <Link to="events" smooth={true} duration={100}>
+            <ScrollLink to="events" smooth={true} duration={100}>
               <span></span>
-            </Link>
+            </ScrollLink>
           </div>
         </div>
       </div>

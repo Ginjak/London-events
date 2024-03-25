@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import "./eventsbycategory.css";
 import { useFormCity } from "../../context/CityContext";
+import { useEventId } from "../../context/EventIdContext";
 import {
   fetchEvents,
   startDateForApi,
@@ -13,6 +16,7 @@ import { imageSizeApi } from "../../eventsActions/utilityFunctions";
 
 const EventsByCategory = () => {
   const { formCity } = useFormCity();
+  const { eventId, setEventId } = useEventId();
   const [events, setEvents] = useState([]);
   const [category, setCategory] = useState("KnvZfZ7vAeA");
   const [isLoading, setIsLoading] = useState(true);
@@ -28,7 +32,7 @@ const EventsByCategory = () => {
       key: "selection",
     },
   ]);
-  console.log("Date range:", dateRange);
+
   const handleButtonClick = () => {
     setShowCalendar(true);
     setShowElement("show-main");
@@ -54,6 +58,10 @@ const EventsByCategory = () => {
     console.log("display events value:", displayEvents);
   };
 
+  const getEventId = (eventId) => {
+    setEventId(eventId);
+    console.log("This is event id: ", eventId);
+  };
   // Background image for card
 
   useEffect(() => {
@@ -66,6 +74,8 @@ const EventsByCategory = () => {
           startDateForApi(dateRange[0].startDate),
           endDateForApi(dateRange[0].endDate),
           category,
+          undefined,
+          undefined,
           displayEvents
         );
         setEvents(data);
@@ -85,10 +95,13 @@ const EventsByCategory = () => {
     // Call fetchData when formCity changes
     fetchData();
     setDatesSelected(false);
-  }, [formCity, category, datesSelected, displayEvents]);
+  }, [formCity, category, datesSelected, displayEvents, eventId]);
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
+    setDisplayEvents(20);
+    setRenderEvents(8);
+
     console.log("Selected category:", event.target.value);
   };
 
@@ -222,7 +235,7 @@ const EventsByCategory = () => {
         </div>
         {events && events.length > 0 ? (
           <div className="row cards-wraper row-cols-1 row-cols-lg-2 g-3">
-            {events.slice(0, renderEvents).map((event, index) => (
+            {events?.slice(0, renderEvents).map((event, index) => (
               <div className="col" key={event.id}>
                 <div
                   className="custom-card row g-0"
@@ -287,10 +300,14 @@ const EventsByCategory = () => {
                       )}
 
                     <div className="more-info-hover">
-                      <div className="card-more-info d-flex flex-row align-items-center">
+                      <Link
+                        onClick={() => getEventId(event.id)}
+                        to={`/event/${event.id}`}
+                        className="card-more-info d-flex flex-row align-items-center"
+                      >
                         <i className="fa-solid fa-play"></i>
                         <p className="text m-0 ">More Details</p>
-                      </div>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -298,11 +315,17 @@ const EventsByCategory = () => {
             ))}
           </div>
         ) : (
-          <p>No Events</p>
+          <div className="no-events-wraper text-center my-5 d-flex flex-column justify-content-center align-items-center position relative">
+            <img className="no-events-img" src="/public/images/no_events.png" />
+            <p className="no-events-txt mb-0">Apologies, no events found.</p>
+            <p className="no-events-txt mb-0">
+              Please choose different dates or music genre.
+            </p>
+          </div>
         )}
         {events.length > renderEvents && (
-          <div className="load-more-wraper">
-            <button className="load-more" onClick={loadMore}>
+          <div className="load-more-wraper text-center my-4">
+            <button className="dates-btn" onClick={loadMore}>
               Load More
             </button>
           </div>
