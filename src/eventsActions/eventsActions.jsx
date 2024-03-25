@@ -9,17 +9,23 @@ export const futureDayForApi = (futureDays) => {
 };
 
 export const startDateForApi = (date) => {
-  // Convert date to isoString
+  // Convert date to ISO string
   const isoString = new Date(date).toISOString();
+  // Set time to 00:01:01
+  const formattedDate = new Date(isoString);
+  formattedDate.setHours(0, 1, 1);
   // Return date with correct format for ticketmaster API
-  return isoString.slice(0, -5) + "Z";
+  return formattedDate.toISOString().slice(0, -5) + "Z";
 };
 
 export const endDateForApi = (date) => {
-  const endDate = new Date(date);
-  endDate.setDate(endDate.getDate() + 1);
-  const adjustedEndDate = endDate.toISOString();
-  return adjustedEndDate.slice(0, -5) + "Z";
+  // Convert date to ISO string
+  const isoString = new Date(date).toISOString();
+  // Set time to 23:59:59
+  const formattedDate = new Date(isoString);
+  formattedDate.setHours(23, 59, 59);
+  // Return date with correct format for ticketmaster API
+  return formattedDate.toISOString().slice(0, -5) + "Z";
 };
 
 // Fetching Ticketmaster api details with default values that can be overwritten
@@ -35,7 +41,7 @@ export const fetchEvents = async (
   // const apiUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apiKey}&countryCode=${country}&city=${city}&startDateTime=${startDate}&endDateTime=${endDate}&classificationName=music&keyword=${eventType}&size=${limit}`;
   // console.log("API URL:", apiUrl);
 
-  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apiKey}&countryCode=${country}&city=${city}&startDateTime=${startDate}&endDateTime=${endDate}&classificationName=music&genreId=${eventType}&size=${limit}`;
+  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apiKey}&countryCode=${country}&city=${city}&startDateTime=${startDate}&endDateTime=${endDate}&classificationName=music&genreId=${eventType}&size=${limit}&sort=date,asc`;
   try {
     const response = await axios.get(apiUrl);
     const uniqueEvents = [];

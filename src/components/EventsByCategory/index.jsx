@@ -6,8 +6,8 @@ import "./eventsbycategory.css";
 import { useFormCity } from "../../context/CityContext";
 import {
   fetchEvents,
-  futureDayForApi,
   startDateForApi,
+  endDateForApi,
 } from "../../eventsActions/eventsActions";
 import { imageSizeApi } from "../../eventsActions/utilityFunctions";
 
@@ -19,6 +19,8 @@ const EventsByCategory = () => {
   const [showCalendar, setShowCalendar] = useState(false);
   const [datesSelected, setDatesSelected] = useState(false);
   const [showElement, setShowElement] = useState("hidden-main");
+  const [displayEvents, setDisplayEvents] = useState(20);
+  const [renderEvents, setRenderEvents] = useState(8);
   const [dateRange, setDateRange] = useState([
     {
       startDate: new Date(),
@@ -27,7 +29,6 @@ const EventsByCategory = () => {
     },
   ]);
   console.log("Date range:", dateRange);
-  console.log(startDateForApi(futureDayForApi(25)));
   const handleButtonClick = () => {
     setShowCalendar(true);
     setShowElement("show-main");
@@ -37,6 +38,8 @@ const EventsByCategory = () => {
     console.log("Selected date range:", dateRange);
     setShowCalendar(false);
     setDatesSelected(true);
+    setDisplayEvents(20);
+    setRenderEvents(8);
     setShowElement("hidden-main");
   };
 
@@ -45,26 +48,35 @@ const EventsByCategory = () => {
     setShowElement("hidden-main");
   };
 
+  const loadMore = () => {
+    setDisplayEvents(displayEvents + 8);
+    setRenderEvents(renderEvents + 8);
+    console.log("display events value:", displayEvents);
+  };
+
   // Background image for card
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setIsLoading(true); // Set isLoading to true when fetching data
+        setIsLoading(true);
         const data = await fetchEvents(
           undefined,
           formCity,
           startDateForApi(dateRange[0].startDate),
-          startDateForApi(dateRange[0].endDate),
+          endDateForApi(dateRange[0].endDate),
           category,
-          100
+          displayEvents
         );
         setEvents(data);
         setIsLoading(false);
 
         console.log("Button Events loaded:", data);
+        console.log("display events value:", displayEvents);
+        console.log("Render events: " + renderEvents);
       } catch (error) {
-        console.error(error);
+        console.error(`Test ${error}`);
+        setEvents([]);
       } finally {
         setIsLoading(false); // Set isLoading to false after data is fetched
       }
@@ -73,7 +85,7 @@ const EventsByCategory = () => {
     // Call fetchData when formCity changes
     fetchData();
     setDatesSelected(false);
-  }, [formCity, category, datesSelected]);
+  }, [formCity, category, datesSelected, displayEvents]);
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
@@ -208,9 +220,9 @@ const EventsByCategory = () => {
             Pop
           </label>
         </div>
-        {events.length > 0 ? (
+        {events && events.length > 0 ? (
           <div className="row cards-wraper row-cols-1 row-cols-lg-2 g-3">
-            {events.map((event, index) => (
+            {events.slice(0, renderEvents).map((event, index) => (
               <div className="col" key={event.id}>
                 <div
                   className="custom-card row g-0"
@@ -259,18 +271,20 @@ const EventsByCategory = () => {
                     <div className="card-title-hover text-center">
                       <h3>{event.name}</h3>
                     </div>
-                    {event.priceRanges && (
-                      <div className="price-bubble d-flex">
-                        <div className="event-date d-flex flex-column justify-content-center align-items-center">
-                          <p className="text-center m-0 price">
-                            {"£" + Math.floor(event?.priceRanges[0]?.min)}
-                          </p>
+                    {event?.priceRanges &&
+                      event?.priceRanges[0]?.min !== 0 &&
+                      !isNaN(event?.priceRanges[0]?.min) && (
+                        <div className="price-bubble d-flex">
+                          <div className="event-date d-flex flex-column justify-content-center align-items-center">
+                            <p className="text-center m-0 price">
+                              {"£" + Math.floor(event?.priceRanges[0]?.min)}
+                            </p>
+                          </div>
+                          <div className="event-date event-time d-flex flex-column justify-content-center align-items-center">
+                            <p className="text-center m-0">GBP</p>
+                          </div>
                         </div>
-                        <div className="event-date event-time d-flex flex-column justify-content-center align-items-center">
-                          <p className="text-center m-0">GBP</p>
-                        </div>
-                      </div>
-                    )}
+                      )}
 
                     <div className="more-info-hover">
                       <div className="card-more-info d-flex flex-row align-items-center">
@@ -285,6 +299,13 @@ const EventsByCategory = () => {
           </div>
         ) : (
           <p>No Events</p>
+        )}
+        {events.length > renderEvents && (
+          <div className="load-more-wraper">
+            <button className="load-more" onClick={loadMore}>
+              Load More
+            </button>
+          </div>
         )}
       </div>
     </>
