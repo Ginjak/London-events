@@ -1,45 +1,42 @@
-import React, { useEffect } from "react";
-import "./singleevent.css";
-import { fetchEvents } from "../../eventsActions/eventsActions";
-import { useFormCity } from "../../context/CityContext";
-import { useEventId } from "../../context/EventIdContext";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const SingleEvent = () => {
-  const { formCity } = useFormCity();
-  const { eventId } = useEventId(); // Destructure eventId correctly
+  const { eventId } = useParams(); // Extract eventId from URL params
+  const [eventData, setEventData] = useState(null); // State to hold event data
+  const apiKey = "HjQcNIEkdwsQswwBQhfE1PO0smAoxyu4"; // Ticketmaster API key
+
+  // Function to fetch event data by eventId
+  const fetchEventById = async (eventId) => {
+    try {
+      const response = await axios.get(
+        `https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=${apiKey}`
+      );
+      setEventData(response.data); // Set event data to state
+    } catch (error) {
+      console.error("Error fetching event data:", error);
+      // Optionally handle errors here
+    }
+  };
 
   useEffect(() => {
-    console.log("eventId:", eventId);
-    console.log("city:", formCity);
-    const fetchData = async () => {
-      try {
-        // setIsLoading(true);
-        const data = await fetchEvents(
-          undefined,
-          formCity,
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined
-        );
-        // setEvents(data);
-        // setIsLoading(false);
-      } catch (error) {
-        console.error(`Test ${error}`);
-        // setEvents([]);
-      } finally {
-        // setIsLoading(false);
-      }
-    };
+    fetchEventById(eventId); // Fetch event data on component mount
+  }, [eventId]); // Re-fetch event data when eventId changes
 
-    // Call fetchData when formCity or eventId changes
-    fetchData();
-    // setDatesSelected(false);
-  }, [formCity, eventId]);
+  // Render loading indicator while fetching data
+  if (!eventData) {
+    return <div className="text-white">Loading...</div>;
+  }
 
-  return <div>Single Event</div>;
+  // Once data is fetched, render event details
+  return (
+    <div className="text-white">
+      {/* Render event details here using eventData */}
+      {/* Example: <h1>{eventData.name}</h1> */}
+      <h1>{eventData.name}</h1>
+    </div>
+  );
 };
 
 export default SingleEvent;
