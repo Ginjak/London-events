@@ -9,7 +9,7 @@ import { CityProvider } from "./context/CityContext";
 import { EventIdProvider } from "./context/EventIdContext";
 import EventsByCategory from "./components/EventsByCategory";
 import EventsSection from "./components/EventsSection";
-import SingleEvent from "./components/SingleEvent";
+import SingleEventPage from "./components/Pages/SingleEventPage";
 
 function App() {
   return (
@@ -18,12 +18,21 @@ function App() {
         <CityProvider>
           <EventIdProvider>
             <Header></Header>
-            <EventsSection>
-              <Routes>
-                <Route path="/" element={<EventsByCategory />} />
-                <Route path="/event/:eventId" element={<SingleEvent />} />
-              </Routes>
-            </EventsSection>
+
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <EventsSection id="events">
+                    <EventsByCategory />
+                  </EventsSection>
+                }
+              />
+              <Route
+                path="/event/:eventId"
+                element={<SingleEventPage id="single-event" />}
+              />
+            </Routes>
           </EventIdProvider>
         </CityProvider>
       </Router>

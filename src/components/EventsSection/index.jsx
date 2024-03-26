@@ -1,9 +1,9 @@
 import React from "react";
 
-const EventsSection = ({ children }) => {
+const EventsSection = ({ children, id }) => {
   return (
     <>
-      <section id="events">{children}</section>
+      <section id={id}>{children}</section>
     </>
   );
 };

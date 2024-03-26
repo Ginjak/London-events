@@ -61,3 +61,17 @@ export const fetchEvents = async (
     throw error;
   }
 };
+
+export const eventById = async (eventId = "") => {
+  const apiKey = "HjQcNIEkdwsQswwBQhfE1PO0smAoxyu4";
+  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=${apiKey}&countryCode=GB
+  `;
+  try {
+    const response = await axios.get(apiUrl);
+    const data = response.data;
+    return data;
+  } catch (error) {
+    console.error("API Error:", error);
+    throw error;
+  }
+};
