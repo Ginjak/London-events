@@ -74,8 +74,6 @@ const EventsByCategory = () => {
           startDateForApi(dateRange[0].startDate),
           endDateForApi(dateRange[0].endDate),
           category,
-          undefined,
-          undefined,
           displayEvents
         );
         setEvents(data);
