@@ -314,7 +314,7 @@ const EventsByCategory = () => {
           </div>
         ) : (
           <div className="no-events-wraper text-center my-5 d-flex flex-column justify-content-center align-items-center position relative">
-            <img className="no-events-img" src="/public/images/no_events.png" />
+            <img className="no-events-img" src="/images/no_events.png" />
             <p className="no-events-txt mb-0">Apologies, no events found.</p>
             <p className="no-events-txt mb-0">
               Please choose different dates or music genre.

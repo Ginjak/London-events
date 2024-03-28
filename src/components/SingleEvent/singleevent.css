@@ -43,7 +43,8 @@
 
 #single-event .details-genre,
 #single-event .price-from,
-#single-event .venue-name {
+#single-event .venue-name,
+#single-event .directions {
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
@@ -55,9 +56,6 @@
   text-transform: none !important;
   color: var(--lighter-blue);
 }
-#single-event .price-from .roboto {
-  font-weight: 500;
-}
 
 #single-event .dates-btn {
   padding: 14px 18px;
@@ -65,4 +63,14 @@
   text-transform: none;
   letter-spacing: 1.2px;
   font-size: 16px;
+}
+#single-event .directions {
+  text-decoration: none;
+  color: var(--light-blue);
+  transition: color 0.2s linear;
+  font-weight: 700;
+}
+#single-event .directions:hover {
+  color: var(--lighter-blue);
+  transition: color 0.2s linear;
 }

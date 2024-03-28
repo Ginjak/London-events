@@ -83,34 +83,35 @@ const SingleEvent = () => {
             </div>
             <div className="event-details-wraper px-4 py-3 ">
               <div className="genre-price-venue d-flex justify-content-between">
-                <div className="genre-price">
-                  {eventData.classifications[0] && (
-                    <p className="details-genre mb-1">
-                      {eventData.classifications[0].genre.name}
-                    </p>
-                  )}
-                  {eventData.priceRanges[0] && (
-                    <p className="price-from">
-                      From £
-                      <span className="roboto">
-                        {eventData?.priceRanges[0]?.min}
-                      </span>
-                    </p>
-                  )}
-                  {eventData.url && (
-                    <Link
-                      to={eventData.url}
-                      className="dates-btn"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Get Tickets!
-                    </Link>
+                <div className="genre-price-tickets d-flex flex-column justify-content-between">
+                  <div className="genre-price">
+                    {eventData?.classifications?.[0] && (
+                      <p className="details-genre mb-1">
+                        {eventData.classifications[0].genre.name}
+                      </p>
+                    )}
+                  </div>
+                  {eventData?.url && (
+                    <div className="tickets-btn-wraper mb-2">
+                      {eventData?.priceRanges?.[0] && (
+                        <p className="price-from">
+                          From £<span>{eventData?.priceRanges[0]?.min}</span>
+                        </p>
+                      )}
+                      <Link
+                        to={eventData?.url}
+                        className="dates-btn"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Get Tickets!
+                      </Link>
+                    </div>
                   )}
                 </div>
 
                 {eventData?._embedded?.venues && (
-                  <div className="venue-info">
+                  <div className="venue-info d-flex flex-column ">
                     <p className="text-end mb-1 venue-name">
                       {eventData?._embedded?.venues[0].name}
                     </p>
@@ -124,10 +125,12 @@ const SingleEvent = () => {
                       {eventData?._embedded?.venues[0]?.city?.name}
                     </p>
                     <Link
+                      className="text-end directions mt-3"
                       to={`https://www.google.com/maps/dir/Current+Location/${eventData?._embedded?.venues[0]?.location?.latitude},${eventData?._embedded?.venues[0]?.location?.longitude}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
+                      <i className="fa-solid fa-location-dot me-2"></i>
                       Directions
                     </Link>
                   </div>
