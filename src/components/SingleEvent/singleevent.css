@@ -41,6 +41,10 @@
   color: var(--dark-blue);
 }
 
+#single-event .genre-price-tickets {
+  margin-bottom: 0;
+}
+
 #single-event .details-genre,
 #single-event .price-from,
 #single-event .venue-name,
@@ -64,6 +68,10 @@
   letter-spacing: 1.2px;
   font-size: 16px;
 }
+#single-event .venue-info {
+  align-items: end;
+}
+
 #single-event .directions {
   text-decoration: none;
   color: var(--light-blue);
@@ -73,4 +81,17 @@
 #single-event .directions:hover {
   color: var(--lighter-blue);
   transition: color 0.2s linear;
+}
+
+@media (max-width: 400px) {
+  #single-event .genre-price-tickets {
+    margin-bottom: 16px;
+  }
+  #single-event .genre-price-venue {
+    flex-direction: column;
+  }
+
+  #single-event .venue-info {
+    align-items: start;
+  }
 }

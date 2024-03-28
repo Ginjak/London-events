@@ -47,7 +47,7 @@ const SingleEvent = () => {
     <div className="container-xxl py-5">
       <div className="text-dark">
         <div className="row single-event-card">
-          <div className="col-6 px-0">
+          <div className="col-lg-6 px-0">
             <div
               className="text-time-title-wraper position-relative px-4 py-3 d-flex justify-content-center align-items-center"
               style={{ backgroundImage: `url(${eventBgImg})` }}
@@ -86,21 +86,21 @@ const SingleEvent = () => {
                 <div className="genre-price-tickets d-flex flex-column justify-content-between">
                   <div className="genre-price">
                     {eventData?.classifications?.[0] && (
-                      <p className="details-genre mb-1">
+                      <p className="details-genre mb-4 mb-sm-1">
                         {eventData.classifications[0].genre.name}
                       </p>
                     )}
                   </div>
                   {eventData?.url && (
-                    <div className="tickets-btn-wraper mb-2">
+                    <div className="tickets-btn-wraper mb-0">
                       {eventData?.priceRanges?.[0] && (
-                        <p className="price-from">
+                        <p className="price-from mb-2 mb-sm-1">
                           From £<span>{eventData?.priceRanges[0]?.min}</span>
                         </p>
                       )}
                       <Link
                         to={eventData?.url}
-                        className="dates-btn"
+                        className="dates-btn d-block d-sm-inline-block text-center text-sm-start"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -138,7 +138,7 @@ const SingleEvent = () => {
               </div>
             </div>
           </div>
-          <div className="col-6">asdas</div>
+          <div className="col-lg-6">asdas</div>
         </div>
       </div>
     </div>
