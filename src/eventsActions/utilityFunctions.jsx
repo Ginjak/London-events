@@ -8,16 +8,20 @@ export const generateRandomNumber = (maxValue) => {
 // Check Ticketmaster api for event image with specific size
 
 export const imageSizeApi = (images, imgWidth) => {
+  let largestImage = null;
+
   for (const image of images) {
     if (
       image.hasOwnProperty("width") &&
       typeof image.width === "number" &&
-      image.width > imgWidth
+      image.width > imgWidth &&
+      (!largestImage || image.width < largestImage.width)
     ) {
-      return image.url;
+      largestImage = image;
     }
   }
-  return null;
+
+  return largestImage ? largestImage.url : null;
 };
 
 // Function to display a string up till /, //, +, ( characters.

@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
+import "./singleevent.css";
 import { useParams } from "react-router-dom";
 import { eventById } from "../../eventsActions/eventsActions";
+import { imageSizeApi } from "../../eventsActions/utilityFunctions";
 import axios from "axios";
 
 const SingleEvent = () => {
-  const { eventId } = useParams(); // Extract eventId from URL params
-  const [eventData, setEventData] = useState(null); // State to hold event data
+  const { eventId } = useParams();
+  const [eventData, setEventData] = useState(null);
+  const [eventBgImg, setEventBgImg] = useState("");
+  const latitude = "51.501277";
+  const longitude = "-0.177552";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -15,6 +20,7 @@ const SingleEvent = () => {
         setEventData(data);
         // setIsLoading(false);
 
+        setEventBgImg(imageSizeApi(data.images, 700));
         console.log("Search by ID data:", data);
         // console.log("display events value:", displayEvents);
         // console.log("Render events: " + renderEvents);
@@ -31,23 +37,6 @@ const SingleEvent = () => {
     // setDatesSelected(false);
   }, [eventId]);
 
-  // Function to fetch event data by eventId
-  // const fetchEventById = async (eventId) => {
-  //   try {
-  //     const response = await axios.get(
-  //       `https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=${apiKey}`
-  //     );
-  //     setEventData(response.data); // Set event data to state
-  //   } catch (error) {
-  //     console.error("Error fetching event data:", error);
-  //     // Optionally handle errors here
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchEventById(eventId);
-  // }, [eventId]);
-
   // Render loading indicator while fetching data
   if (!eventData) {
     return <div className="text-white">Loading...</div>;
@@ -55,10 +44,92 @@ const SingleEvent = () => {
 
   // Once data is fetched, render event details
   return (
-    <div className="text-dark">
-      {/* Render event details here using eventData */}
-      {/* Example: <h1>{eventData.name}</h1> */}
-      <h1>{eventData.name}</h1>
+    <div className="container-xxl py-5">
+      <div className="text-dark">
+        <div className="row single-event-card">
+          <div className="col-6 px-0">
+            <div
+              className="text-time-title-wraper position-relative px-4 py-3 d-flex justify-content-center align-items-center"
+              style={{ backgroundImage: `url(${eventBgImg})` }}
+            >
+              <div className="overlay"></div>
+              <div className="event-date d-flex flex-column justify-content-center align-items-center">
+                <p className="m-0">
+                  {new Date(eventData.dates.start.dateTime).toLocaleString(
+                    "default",
+                    {
+                      month: "short",
+                    }
+                  )}
+                </p>
+                <p className="m-0">
+                  {new Date(eventData.dates.start.dateTime)
+                    .getDate()
+                    .toString()
+                    .padStart(2, "0")}
+                </p>
+              </div>
+              <div className="time-location-wraper">
+                <p className="card-info mb-0 position-relative">
+                  {eventData.dates.start.localTime
+                    .split(":")
+                    .slice(0, 2)
+                    .join(":")}
+                </p>
+              </div>
+              <h3 className="single-event-title text-white mb-0">
+                {eventData.name}
+              </h3>
+            </div>
+            <div className="event-details-wraper px-4 py-3 ">
+              <div className="genre-price-venue d-flex justify-content-between">
+                <div className="genre-price">
+                  {eventData.classifications[0] && (
+                    <p className="details-genre mb-1">
+                      {eventData.classifications[0].genre.name}
+                    </p>
+                  )}
+                  {eventData.priceRanges[0] && (
+                    <p className="price-from">
+                      From £
+                      <span className="roboto">
+                        {eventData?.priceRanges[0]?.min}
+                      </span>
+                    </p>
+                  )}
+                  {eventData.url && (
+                    <a
+                      href={eventData.url}
+                      className="dates-btn"
+                      target="_blank"
+                    >
+                      Get Tickets!
+                    </a>
+                  )}
+                </div>
+
+                {eventData?._embedded?.venues && (
+                  <div className="venue-info">
+                    <p className="text-end mb-1">
+                      {eventData?._embedded?.venues[0].name}
+                    </p>
+                    <p className="text-end mb-1">
+                      {eventData?._embedded?.venues[0]?.address?.line1}
+                    </p>
+                    <p className="text-end mb-1">
+                      {eventData?._embedded?.venues[0]?.postalCode}
+                    </p>
+                    <p className="text-end mb-1">
+                      {eventData?._embedded?.venues[0]?.city?.name}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="col-6">asdas</div>
+        </div>
+      </div>
     </div>
   );
 };

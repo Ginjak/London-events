@@ -41,13 +41,6 @@
   line-height: 1em;
 }
 
-.event-date {
-  width: 75px;
-  height: 75px;
-  background: var(--light-blue);
-  padding: 15px;
-  border-radius: 50%;
-}
 .event-date p,
 .event-time p,
 .event-city p,

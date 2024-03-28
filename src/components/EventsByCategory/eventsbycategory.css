@@ -152,16 +152,6 @@
   z-index: 5;
 }
 
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1;
-  border-radius: 4px;
-}
 .custom-card .date {
   display: flex;
   flex-direction: column;
@@ -188,15 +178,6 @@
 }
 .custom-card .date-location-wraper {
   height: auto;
-}
-
-.custom-card .card-info {
-  font-family: "Raleway", sans-serif;
-  color: var(--white);
-  font-size: 18px;
-  line-height: 18px;
-  font-weight: 600;
-  margin-bottom: 2px;
 }
 
 .custom-card .card-title {
