@@ -42,14 +42,16 @@
 }
 
 #single-event .details-genre,
-#single-event .price-from {
+#single-event .price-from,
+#single-event .venue-name {
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1.2px;
 }
 
-#single-event .price-from {
+#single-event .price-from,
+#single-event .venue-address {
   text-transform: none !important;
   color: var(--lighter-blue);
 }

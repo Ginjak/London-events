@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./singleevent.css";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { eventById } from "../../eventsActions/eventsActions";
 import { imageSizeApi } from "../../eventsActions/utilityFunctions";
 import axios from "axios";
@@ -98,30 +98,38 @@ const SingleEvent = () => {
                     </p>
                   )}
                   {eventData.url && (
-                    <a
-                      href={eventData.url}
+                    <Link
+                      to={eventData.url}
                       className="dates-btn"
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       Get Tickets!
-                    </a>
+                    </Link>
                   )}
                 </div>
 
                 {eventData?._embedded?.venues && (
                   <div className="venue-info">
-                    <p className="text-end mb-1">
+                    <p className="text-end mb-1 venue-name">
                       {eventData?._embedded?.venues[0].name}
                     </p>
-                    <p className="text-end mb-1">
+                    <p className="text-end mb-1 venue-address">
                       {eventData?._embedded?.venues[0]?.address?.line1}
                     </p>
-                    <p className="text-end mb-1">
+                    <p className="text-end mb-1 venue-address">
                       {eventData?._embedded?.venues[0]?.postalCode}
                     </p>
-                    <p className="text-end mb-1">
+                    <p className="text-end mb-1 venue-address">
                       {eventData?._embedded?.venues[0]?.city?.name}
                     </p>
+                    <Link
+                      to={`https://www.google.com/maps/dir/Current+Location/${eventData?._embedded?.venues[0]?.location?.latitude},${eventData?._embedded?.venues[0]?.location?.longitude}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Directions
+                    </Link>
                   </div>
                 )}
               </div>
