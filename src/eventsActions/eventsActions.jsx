@@ -38,9 +38,6 @@ export const fetchEvents = async (
   limit = 5
 ) => {
   const apiKey = "HjQcNIEkdwsQswwBQhfE1PO0smAoxyu4";
-  // const apiUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apiKey}&countryCode=${country}&city=${city}&startDateTime=${startDate}&endDateTime=${endDate}&classificationName=music&keyword=${eventType}&size=${limit}`;
-  // console.log("API URL:", apiUrl);
-
   const apiUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apiKey}&countryCode=${country}&city=${city}&startDateTime=${startDate}&endDateTime=${endDate}&classificationName=music&genreId=${eventType}&size=${limit}&sort=date,asc`;
   try {
     const response = await axios.get(apiUrl);
@@ -62,6 +59,7 @@ export const fetchEvents = async (
   }
 };
 
+// Fetching event by ID
 export const eventById = async (eventId = "") => {
   const apiKey = "HjQcNIEkdwsQswwBQhfE1PO0smAoxyu4";
   const apiUrl = `https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=${apiKey}&countryCode=GB
@@ -70,6 +68,19 @@ export const eventById = async (eventId = "") => {
     const response = await axios.get(apiUrl);
     const data = response.data;
     return data;
+  } catch (error) {
+    console.error("API Error:", error);
+    throw error;
+  }
+};
+
+export const eventByVenue = async (venueId = "KovZ9177kof", limit = 5) => {
+  const apiKey = "HjQcNIEkdwsQswwBQhfE1PO0smAoxyu4";
+  // const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?venueId=${venueId}apikey=${apiKey}&countryCode=GB&size=${limit}&sort=date,asc`;
+  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?venueId=${venueId}&apikey=${apiKey}&countryCode=GB&size=${limit}&sort=date,asc`;
+  try {
+    const response = await axios.get(apiUrl);
+    return response.data;
   } catch (error) {
     console.error("API Error:", error);
     throw error;

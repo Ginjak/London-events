@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./singleevent.css";
 import { Link, useParams } from "react-router-dom";
-import { eventById } from "../../eventsActions/eventsActions";
+import { eventById, eventByVenue } from "../../eventsActions/eventsActions";
 import { imageSizeApi } from "../../eventsActions/utilityFunctions";
 import axios from "axios";
 
@@ -9,6 +9,7 @@ const SingleEvent = () => {
   const { eventId } = useParams();
   const [eventData, setEventData] = useState(null);
   const [eventBgImg, setEventBgImg] = useState("");
+  const [test, setTest] = useState("");
   const latitude = "51.501277";
   const longitude = "-0.177552";
 
@@ -16,6 +17,7 @@ const SingleEvent = () => {
     const fetchData = async () => {
       try {
         // setIsLoading(true);
+
         const data = await eventById(eventId);
         setEventData(data);
         // setIsLoading(false);
@@ -36,6 +38,21 @@ const SingleEvent = () => {
     fetchData();
     // setDatesSelected(false);
   }, [eventId]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await eventByVenue();
+        setTest(data);
+        console.log("Search by Venue data:", data);
+      } catch (error) {
+        console.error(`Test ${error}`);
+      } finally {
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // Render loading indicator while fetching data
   if (!eventData) {
@@ -137,6 +154,13 @@ const SingleEvent = () => {
                 )}
               </div>
             </div>
+            {eventData?._embedded?.venues?.[0] && (
+              <div className="events-by-venue px-4 py-3 ">
+                <h3 className="event-by-venue-title">
+                  More events at {eventData?._embedded?.venues[0]?.name}
+                </h3>
+              </div>
+            )}
           </div>
           <div className="col-lg-6">asdas</div>
         </div>
