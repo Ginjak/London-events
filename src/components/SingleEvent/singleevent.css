@@ -85,6 +85,23 @@
   transition: color 0.2s linear;
 }
 
+/* Events by venue */
+#single-event .event-venue-date {
+  text-align: center;
+  padding: 15px;
+  background: var(--deep-orange);
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+}
+#single-event .event-venue-date p {
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  color: var(--white);
+  font-size: 18px;
+  line-height: 18px;
+}
+
 @media (max-width: 400px) {
   #single-event .genre-price-tickets {
     margin-bottom: 16px;

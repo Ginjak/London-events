@@ -9,7 +9,9 @@ const SingleEvent = () => {
   const { eventId } = useParams();
   const [eventData, setEventData] = useState(null);
   const [eventBgImg, setEventBgImg] = useState("");
-  const [test, setTest] = useState("");
+  const [venueId, setVenueId] = useState(null);
+  const [venueEventsNumber, setVenueEventsNumber] = useState(6);
+  const [eventsByVenue, setEventsByVenue] = useState("");
   const latitude = "51.501277";
   const longitude = "-0.177552";
 
@@ -18,11 +20,12 @@ const SingleEvent = () => {
       try {
         // setIsLoading(true);
 
-        const data = await eventById(eventId);
+        const data = await eventById(eventId, venueEventsNumber);
         setEventData(data);
         // setIsLoading(false);
 
         setEventBgImg(imageSizeApi(data.images, 700));
+        setVenueId(data._embedded.venues[0].id);
         console.log("Search by ID data:", data);
         // console.log("display events value:", displayEvents);
         // console.log("Render events: " + renderEvents);
@@ -42,8 +45,8 @@ const SingleEvent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await eventByVenue();
-        setTest(data);
+        const data = await eventByVenue(venueId);
+        setEventsByVenue(data);
         console.log("Search by Venue data:", data);
       } catch (error) {
         console.error(`Test ${error}`);
@@ -52,7 +55,7 @@ const SingleEvent = () => {
     };
 
     fetchData();
-  }, []);
+  }, [venueId]);
 
   // Render loading indicator while fetching data
   if (!eventData) {
@@ -156,9 +159,61 @@ const SingleEvent = () => {
             </div>
             {eventData?._embedded?.venues?.[0] && (
               <div className="events-by-venue px-4 py-3 ">
-                <h3 className="event-by-venue-title">
+                <h3 className="event-by-venue-title mb-3">
                   More events at {eventData?._embedded?.venues[0]?.name}
                 </h3>
+                <div className="more-events-at-venue-wraper">
+                  {eventsByVenue &&
+                  eventsByVenue._embedded &&
+                  eventsByVenue._embedded.events.length > 0 ? (
+                    eventsByVenue._embedded.events.map((event, index) => (
+                      <div
+                        className="event-details-wraper d-flex justify-content-between"
+                        key={index}
+                      >
+                        <div className="event-venue-date-wraper ">
+                          <div className="event-venue-date d-flex flex-column justify-content-center ">
+                            <p className="m-0">
+                              {new Date(
+                                eventsByVenue._embedded.events[
+                                  index
+                                ].dates.start.localDate
+                              ).toLocaleString("default", {
+                                month: "short",
+                              })}
+                            </p>
+
+                            <p className="m-0">
+                              {new Date(
+                                eventsByVenue._embedded.events[
+                                  index
+                                ].dates.start.localDate
+                              )
+                                .getDate()
+                                .toString()
+                                .padStart(2, "0")}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="event-title-time-wraper">
+                          <p className="m-0">
+                            {eventsByVenue._embedded.events[index].name}
+                          </p>
+                          <p className="m-0">
+                            {eventsByVenue._embedded.events[
+                              index
+                            ].dates.start.localTime
+                              .split(":")
+                              .slice(0, 2)
+                              .join(":")}
+                          </p>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <p>ASDa</p>
+                  )}
+                </div>
               </div>
             )}
           </div>
