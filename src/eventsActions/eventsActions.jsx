@@ -86,3 +86,17 @@ export const eventByVenue = async (venueId = "KovZ9177kof") => {
     throw error;
   }
 };
+
+export const eventByName = async (eventName = "") => {
+  const apiKey = "HjQcNIEkdwsQswwBQhfE1PO0smAoxyu4";
+  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events?keyword=${eventName}&apikey=${apiKey}&countryCode=GB&sort=date,asc`;
+
+  try {
+    const response = await axios.get(apiUrl);
+    const data = response.data;
+    return data._embedded.events;
+  } catch (error) {
+    console.error("API Error:", error);
+    throw error;
+  }
+};

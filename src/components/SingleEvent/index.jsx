@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./singleevent.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
-import { eventById, eventByVenue } from "../../eventsActions/eventsActions";
+import {
+  eventById,
+  eventByVenue,
+  eventByName,
+} from "../../eventsActions/eventsActions";
 import { imageSizeApi } from "../../eventsActions/utilityFunctions";
 import axios from "axios";
 
@@ -12,10 +16,10 @@ const SingleEvent = () => {
   const [eventData, setEventData] = useState(null);
   const [eventBgImg, setEventBgImg] = useState("");
   const [venueId, setVenueId] = useState(null);
+  const [eventName, setEventName] = useState(null);
   const [venueEventsNumber, setVenueEventsNumber] = useState(6);
   const [eventsByVenue, setEventsByVenue] = useState("");
-  const latitude = "51.501277";
-  const longitude = "-0.177552";
+  const [eventsByName, setEventsByName] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +32,13 @@ const SingleEvent = () => {
 
         setEventBgImg(imageSizeApi(data.images, 700));
         setVenueId(data._embedded.venues[0].id);
+        setEventName(data.name);
+
+        const eventDataByName = await eventByName(data.name);
+        setEventsByName(eventDataByName);
+
         console.log("Search by ID data:", data);
+
         // console.log("display events value:", displayEvents);
         // console.log("Render events: " + renderEvents);
       } catch (error) {
@@ -42,6 +52,7 @@ const SingleEvent = () => {
     // Call fetchData when formCity changes
     fetchData();
     console.log("This is a new id ", eventId);
+    console.log("EVent by name", eventsByName);
     // setDatesSelected(false);
   }, [eventId]);
 
@@ -62,6 +73,23 @@ const SingleEvent = () => {
     fetchData();
   }, [venueId]);
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       if (eventName) {
+  //         const data = await eventByName(eventName);
+  //         setEventsByName(data);
+  //         console.log("Search by Name data:", data);
+  //       }
+  //     } catch (error) {
+  //       console.error(`Test ${error}`);
+  //     } finally {
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [eventId]);
+
   const handleEventUpdate = (updatedEventId) => {
     navigate(`/event/${updatedEventId}`);
   };
@@ -70,7 +98,6 @@ const SingleEvent = () => {
     return <div className="text-white">Loading...</div>;
   }
 
-  // Once data is fetched, render event details
   return (
     <div className="container-xxl py-5">
       <div className="text-dark">
@@ -239,9 +266,20 @@ const SingleEvent = () => {
                     <p className="m-0">20</p>
                   </div>
                   <div className="band-event-location-time ps-2 text-end d-flex flex-column justify-content-between">
-                    <p className="m-0">City</p>
-                    <p className="m-0">Venue</p>
-                    <p className="m-0">Time</p>
+                    {eventsByName && <p>{eventsByName[0].name}</p>}
+                    {/* <p className="m-0">
+                      {eventsByName[0]._embedded.venues[0].name}
+                    </p>
+                    <p className="m-0">
+                      {eventsByName[0]._embedded.venues[0].city.name}
+                    </p>
+
+                    <p className="m-0">
+                      {eventsByName[0].dates.start.localTime
+                        .split(":")
+                        .slice(0, 2)
+                        .join(":")}
+                    </p> */}
                   </div>
                 </Link>
                 <Link className="band-event-details-wraper d-flex justify-content-between py-2">

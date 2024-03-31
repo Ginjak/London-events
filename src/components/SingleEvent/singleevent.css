@@ -2,6 +2,10 @@
   background: var(--rasin-black);
 }
 
+#single-event .overlay {
+  border-radius: 4px 0 0 0;
+}
+
 .single-event-card {
   border-radius: 4px;
 }
@@ -103,6 +107,10 @@
   height: 75px;
   transition: background 0.2s linear;
 }
+
+#single-event .band-event-venue-date-wraper {
+  background: var(--light-blue);
+}
 #single-event .event-venue-date p,
 #single-event .band-event-venue-date-wraper p {
   font-family: "Raleway", sans-serif;
@@ -141,6 +149,11 @@
   background: var(--dark-blue);
   border-radius: 0 4px 4px 0;
 }
+
+#single-event .band-event-location-time {
+  color: var(--white);
+}
+
 /* Scroll bar in event */
 
 /* width */
