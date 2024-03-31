@@ -41,6 +41,10 @@
   background: var(--white);
   color: var(--dark-blue);
 }
+#single-event .events-by-venue {
+  padding-left: 24px;
+  padding-right: 16px;
+}
 
 #single-event .genre-price-tickets {
   margin-bottom: 0;
@@ -103,6 +107,15 @@
   line-height: 18px;
 }
 
+#single-event .more-events-at-venue-wraper {
+  max-height: 273px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+#single-event a.event-details-wraper {
+  text-decoration: none;
+}
 #single-event .event-details-wraper {
   cursor: pointer;
   transition: background 0.2s linear;
@@ -110,6 +123,36 @@
 #single-event .event-details-wraper:hover .event-venue-date {
   background: var(--fire-red);
   transition: background 0.2s linear;
+}
+
+/* Scroll bar in event */
+
+/* width */
+#single-event ::-webkit-scrollbar {
+  width: 3px;
+  cursor: pointer;
+}
+
+/* Track */
+#single-event ::-webkit-scrollbar-track {
+  background: var(--white);
+}
+
+/* Handle */
+#single-event ::-webkit-scrollbar-thumb {
+  background: var(--light-blue);
+  cursor: pointer;
+}
+
+/* Handle on hover */
+#single-event ::-webkit-scrollbar-thumb:hover {
+  background: var(--dark-blue);
+}
+
+@media (max-width: 992px) {
+  #single-event ::-webkit-scrollbar {
+    display: none;
+  }
 }
 @media (max-width: 400px) {
   #single-event .genre-price-tickets {

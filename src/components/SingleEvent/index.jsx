@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./singleevent.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link as ScrollLink } from "react-scroll";
 import { eventById, eventByVenue } from "../../eventsActions/eventsActions";
 import { imageSizeApi } from "../../eventsActions/utilityFunctions";
 import axios from "axios";
@@ -62,7 +63,6 @@ const SingleEvent = () => {
   }, [venueId]);
 
   const handleEventUpdate = (updatedEventId) => {
-    // Update the eventId parameter in the URL
     navigate(`/event/${updatedEventId}`);
   };
   // Render loading indicator while fetching data
@@ -166,16 +166,19 @@ const SingleEvent = () => {
               </div>
             </div>
             {eventData?._embedded?.venues?.[0] && (
-              <div className="events-by-venue px-4 py-3 ">
+              <div className="events-by-venue py-3 ">
                 <h3 className="event-by-venue-title mb-3">
                   More events at {eventData?._embedded?.venues[0]?.name}
                 </h3>
-                <div className="more-events-at-venue-wraper">
+                <div className="more-events-at-venue-wraper pe-2">
                   {eventsByVenue &&
                   eventsByVenue._embedded &&
                   eventsByVenue._embedded.events.length > 0 ? (
                     eventsByVenue._embedded.events.map((event, index) => (
-                      <div
+                      <ScrollLink
+                        to="single-event"
+                        smooth={true}
+                        duration={500}
                         className="event-details-wraper d-flex justify-content-between py-2"
                         key={index}
                         onClick={() => handleEventUpdate(event.id)}
@@ -217,7 +220,7 @@ const SingleEvent = () => {
                               .join(":")}
                           </p>
                         </div>
-                      </div>
+                      </ScrollLink>
                     ))
                   ) : (
                     <p>ASDa</p>

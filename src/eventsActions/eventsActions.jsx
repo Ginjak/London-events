@@ -74,10 +74,10 @@ export const eventById = async (eventId = "") => {
   }
 };
 
-export const eventByVenue = async (venueId = "KovZ9177kof", limit = 6) => {
+export const eventByVenue = async (venueId = "KovZ9177kof") => {
   const apiKey = "HjQcNIEkdwsQswwBQhfE1PO0smAoxyu4";
   // const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?venueId=${venueId}apikey=${apiKey}&countryCode=GB&size=${limit}&sort=date,asc`;
-  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?venueId=${venueId}&apikey=${apiKey}&countryCode=GB&size=${limit}&sort=date,asc`;
+  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?venueId=${venueId}&apikey=${apiKey}&countryCode=GB&sort=date,asc`;
   try {
     const response = await axios.get(apiUrl);
     return response.data;
