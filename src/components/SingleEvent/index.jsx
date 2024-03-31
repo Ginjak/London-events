@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./singleevent.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { eventById, eventByVenue } from "../../eventsActions/eventsActions";
 import { imageSizeApi } from "../../eventsActions/utilityFunctions";
 import axios from "axios";
 
 const SingleEvent = () => {
+  const navigate = useNavigate();
   const { eventId } = useParams();
   const [eventData, setEventData] = useState(null);
   const [eventBgImg, setEventBgImg] = useState("");
@@ -39,15 +40,18 @@ const SingleEvent = () => {
 
     // Call fetchData when formCity changes
     fetchData();
+    console.log("This is a new id ", eventId);
     // setDatesSelected(false);
   }, [eventId]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await eventByVenue(venueId);
-        setEventsByVenue(data);
-        console.log("Search by Venue data:", data);
+        if (venueId) {
+          const data = await eventByVenue(venueId);
+          setEventsByVenue(data);
+          console.log("Search by Venue data:", data);
+        }
       } catch (error) {
         console.error(`Test ${error}`);
       } finally {
@@ -57,6 +61,10 @@ const SingleEvent = () => {
     fetchData();
   }, [venueId]);
 
+  const handleEventUpdate = (updatedEventId) => {
+    // Update the eventId parameter in the URL
+    navigate(`/event/${updatedEventId}`);
+  };
   // Render loading indicator while fetching data
   if (!eventData) {
     return <div className="text-white">Loading...</div>;
@@ -168,10 +176,11 @@ const SingleEvent = () => {
                   eventsByVenue._embedded.events.length > 0 ? (
                     eventsByVenue._embedded.events.map((event, index) => (
                       <div
-                        className="event-details-wraper d-flex justify-content-between"
+                        className="event-details-wraper d-flex justify-content-between py-2"
                         key={index}
+                        onClick={() => handleEventUpdate(event.id)}
                       >
-                        <div className="event-venue-date-wraper ">
+                        <div className="event-venue-date-wraper">
                           <div className="event-venue-date d-flex flex-column justify-content-center ">
                             <p className="m-0">
                               {new Date(
@@ -195,11 +204,11 @@ const SingleEvent = () => {
                             </p>
                           </div>
                         </div>
-                        <div className="event-title-time-wraper">
+                        <div className="event-title-time-wraper ps-2 text-end d-flex flex-column justify-content-between">
                           <p className="m-0">
                             {eventsByVenue._embedded.events[index].name}
                           </p>
-                          <p className="m-0">
+                          <p className="m-0 ">
                             {eventsByVenue._embedded.events[
                               index
                             ].dates.start.localTime

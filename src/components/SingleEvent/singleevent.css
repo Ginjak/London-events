@@ -58,7 +58,8 @@
 }
 
 #single-event .price-from,
-#single-event .venue-address {
+#single-event .venue-address,
+#single-event .event-title-time-wraper p {
   text-transform: none !important;
   color: var(--lighter-blue);
 }
@@ -102,6 +103,14 @@
   line-height: 18px;
 }
 
+#single-event .event-details-wraper {
+  cursor: pointer;
+  transition: background 0.2s linear;
+}
+#single-event .event-details-wraper:hover .event-venue-date {
+  background: var(--fire-red);
+  transition: background 0.2s linear;
+}
 @media (max-width: 400px) {
   #single-event .genre-price-tickets {
     margin-bottom: 16px;

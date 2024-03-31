@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useFormCity } from "../../context/CityContext";
+import { Link } from "react-router-dom";
 import { fetchEvents } from "../../eventsActions/eventsActions";
 import "./navbar.css";
 
@@ -53,7 +54,9 @@ const Navbar = () => {
     <>
       <nav className="navigation py-3 px-2 fixed-top container-xxl">
         <div className="brand-wraper d-flex justify-content-between">
-          <div className="brand-logo text-primary">AAA</div>
+          <Link to="/" className="brand-logo text-primary">
+            AAA
+          </Link>
           <div className="menu text-primary d-flex">
             <img
               className="uk-flag me-3"
