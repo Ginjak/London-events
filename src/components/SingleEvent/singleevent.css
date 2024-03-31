@@ -5,6 +5,7 @@
 .single-event-card {
   border-radius: 4px;
 }
+
 /* Card image container */
 .text-time-title-wraper {
   min-height: 350px;
@@ -40,6 +41,7 @@
 #single-event .events-by-venue {
   background: var(--white);
   color: var(--dark-blue);
+  border-radius: 0 0 0 4px;
 }
 #single-event .events-by-venue {
   padding-left: 24px;
@@ -91,15 +93,18 @@
 }
 
 /* Events by venue */
-#single-event .event-venue-date {
+#single-event .event-venue-date,
+#single-event .band-event-venue-date-wraper {
   text-align: center;
   padding: 15px;
   background: var(--deep-orange);
   border-radius: 50%;
   width: 75px;
   height: 75px;
+  transition: background 0.2s linear;
 }
-#single-event .event-venue-date p {
+#single-event .event-venue-date p,
+#single-event .band-event-venue-date-wraper p {
   font-family: "Raleway", sans-serif;
   font-weight: 600;
   color: var(--white);
@@ -113,18 +118,29 @@
   overflow-y: auto;
 }
 
-#single-event a.event-details-wraper {
+#single-event a.event-details-wraper,
+#single-event a.band-event-details-wraper {
   text-decoration: none;
 }
 #single-event .event-details-wraper {
   cursor: pointer;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   transition: background 0.2s linear;
+}
+#single-event .event-details-wraper:last-child {
+  border-bottom: none;
 }
 #single-event .event-details-wraper:hover .event-venue-date {
   background: var(--fire-red);
   transition: background 0.2s linear;
 }
 
+/* Events by Band */
+
+#single-event .band-events {
+  background: var(--dark-blue);
+  border-radius: 0 4px 4px 0;
+}
 /* Scroll bar in event */
 
 /* width */

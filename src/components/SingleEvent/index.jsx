@@ -75,7 +75,7 @@ const SingleEvent = () => {
     <div className="container-xxl py-5">
       <div className="text-dark">
         <div className="row single-event-card">
-          <div className="col-lg-6 px-0">
+          <div className="col-lg-6 px-0 ">
             <div
               className="text-time-title-wraper position-relative px-4 py-3 d-flex justify-content-center align-items-center"
               style={{ backgroundImage: `url(${eventBgImg})` }}
@@ -229,7 +229,46 @@ const SingleEvent = () => {
               </div>
             )}
           </div>
-          <div className="col-lg-6">asdas</div>
+          <div className="col-lg-6 px-0 band-events">
+            <div className="band-events-wraper px-4 py-3">
+              <p className="text-white">See where else "Band" is playing!</p>
+              <div className="more-events-by-band-wraper">
+                <Link className="band-event-details-wraper d-flex justify-content-between py-2">
+                  <div className="band-event-venue-date-wraper d-flex flex-column justify-content-center">
+                    <p className="m-0">Mar</p>
+                    <p className="m-0">20</p>
+                  </div>
+                  <div className="band-event-location-time ps-2 text-end d-flex flex-column justify-content-between">
+                    <p className="m-0">City</p>
+                    <p className="m-0">Venue</p>
+                    <p className="m-0">Time</p>
+                  </div>
+                </Link>
+                <Link className="band-event-details-wraper d-flex justify-content-between py-2">
+                  <div className="band-event-venue-date-wraper d-flex flex-column justify-content-center">
+                    <p className="m-0">Mar</p>
+                    <p className="m-0">20</p>
+                  </div>
+                  <div className="band-event-location-time ps-2 text-end d-flex flex-column justify-content-between">
+                    <p className="m-0">City</p>
+                    <p className="m-0">Venue</p>
+                    <p className="m-0">Time</p>
+                  </div>
+                </Link>
+                <Link className="band-event-details-wraper d-flex justify-content-between py-2">
+                  <div className="band-event-venue-date-wraper d-flex flex-column justify-content-center">
+                    <p className="m-0">Mar</p>
+                    <p className="m-0">20</p>
+                  </div>
+                  <div className="band-event-location-time ps-2 text-end d-flex flex-column justify-content-between">
+                    <p className="m-0">City</p>
+                    <p className="m-0">Venue</p>
+                    <p className="m-0">Time</p>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
