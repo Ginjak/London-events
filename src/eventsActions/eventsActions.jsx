@@ -100,3 +100,45 @@ export const eventByName = async (eventName = "") => {
     throw error;
   }
 };
+
+// Spotify API endpoints
+const SPOTIFY_API_URL = "https://api.spotify.com/v1";
+
+// Function to obtain access token using client credentials flow
+async function getAccessToken(clientId, clientSecret) {
+  const tokenEndpoint = "https://accounts.spotify.com/api/token";
+  const response = await axios.post(tokenEndpoint, {
+    grant_type: "client_credentials",
+    client_id: clientId,
+    client_secret: clientSecret,
+  });
+  return response.data.access_token;
+}
+
+// Function to fetch artist details from Spotify API
+export async function fetchSpotifyArtistDetails(
+  artistId,
+  clientId,
+  clientSecret
+) {
+  try {
+    // Obtain access token
+    const accessToken = await getAccessToken(clientId, clientSecret);
+
+    // Fetch artist details
+    const artistEndpoint = `${SPOTIFY_API_URL}/artists/${artistId}`;
+    const response = await axios.get(artistEndpoint, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching artist details:", error);
+    throw error;
+  }
+}
+
+// Fill in your Spotify API client ID and client secret here
+const CLIENT_ID = "98523425fd5d48dd9f4cce780d593f20";
+const CLIENT_SECRET = "638d9d933dc34be6bad91019d735fd2d";

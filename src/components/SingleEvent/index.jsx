@@ -20,6 +20,8 @@ const SingleEvent = () => {
   const [eventsByVenue, setEventsByVenue] = useState("");
   const [eventsByName, setEventsByName] = useState("");
 
+  const [artistDetails, setArtistDetails] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -178,7 +180,7 @@ const SingleEvent = () => {
                       aria-expanded="false"
                       aria-controls="flush-collapseOne"
                     >
-                      More events at {eventData?._embedded?.venues[0]?.name} A
+                      More events at {eventData?._embedded?.venues[0]?.name}
                     </button>
                   </h3>
                   <div
