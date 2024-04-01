@@ -260,9 +260,10 @@ const SingleEvent = () => {
               <div className="more-events-by-band-wraper">
                 {eventsByName.length > 1 ? (
                   eventsByName.map((event, index) => (
-                    <Link
+                    <div
                       className="band-event-details-wraper d-flex justify-content-between py-2"
                       key={index}
+                      onClick={() => handleEventUpdate(eventsByName[index].id)}
                     >
                       <div className="band-event-venue-date-wraper d-flex flex-column justify-content-center">
                         <p className="m-0">
@@ -300,7 +301,7 @@ const SingleEvent = () => {
                           </p>
                         )}
                       </div>
-                    </Link>
+                    </div>
                   ))
                 ) : (
                   <p>No results test</p>
