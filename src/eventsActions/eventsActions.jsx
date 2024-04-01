@@ -37,7 +37,7 @@ export const fetchEvents = async (
   eventType = "KnvZfZ7vAeA",
   limit = 5
 ) => {
-  const apiKey = "HjQcNIEkdwsQswwBQhfE1PO0smAoxyu4";
+  const apiKey = process.env.REACT_APP_TM_KEY;
   const apiUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apiKey}&countryCode=${country}&city=${city}&startDateTime=${startDate}&endDateTime=${endDate}&classificationName=music&genreId=${eventType}&size=${limit}&sort=date,asc`;
   try {
     const response = await axios.get(apiUrl);
