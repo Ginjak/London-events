@@ -54,10 +54,6 @@ const Hero = () => {
     fetchData();
   }, [formCity]); // Update when formCity changes
 
-  useEffect(() => {
-    console.log("Test:", events);
-  }, [events]); // Log when events state changes
-
   const heroBgUrl = {
     background: `url(${heroBg})`,
   };

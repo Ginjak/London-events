@@ -99,8 +99,6 @@ const EventsByCategory = () => {
     setCategory(event.target.value);
     setDisplayEvents(20);
     setRenderEvents(8);
-
-    console.log("Selected category:", event.target.value);
   };
 
   return (

@@ -58,23 +58,6 @@ const SingleEvent = () => {
     // setDatesSelected(false);
   }, [eventId]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       if (venueId) {
-  //         const data = await eventByVenue(venueId);
-  //         setEventsByVenue(data);
-  //         console.log("Search by Venue data:", data);
-  //       }
-  //     } catch (error) {
-  //       console.error(`Test ${error}`);
-  //     } finally {
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [venueId]);
-
   const handleEventUpdate = (updatedEventId) => {
     navigate(`/event/${updatedEventId}`);
   };
@@ -195,7 +178,7 @@ const SingleEvent = () => {
                       aria-expanded="false"
                       aria-controls="flush-collapseOne"
                     >
-                      More events at {eventData?._embedded?.venues[0]?.name}
+                      More events at {eventData?._embedded?.venues[0]?.name} A
                     </button>
                   </h3>
                   <div
