@@ -16,7 +16,6 @@ const SingleEvent = () => {
   const [eventData, setEventData] = useState(null);
   const [eventBgImg, setEventBgImg] = useState("");
   const [venueId, setVenueId] = useState(null);
-  const [eventName, setEventName] = useState(null);
   const [venueEventsNumber, setVenueEventsNumber] = useState(6);
   const [eventsByVenue, setEventsByVenue] = useState("");
   const [eventsByName, setEventsByName] = useState("");
@@ -31,11 +30,11 @@ const SingleEvent = () => {
         // setIsLoading(false);
 
         setEventBgImg(imageSizeApi(data.images, 700));
-        setVenueId(data._embedded.venues[0].id);
-        setEventName(data.name);
-
+        // setVenueId(data._embedded.venues[0].id);
         const eventDataByName = await eventByName(data.name);
         setEventsByName(eventDataByName);
+        const dataVenue = await eventByVenue(data._embedded.venues[0].id);
+        setEventsByVenue(dataVenue);
 
         console.log("Search by ID data:", data);
 
@@ -56,30 +55,13 @@ const SingleEvent = () => {
     // setDatesSelected(false);
   }, [eventId]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (venueId) {
-          const data = await eventByVenue(venueId);
-          setEventsByVenue(data);
-          console.log("Search by Venue data:", data);
-        }
-      } catch (error) {
-        console.error(`Test ${error}`);
-      } finally {
-      }
-    };
-
-    fetchData();
-  }, [venueId]);
-
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
-  //       if (eventName) {
-  //         const data = await eventByName(eventName);
-  //         setEventsByName(data);
-  //         console.log("Search by Name data:", data);
+  //       if (venueId) {
+  //         const data = await eventByVenue(venueId);
+  //         setEventsByVenue(data);
+  //         console.log("Search by Venue data:", data);
   //       }
   //     } catch (error) {
   //       console.error(`Test ${error}`);
@@ -88,7 +70,7 @@ const SingleEvent = () => {
   //   };
 
   //   fetchData();
-  // }, [eventId]);
+  // }, [venueId]);
 
   const handleEventUpdate = (updatedEventId) => {
     navigate(`/event/${updatedEventId}`);
@@ -258,52 +240,59 @@ const SingleEvent = () => {
           </div>
           <div className="col-lg-6 px-0 band-events">
             <div className="band-events-wraper px-4 py-3">
-              <p className="text-white">See where else "Band" is playing!</p>
+              {eventsByName.length > 1 && (
+                <p className="text-white">
+                  See where else {eventsByName[0].name} is playing!
+                </p>
+              )}
               <div className="more-events-by-band-wraper">
-                <Link className="band-event-details-wraper d-flex justify-content-between py-2">
-                  <div className="band-event-venue-date-wraper d-flex flex-column justify-content-center">
-                    <p className="m-0">Mar</p>
-                    <p className="m-0">20</p>
-                  </div>
-                  <div className="band-event-location-time ps-2 text-end d-flex flex-column justify-content-between">
-                    {eventsByName && <p>{eventsByName[0].name}</p>}
-                    {/* <p className="m-0">
-                      {eventsByName[0]._embedded.venues[0].name}
-                    </p>
-                    <p className="m-0">
-                      {eventsByName[0]._embedded.venues[0].city.name}
-                    </p>
-
-                    <p className="m-0">
-                      {eventsByName[0].dates.start.localTime
-                        .split(":")
-                        .slice(0, 2)
-                        .join(":")}
-                    </p> */}
-                  </div>
-                </Link>
-                <Link className="band-event-details-wraper d-flex justify-content-between py-2">
-                  <div className="band-event-venue-date-wraper d-flex flex-column justify-content-center">
-                    <p className="m-0">Mar</p>
-                    <p className="m-0">20</p>
-                  </div>
-                  <div className="band-event-location-time ps-2 text-end d-flex flex-column justify-content-between">
-                    <p className="m-0">City</p>
-                    <p className="m-0">Venue</p>
-                    <p className="m-0">Time</p>
-                  </div>
-                </Link>
-                <Link className="band-event-details-wraper d-flex justify-content-between py-2">
-                  <div className="band-event-venue-date-wraper d-flex flex-column justify-content-center">
-                    <p className="m-0">Mar</p>
-                    <p className="m-0">20</p>
-                  </div>
-                  <div className="band-event-location-time ps-2 text-end d-flex flex-column justify-content-between">
-                    <p className="m-0">City</p>
-                    <p className="m-0">Venue</p>
-                    <p className="m-0">Time</p>
-                  </div>
-                </Link>
+                {eventsByName.length > 1 ? (
+                  eventsByName.map((event, index) => (
+                    <Link
+                      className="band-event-details-wraper d-flex justify-content-between py-2"
+                      key={index}
+                    >
+                      <div className="band-event-venue-date-wraper d-flex flex-column justify-content-center">
+                        <p className="m-0">
+                          {new Date(
+                            eventsByName[index].dates.start.localDate
+                          ).toLocaleString("default", {
+                            month: "short",
+                          })}
+                        </p>
+                        <p className="m-0">
+                          {new Date(eventsByName[index].dates.start.localDate)
+                            .getDate()
+                            .toString()
+                            .padStart(2, "0")}
+                        </p>
+                      </div>
+                      <div className="band-event-location-time ps-2 text-end d-flex flex-column justify-content-between">
+                        {eventsByName && (
+                          <p className="mb-0">{eventsByName[index]?.name}</p>
+                        )}
+                        {eventsByName && (
+                          <p className="mb-0">
+                            {
+                              eventsByName[index]?._embedded?.venues[0]?.city
+                                ?.name
+                            }
+                          </p>
+                        )}
+                        {eventsByName && (
+                          <p className="mb-0">
+                            {eventsByName[index]?.dates?.start?.localTime
+                              .split(":")
+                              .slice(0, 2)
+                              .join(":")}
+                          </p>
+                        )}
+                      </div>
+                    </Link>
+                  ))
+                ) : (
+                  <p>No results test</p>
+                )}
               </div>
             </div>
           </div>
