@@ -26,6 +26,7 @@ const Hero = () => {
   const [eventTime, setEventTime] = useState("");
   const [eventGenre, setEventGenre] = useState("");
 
+  console.log("this is just a test", process.env.REACT_APP_TM_KEY);
   useEffect(() => {
     const fetchData = async () => {
       try {

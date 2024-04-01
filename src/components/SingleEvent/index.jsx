@@ -32,7 +32,10 @@ const SingleEvent = () => {
         setEventBgImg(imageSizeApi(data.images, 700));
         // setVenueId(data._embedded.venues[0].id);
         const eventDataByName = await eventByName(data.name);
-        setEventsByName(eventDataByName);
+        const filteredEvents = eventDataByName.filter(
+          (event) => event.name === data.name
+        );
+        setEventsByName(filteredEvents);
         const dataVenue = await eventByVenue(data._embedded.venues[0].id);
         setEventsByVenue(dataVenue);
 
@@ -175,65 +178,91 @@ const SingleEvent = () => {
               </div>
             </div>
             {eventData?._embedded?.venues?.[0] && (
-              <div className="events-by-venue py-3 ">
-                <h3 className="event-by-venue-title mb-3">
-                  More events at {eventData?._embedded?.venues[0]?.name}
-                </h3>
-                <div className="more-events-at-venue-wraper pe-2">
-                  {eventsByVenue &&
-                  eventsByVenue._embedded &&
-                  eventsByVenue._embedded.events.length > 0 ? (
-                    eventsByVenue._embedded.events.map((event, index) => (
-                      <ScrollLink
-                        to="single-event"
-                        smooth={true}
-                        duration={500}
-                        className="event-details-wraper d-flex justify-content-between py-2"
-                        key={index}
-                        onClick={() => handleEventUpdate(event.id)}
-                      >
-                        <div className="event-venue-date-wraper">
-                          <div className="event-venue-date d-flex flex-column justify-content-center ">
-                            <p className="m-0">
-                              {new Date(
-                                eventsByVenue._embedded.events[
-                                  index
-                                ].dates.start.localDate
-                              ).toLocaleString("default", {
-                                month: "short",
-                              })}
-                            </p>
+              <div
+                className="accordion accordion-flush"
+                id="accordionFlushExample"
+              >
+                <div className="accordion-item">
+                  <h3
+                    className="accordion-header event-by-venue-title"
+                    id="flush-headingOne"
+                  >
+                    <button
+                      className="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#flush-collapseOne"
+                      aria-expanded="false"
+                      aria-controls="flush-collapseOne"
+                    >
+                      More events at {eventData?._embedded?.venues[0]?.name}
+                    </button>
+                  </h3>
+                  <div
+                    id="flush-collapseOne"
+                    className="accordion-collapse collapse"
+                    aria-labelledby="flush-headingOne"
+                    data-bs-parent="#accordionFlushExample"
+                  >
+                    <div className="events-by-venue py-3 ">
+                      <div className="more-events-at-venue-wraper pe-2">
+                        {eventsByVenue &&
+                        eventsByVenue._embedded &&
+                        eventsByVenue._embedded.events.length > 0 ? (
+                          eventsByVenue._embedded.events.map((event, index) => (
+                            <ScrollLink
+                              to="single-event"
+                              smooth={true}
+                              duration={500}
+                              className="event-details-wraper d-flex justify-content-between py-2"
+                              key={index}
+                              onClick={() => handleEventUpdate(event.id)}
+                            >
+                              <div className="event-venue-date-wraper">
+                                <div className="event-venue-date d-flex flex-column justify-content-center ">
+                                  <p className="m-0">
+                                    {new Date(
+                                      eventsByVenue._embedded.events[
+                                        index
+                                      ].dates.start.localDate
+                                    ).toLocaleString("default", {
+                                      month: "short",
+                                    })}
+                                  </p>
 
-                            <p className="m-0">
-                              {new Date(
-                                eventsByVenue._embedded.events[
-                                  index
-                                ].dates.start.localDate
-                              )
-                                .getDate()
-                                .toString()
-                                .padStart(2, "0")}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="event-title-time-wraper ps-2 text-end d-flex flex-column justify-content-between">
-                          <p className="m-0">
-                            {eventsByVenue._embedded.events[index].name}
-                          </p>
-                          <p className="m-0 ">
-                            {eventsByVenue._embedded.events[
-                              index
-                            ].dates.start.localTime
-                              .split(":")
-                              .slice(0, 2)
-                              .join(":")}
-                          </p>
-                        </div>
-                      </ScrollLink>
-                    ))
-                  ) : (
-                    <p>ASDa</p>
-                  )}
+                                  <p className="m-0">
+                                    {new Date(
+                                      eventsByVenue._embedded.events[
+                                        index
+                                      ].dates.start.localDate
+                                    )
+                                      .getDate()
+                                      .toString()
+                                      .padStart(2, "0")}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="event-title-time-wraper ps-2 text-end d-flex flex-column justify-content-between">
+                                <p className="m-0">
+                                  {eventsByVenue._embedded.events[index].name}
+                                </p>
+                                <p className="m-0 ">
+                                  {eventsByVenue._embedded.events[
+                                    index
+                                  ].dates.start.localTime
+                                    .split(":")
+                                    .slice(0, 2)
+                                    .join(":")}
+                                </p>
+                              </div>
+                            </ScrollLink>
+                          ))
+                        ) : (
+                          <p>ASDa</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
@@ -241,9 +270,9 @@ const SingleEvent = () => {
           <div className="col-lg-6 px-0 band-events">
             <div className="band-events-wraper px-4 py-3">
               {eventsByName.length > 1 && (
-                <p className="text-white">
-                  See where else {eventsByName[0].name} is playing!
-                </p>
+                <h5 className="more-show-title ">
+                  More shows of {eventsByName[0].name}
+                </h5>
               )}
               <div className="more-events-by-band-wraper">
                 {eventsByName.length > 1 ? (
@@ -282,7 +311,7 @@ const SingleEvent = () => {
                         {eventsByName && (
                           <p className="mb-0">
                             {eventsByName[index]?.dates?.start?.localTime
-                              .split(":")
+                              ?.split(":")
                               .slice(0, 2)
                               .join(":")}
                           </p>

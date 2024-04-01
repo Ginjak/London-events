@@ -2,9 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import "./App.css";
-import Hero from "./components/Hero";
 import Header from "./components/Header";
-import Navbar from "./components/Navbar";
 import { CityProvider } from "./context/CityContext";
 import { EventIdProvider } from "./context/EventIdContext";
 import EventsByCategory from "./components/EventsByCategory";

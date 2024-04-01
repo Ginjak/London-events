@@ -42,14 +42,19 @@
 }
 
 #single-event .event-details-wraper,
-#single-event .events-by-venue {
+#single-event .events-by-venue,
+#single-event .event-by-venue-title button {
   background: var(--white);
   color: var(--dark-blue);
-  border-radius: 0 0 0 4px;
+}
+
+#single-event .event-by-venue-title .accordion-button:focus {
+  box-shadow: inset 0px 0px 0px 0.15rem rgba(28, 110, 140, 0.5);
 }
 #single-event .events-by-venue {
   padding-left: 24px;
   padding-right: 16px;
+  border-radius: 0 0 0 4px;
 }
 
 #single-event .genre-price-tickets {
@@ -60,7 +65,7 @@
 #single-event .price-from,
 #single-event .venue-name,
 #single-event .directions,
-#single-event .event-by-venue-title {
+#single-event .event-by-venue-title button {
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
@@ -72,6 +77,7 @@
 #single-event .event-title-time-wraper p {
   text-transform: none !important;
   color: var(--lighter-blue);
+  transition: all 0.2s linear;
 }
 
 #single-event .dates-btn {
@@ -130,17 +136,34 @@
 #single-event a.band-event-details-wraper {
   text-decoration: none;
 }
-#single-event .event-details-wraper {
+#single-event .event-details-wraper,
+#single-event .band-event-details-wraper {
   cursor: pointer;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   transition: background 0.2s linear;
 }
-#single-event .event-details-wraper:last-child {
+#single-event .event-details-wraper:last-child,
+#single-event .band-event-details-wraper:last-child {
   border-bottom: none;
 }
 #single-event .event-details-wraper:hover .event-venue-date {
   background: var(--fire-red);
   transition: background 0.2s linear;
+}
+#single-event .event-details-wraper:hover .event-title-time-wraper p {
+  color: var(--fire-red);
+  font-weight: 500;
+  transition: all 0.2s linear;
+}
+
+#single-event .band-event-details-wraper:hover .band-event-venue-date-wraper {
+  background: var(--lighter-blue);
+  transition: background 0.2s linear;
+}
+#single-event .band-event-details-wraper:hover .band-event-location-time {
+  color: var(--grey);
+  transition: all 0.2s linear;
+  font-weight: 500;
 }
 
 /* Events by Band */
@@ -149,9 +172,13 @@
   background: var(--dark-blue);
   border-radius: 0 4px 4px 0;
 }
+#single-event .more-show-title {
+  color: var(--white);
+}
 
 #single-event .band-event-location-time {
   color: var(--white);
+  transition: all 0.2s linear;
 }
 
 /* Scroll bar in event */
