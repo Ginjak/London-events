@@ -10,6 +10,8 @@ import {
   fetchLastFmTrack,
   fetchLastFmToken,
 } from "../../eventsActions/eventsActions";
+import Play from "../Play";
+
 import { imageSizeApi } from "../../eventsActions/utilityFunctions";
 import axios from "axios";
 
@@ -104,6 +106,7 @@ const SingleEvent = () => {
 
   return (
     <div className="container-xxl py-5">
+      <Play />
       <audio controls>
         <source
           src="https://www.last.fm/music/Luis+Fonsi/_/Despacito+-+Remix"
