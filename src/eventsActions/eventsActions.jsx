@@ -28,6 +28,8 @@ export const endDateForApi = (date) => {
   return formattedDate.toISOString().slice(0, -5) + "Z";
 };
 
+// TICKETMASTER API
+
 // Fetching Ticketmaster api details with default values that can be overwritten
 export const fetchEvents = async (
   country = "GB",
@@ -74,9 +76,9 @@ export const eventById = async (eventId = "") => {
   }
 };
 
+// Fetching event by Venue
 export const eventByVenue = async (venueId = "KovZ9177kof") => {
   const apiKey = import.meta.env.VITE_TM_KEY;
-  // const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?venueId=${venueId}apikey=${apiKey}&countryCode=GB&size=${limit}&sort=date,asc`;
   const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?venueId=${venueId}&apikey=${apiKey}&countryCode=GB&sort=date,asc`;
   try {
     const response = await axios.get(apiUrl);
@@ -87,6 +89,7 @@ export const eventByVenue = async (venueId = "KovZ9177kof") => {
   }
 };
 
+// Fething event by name
 export const eventByName = async (eventName = "") => {
   const apiKey = import.meta.env.VITE_TM_KEY;
   const apiUrl = `https://app.ticketmaster.com/discovery/v2/events?keyword=${eventName}&apikey=${apiKey}&countryCode=GB&sort=date,asc`;
@@ -101,44 +104,74 @@ export const eventByName = async (eventName = "") => {
   }
 };
 
-// Spotify API endpoints
-const SPOTIFY_API_URL = "https://api.spotify.com/v1";
+// Last.fm API
 
-// Function to obtain access token using client credentials flow
-async function getAccessToken(clientId, clientSecret) {
-  const tokenEndpoint = "https://accounts.spotify.com/api/token";
-  const response = await axios.post(tokenEndpoint, {
-    grant_type: "client_credentials",
-    client_id: clientId,
-    client_secret: clientSecret,
-  });
-  return response.data.access_token;
-}
+// Fetch Last.fm Token
 
-// Function to fetch artist details from Spotify API
-export async function fetchSpotifyArtistDetails(
-  artistId,
-  clientId,
-  clientSecret
-) {
+export const fetchLastFmToken = async () => {
+  const apiKey = import.meta.env.VITE_LAST_FM_API;
   try {
-    // Obtain access token
-    const accessToken = await getAccessToken(clientId, clientSecret);
+    const response = await fetch(
+      `http://ws.audioscrobbler.com/2.0/?method=auth.gettoken&api_key=${apiKey}&format=json`
+    );
 
-    // Fetch artist details
-    const artistEndpoint = `${SPOTIFY_API_URL}/artists/${artistId}`;
-    const response = await axios.get(artistEndpoint, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
+    if (!response.ok) {
+      throw new Error("Failed to fetch unauthorized token");
+    }
+
+    const data = await response.json();
+    console.log("API Response:", data); // Log the response from Last.fm API
+
+    if (data.token) {
+      const token = data.token;
+      return token;
+    } else {
+      throw new Error("Invalid response from Last.fm API");
+    }
   } catch (error) {
-    console.error("Error fetching artist details:", error);
+    console.error("Error fetching unauthorized token:", error);
     throw error;
   }
-}
+};
 
-// Fill in your Spotify API client ID and client secret here
-const CLIENT_ID = "98523425fd5d48dd9f4cce780d593f20";
-const CLIENT_SECRET = "638d9d933dc34be6bad91019d735fd2d";
+// Fetch Last.fm details about artis depending on selected "getInfo"
+export const fetchLastFmArtistData = async (
+  getInfo = "getinfo",
+  artistName
+) => {
+  const apiKey = import.meta.env.VITE_LAST_FM_API;
+  const apiUrl = `http://ws.audioscrobbler.com/2.0/?method=artist.${getInfo}&artist=${artistName}&api_key=${apiKey}&format=json`;
+
+  try {
+    const response = await axios.get(apiUrl);
+    const data = response.data;
+    console.log("Artist bio: ", data);
+    return data;
+  } catch (error) {
+    console.error("Error fetching artist bio:", error);
+    throw error;
+  }
+};
+
+// Fetch Last.fm track by artist and track name
+
+export const fetchLastFmTrack = async (
+  trackName = "Despacito",
+  artistName = "Luis Fonsi"
+) => {
+  const apiKey = import.meta.env.VITE_LAST_FM_API;
+  const apiUrl = `http://ws.audioscrobbler.com/2.0/?method=track.search&track=${trackName}&artist=${artistName}&api_key=${apiKey}&format=json`;
+
+  try {
+    const response = await axios.get(apiUrl);
+    const data = response.data;
+    console.log("Track details", data);
+    return data;
+  } catch (error) {
+    console.error("Error fetching artist bio:", error);
+    throw error;
+  }
+};
+
+// const lastFmApi = "ca1ab57b95e69724bc082828ee30c493";
+// const lastFmSec = "7247ee743e946b473c12b8ca12288e45";

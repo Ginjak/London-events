@@ -6,6 +6,9 @@ import {
   eventById,
   eventByVenue,
   eventByName,
+  fetchLastFmArtistData,
+  fetchLastFmTrack,
+  fetchLastFmToken,
 } from "../../eventsActions/eventsActions";
 import { imageSizeApi } from "../../eventsActions/utilityFunctions";
 import axios from "axios";
@@ -19,8 +22,19 @@ const SingleEvent = () => {
   const [venueEventsNumber, setVenueEventsNumber] = useState(6);
   const [eventsByVenue, setEventsByVenue] = useState("");
   const [eventsByName, setEventsByName] = useState("");
+  const [artistBio, setArtistBio] = useState("");
+  const [artistTopAlbums, setArtistTopAlbums] = useState("");
+  const [artistTopTracks, setArtistTopTracks] = useState("");
 
-  const [artistDetails, setArtistDetails] = useState(null);
+  useEffect(() => {
+    fetchLastFmToken()
+      .then((token) => {
+        console.log("Token:", token);
+      })
+      .catch((error) => {
+        // Handle errors
+      });
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,6 +54,26 @@ const SingleEvent = () => {
         setEventsByName(filteredEvents);
         const dataVenue = await eventByVenue(data._embedded.venues[0].id);
         setEventsByVenue(dataVenue);
+        // Get artist Bio data
+        const artistBioData = await fetchLastFmArtistData(undefined, data.name);
+        setArtistBio(artistBioData);
+        // Get artist top Album
+        const artistTopAlb = await fetchLastFmArtistData(
+          "gettopalbums",
+          data.name
+        );
+        setArtistTopAlbums(artistTopAlb);
+
+        // Get artist top Tracks
+        const artistTopTrc = await fetchLastFmArtistData(
+          "gettoptracks",
+          data.name
+        );
+        setArtistTopTracks(artistTopTrc);
+
+        // Get track details
+
+        const artistTrackDetails = await fetchLastFmTrack(undefined, undefined);
 
         console.log("Search by ID data:", data);
 
@@ -70,6 +104,13 @@ const SingleEvent = () => {
 
   return (
     <div className="container-xxl py-5">
+      <audio controls>
+        <source
+          src="https://www.last.fm/music/Luis+Fonsi/_/Despacito+-+Remix"
+          type="audio/mpeg"
+        />
+        Your browser does not support the audio element.
+      </audio>
       <div className="text-dark">
         <div className="row single-event-card">
           <div className="col-lg-6 px-0 ">
