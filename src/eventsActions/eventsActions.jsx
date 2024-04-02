@@ -106,34 +106,6 @@ export const eventByName = async (eventName = "") => {
 
 // Last.fm API
 
-// Fetch Last.fm Token
-
-export const fetchLastFmToken = async () => {
-  const apiKey = import.meta.env.VITE_LAST_FM_API;
-  try {
-    const response = await fetch(
-      `http://ws.audioscrobbler.com/2.0/?method=auth.gettoken&api_key=${apiKey}&format=json`
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch unauthorized token");
-    }
-
-    const data = await response.json();
-    console.log("API Response:", data); // Log the response from Last.fm API
-
-    if (data.token) {
-      const token = data.token;
-      return token;
-    } else {
-      throw new Error("Invalid response from Last.fm API");
-    }
-  } catch (error) {
-    console.error("Error fetching unauthorized token:", error);
-    throw error;
-  }
-};
-
 // Fetch Last.fm details about artis depending on selected "getInfo"
 export const fetchLastFmArtistData = async (
   getInfo = "getinfo",

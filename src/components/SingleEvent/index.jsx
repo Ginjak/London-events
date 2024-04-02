@@ -8,9 +8,7 @@ import {
   eventByName,
   fetchLastFmArtistData,
   fetchLastFmTrack,
-  fetchLastFmToken,
 } from "../../eventsActions/eventsActions";
-import Play from "../Play";
 
 import { imageSizeApi } from "../../eventsActions/utilityFunctions";
 import axios from "axios";
@@ -27,16 +25,6 @@ const SingleEvent = () => {
   const [artistBio, setArtistBio] = useState("");
   const [artistTopAlbums, setArtistTopAlbums] = useState("");
   const [artistTopTracks, setArtistTopTracks] = useState("");
-
-  useEffect(() => {
-    fetchLastFmToken()
-      .then((token) => {
-        console.log("Token:", token);
-      })
-      .catch((error) => {
-        // Handle errors
-      });
-  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -106,14 +94,6 @@ const SingleEvent = () => {
 
   return (
     <div className="container-xxl py-5">
-      <Play />
-      <audio controls>
-        <source
-          src="https://www.last.fm/music/Luis+Fonsi/_/Despacito+-+Remix"
-          type="audio/mpeg"
-        />
-        Your browser does not support the audio element.
-      </audio>
       <div className="text-dark">
         <div className="row single-event-card">
           <div className="col-lg-6 px-0 ">
@@ -297,6 +277,85 @@ const SingleEvent = () => {
             )}
           </div>
           <div className="col-lg-6 px-0 band-events">
+            <ul className="nav mt-4" id="myTabs" role="tablist">
+              <li className="nav-item" role="presentation">
+                <button
+                  className="nav-link active"
+                  id="bio-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#bio"
+                  type="button"
+                  role="tab"
+                  aria-controls="bio"
+                  aria-selected="true"
+                >
+                  Bio
+                </button>
+              </li>
+              <li className="nav-item" role="presentation">
+                <button
+                  className="nav-link"
+                  id="top-albums-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#top-albums"
+                  type="button"
+                  role="tab"
+                  aria-controls="top-albums"
+                  aria-selected="false"
+                >
+                  Top Albums
+                </button>
+              </li>
+              <li className="nav-item" role="presentation">
+                <button
+                  className="nav-link"
+                  id="top-tracks-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#top-tracks"
+                  type="button"
+                  role="tab"
+                  aria-controls="top-tracks"
+                  aria-selected="false"
+                >
+                  Top Tracks
+                </button>
+              </li>
+            </ul>
+
+            <div className="tab-content mt-4">
+              <div
+                className="tab-pane fade show active"
+                id="bio"
+                role="tabpanel"
+                aria-labelledby="bio-tab"
+              >
+                {artistBio && (
+                  <p>
+                    {artistBio.artist.bio.summary.replace(
+                      /<a [^>]+>[^<]*<\/a>/g,
+                      ""
+                    )}
+                  </p>
+                )}
+              </div>
+              <div
+                className="tab-pane fade"
+                id="top-albums"
+                role="tabpanel"
+                aria-labelledby="top-albums-tab"
+              >
+                <p>Content for Tab 2</p>
+              </div>
+              <div
+                className="tab-pane fade"
+                id="top-tracks"
+                role="tabpanel"
+                aria-labelledby="top-albums-tab"
+              >
+                <p>Content for Tab Tracks 3</p>
+              </div>
+            </div>
+
             <div className="band-events-wraper px-4 py-3">
               {eventsByName.length > 1 && (
                 <h5 className="more-show-title ">
