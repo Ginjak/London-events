@@ -26,6 +26,12 @@ const SingleEvent = () => {
   const [artistTopAlbums, setArtistTopAlbums] = useState("");
   const [artistTopTracks, setArtistTopTracks] = useState("");
 
+  const [isButtonToggled, setIsButtonToggled] = useState(false);
+
+  const handleButtonClick = () => {
+    setIsButtonToggled((prevState) => !prevState);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -197,12 +203,15 @@ const SingleEvent = () => {
                     id="flush-headingOne"
                   >
                     <button
-                      className="accordion-button collapsed"
+                      className={`accordion-button ${
+                        isButtonToggled ? "" : "collapsed"
+                      }`}
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target="#flush-collapseOne"
-                      aria-expanded="false"
+                      aria-expanded={isButtonToggled ? "true" : "false"}
                       aria-controls="flush-collapseOne"
+                      onClick={handleButtonClick}
                     >
                       More events at {eventData?._embedded?.venues[0]?.name}
                     </button>
@@ -277,94 +286,162 @@ const SingleEvent = () => {
             )}
           </div>
           <div className="col-lg-6 px-0 band-events">
-            {artistBio.artist && eventsByName.length > 1 && (
+            {artistBio.artist && eventsByName.length > 1 ? (
               <div className="artist-info px-4 py-3">
-                <ul className="nav mt-4" id="myTabs" role="tablist">
-                  <li className="nav-item" role="presentation">
-                    <button
-                      className="nav-link active"
-                      id="bio-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#bio"
-                      type="button"
-                      role="tab"
-                      aria-controls="bio"
-                      aria-selected="true"
-                    >
-                      Bio
-                    </button>
-                  </li>
-                  <li className="nav-item" role="presentation">
-                    <button
-                      className="nav-link"
-                      id="top-albums-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#top-albums"
-                      type="button"
-                      role="tab"
-                      aria-controls="top-albums"
-                      aria-selected="false"
-                    >
-                      Top Albums
-                    </button>
-                  </li>
-                  <li className="nav-item" role="presentation">
-                    <button
-                      className="nav-link"
-                      id="top-tracks-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#top-tracks"
-                      type="button"
-                      role="tab"
-                      aria-controls="top-tracks"
-                      aria-selected="false"
-                    >
-                      Top Tracks
-                    </button>
-                  </li>
-                </ul>
+                <div className="artist-info-container">
+                  <ul className="nav mt-0" id="myTabs" role="tablist">
+                    {artistBio.artist.bio.summary && (
+                      <li className="nav-item" role="presentation">
+                        <button
+                          className="nav-link active"
+                          id="bio-tab"
+                          data-bs-toggle="tab"
+                          data-bs-target="#bio"
+                          type="button"
+                          role="tab"
+                          aria-controls="bio"
+                          aria-selected="true"
+                        >
+                          Bio
+                        </button>
+                      </li>
+                    )}
+                    {artistTopAlbums.topalbums && (
+                      <li className="nav-item" role="presentation">
+                        <button
+                          className="nav-link"
+                          id="top-albums-tab"
+                          data-bs-toggle="tab"
+                          data-bs-target="#top-albums"
+                          type="button"
+                          role="tab"
+                          aria-controls="top-albums"
+                          aria-selected="false"
+                        >
+                          Top Albums
+                        </button>
+                      </li>
+                    )}
+                    {artistTopTracks.toptracks && (
+                      <li className="nav-item" role="presentation">
+                        <button
+                          className="nav-link"
+                          id="top-tracks-tab"
+                          data-bs-toggle="tab"
+                          data-bs-target="#top-tracks"
+                          type="button"
+                          role="tab"
+                          aria-controls="top-tracks"
+                          aria-selected="false"
+                        >
+                          Top Tracks
+                        </button>
+                      </li>
+                    )}
+                  </ul>
 
-                <div className="tab-content mt-4">
-                  <div
-                    className="tab-pane fade show active"
-                    id="bio"
-                    role="tabpanel"
-                    aria-labelledby="bio-tab"
-                  >
-                    {artistBio && (
-                      <p>
-                        {artistBio?.artist?.bio?.summary?.replace(
-                          /<a [^>]+>[^<]*<\/a>/g,
-                          ""
-                        )}
-                      </p>
+                  <div className="tab-content mt-2">
+                    <div
+                      className="tab-pane fade show active"
+                      id="bio"
+                      role="tabpanel"
+                      aria-labelledby="bio-tab"
+                    >
+                      {artistBio.artist.bio.summary && (
+                        <p className="artist-bio-summary">
+                          {artistBio?.artist?.bio?.summary?.replace(
+                            /<a [^>]+>[^<]*<\/a>/g,
+                            ""
+                          )}
+                        </p>
+                      )}
+                    </div>
+                    {artistTopAlbums.topalbums && (
+                      <div
+                        className="tab-pane fade"
+                        id="top-albums"
+                        role="tabpanel"
+                        aria-labelledby="top-albums-tab"
+                      >
+                        <div className=" top-albums-wraper row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-2 row-cols-xl-3 g-4">
+                          {artistTopAlbums.topalbums.album
+                            .slice(0, 12)
+                            .map((album, index) => {
+                              const albumImage = album.image[2]["#text"];
+                              const albumName = album.name;
+                              const albumUrl = album.url;
+
+                              if (
+                                albumImage !== "(null)" &&
+                                albumImage !== "" &&
+                                albumName !== "(null)"
+                              ) {
+                                return (
+                                  <a
+                                    href={albumUrl}
+                                    target="_blank"
+                                    key={index}
+                                  >
+                                    <div className="album-wraper col">
+                                      <div
+                                        className="album-image-wraper position-relative"
+                                        style={{
+                                          backgroundImage: `url(${albumImage})`,
+                                        }}
+                                      >
+                                        <p className="album-title mb-0">
+                                          {albumName}
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </a>
+                                );
+                              }
+                            })}
+                        </div>
+                      </div>
+                    )}
+                    {artistTopTracks.toptracks && (
+                      <div
+                        className="tab-pane fade"
+                        id="top-tracks"
+                        role="tabpanel"
+                        aria-labelledby="top-albums-tab"
+                      >
+                        <ol className="top-tracks-list">
+                          {artistTopTracks.toptracks.track
+                            .slice(0, 10)
+                            .map((track, index) => {
+                              const trackName = track.name;
+                              const trackUrl = track.url;
+                              if (trackName !== "(null)" && trackName !== "") {
+                                return (
+                                  <li key={index}>
+                                    <a href={trackUrl} target="_blank">
+                                      {trackName}
+                                    </a>
+                                  </li>
+                                );
+                              }
+                            })}
+                        </ol>
+                      </div>
                     )}
                   </div>
-                  <div
-                    className="tab-pane fade"
-                    id="top-albums"
-                    role="tabpanel"
-                    aria-labelledby="top-albums-tab"
-                  >
-                    <p>Content for Tab 2</p>
-                  </div>
-                  <div
-                    className="tab-pane fade"
-                    id="top-tracks"
-                    role="tabpanel"
-                    aria-labelledby="top-albums-tab"
-                  >
-                    <p>Content for Tab Tracks 3</p>
-                  </div>
                 </div>
-
-                <div className="band-events-wraper px-4 py-3">
+                <div
+                  className="band-events-wraper  py-3"
+                  style={{ height: isButtonToggled ? "530px" : "232px" }}
+                >
                   {eventsByName.length > 1 && (
                     <h5 className="more-show-title ">
                       More shows of {eventsByName[0].name}
                     </h5>
                   )}
-                  <div className="more-events-by-band-wraper">
+                  <div
+                    className="more-events-by-band-wraper"
+                    style={{ height: isButtonToggled ? "500px" : "182px" }}
+                  >
                     {eventsByName.length > 1 ? (
                       eventsByName.map((event, index) => (
                         <div
@@ -422,6 +499,8 @@ const SingleEvent = () => {
                   </div>
                 </div>
               </div>
+            ) : (
+              <p>No Data</p>
             )}
           </div>
         </div>

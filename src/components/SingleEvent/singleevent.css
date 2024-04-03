@@ -40,7 +40,9 @@
   margin-top: -30px;
   z-index: 2;
 }
-
+#single-event .event-details-wraper {
+  padding-bottom: 24px !important;
+}
 #single-event .event-details-wraper,
 #single-event .events-by-venue,
 #single-event .event-by-venue-title button {
@@ -181,6 +183,87 @@
   transition: all 0.2s linear;
 }
 
+/* Artist info */
+#single-event .artist-info {
+  padding-bottom: 0 !important;
+}
+/* Artistion information container */
+.artist-info-container {
+  height: 334px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+/* Artist bio/albums/tracks tabs */
+.artist-info .nav .nav-link {
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  color: var(--white);
+  font-size: 18px;
+  line-height: 18px;
+  padding: 15px 16px;
+}
+.artist-info .nav .nav-link:first-child {
+  padding-left: 0px;
+}
+.artist-info .nav .nav-link.active {
+  color: var(--grey);
+}
+/* Top Albums */
+.album-image-wraper {
+  width: 174px;
+  height: 174px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.album-image-wraper:hover .album-title {
+  left: 0;
+  transition: left 0.2s linear;
+}
+
+.album-image-wraper .album-title {
+  padding: 0 10px;
+  position: absolute;
+  display: flex;
+  left: 100%;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--white);
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  transition: left 0.2s linear;
+}
+
+/* Top Tracks */
+
+.top-tracks-list,
+.top-tracks-list a,
+.artist-bio-summary {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 500;
+  font-family: "Raleway", sans-serif;
+  font-size: 16px;
+}
+
+/* More shows of a artist */
+.band-events-wraper {
+  height: 232px;
+  overflow: hidden;
+  padding: 0 !important;
+}
+
+.more-events-by-band-wraper {
+  height: 182px;
+  overflow: auto;
+}
+
+#single-event .more-events-by-band-wraper .band-event-details-wraper {
+  padding-right: 13px;
+}
 /* Scroll bar in event */
 
 /* width */
@@ -191,6 +274,15 @@
 
 /* Track */
 #single-event ::-webkit-scrollbar-track {
+  background: var(--white);
+}
+
+#single-event .artist-info-container::-webkit-scrollbar-track,
+#single-event .more-events-by-band-wraper::-webkit-scrollbar-track {
+  background: var(--dark-blue);
+}
+
+#single-event .artist-info-container::-webkit-scrollbar-thumb:hover {
   background: var(--white);
 }
 
@@ -206,7 +298,9 @@
 }
 
 @media (max-width: 992px) {
-  #single-event ::-webkit-scrollbar {
+  #single-event ::-webkit-scrollbar,
+  #single-event .artist-info-container::-webkit-scrollbar,
+  #single-event .more-events-by-band-wraper::-webkit-scrollbar {
     display: none;
   }
 }
