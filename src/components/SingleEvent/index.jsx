@@ -277,142 +277,152 @@ const SingleEvent = () => {
             )}
           </div>
           <div className="col-lg-6 px-0 band-events">
-            <ul className="nav mt-4" id="myTabs" role="tablist">
-              <li className="nav-item" role="presentation">
-                <button
-                  className="nav-link active"
-                  id="bio-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#bio"
-                  type="button"
-                  role="tab"
-                  aria-controls="bio"
-                  aria-selected="true"
-                >
-                  Bio
-                </button>
-              </li>
-              <li className="nav-item" role="presentation">
-                <button
-                  className="nav-link"
-                  id="top-albums-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#top-albums"
-                  type="button"
-                  role="tab"
-                  aria-controls="top-albums"
-                  aria-selected="false"
-                >
-                  Top Albums
-                </button>
-              </li>
-              <li className="nav-item" role="presentation">
-                <button
-                  className="nav-link"
-                  id="top-tracks-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#top-tracks"
-                  type="button"
-                  role="tab"
-                  aria-controls="top-tracks"
-                  aria-selected="false"
-                >
-                  Top Tracks
-                </button>
-              </li>
-            </ul>
-
-            <div className="tab-content mt-4">
-              <div
-                className="tab-pane fade show active"
-                id="bio"
-                role="tabpanel"
-                aria-labelledby="bio-tab"
-              >
-                {artistBio && (
-                  <p>
-                    {artistBio.artist.bio.summary.replace(
-                      /<a [^>]+>[^<]*<\/a>/g,
-                      ""
-                    )}
-                  </p>
-                )}
-              </div>
-              <div
-                className="tab-pane fade"
-                id="top-albums"
-                role="tabpanel"
-                aria-labelledby="top-albums-tab"
-              >
-                <p>Content for Tab 2</p>
-              </div>
-              <div
-                className="tab-pane fade"
-                id="top-tracks"
-                role="tabpanel"
-                aria-labelledby="top-albums-tab"
-              >
-                <p>Content for Tab Tracks 3</p>
-              </div>
-            </div>
-
-            <div className="band-events-wraper px-4 py-3">
-              {eventsByName.length > 1 && (
-                <h5 className="more-show-title ">
-                  More shows of {eventsByName[0].name}
-                </h5>
-              )}
-              <div className="more-events-by-band-wraper">
-                {eventsByName.length > 1 ? (
-                  eventsByName.map((event, index) => (
-                    <div
-                      className="band-event-details-wraper d-flex justify-content-between py-2"
-                      key={index}
-                      onClick={() => handleEventUpdate(eventsByName[index].id)}
+            {artistBio.artist && eventsByName.length > 1 && (
+              <div className="artist-info px-4 py-3">
+                <ul className="nav mt-4" id="myTabs" role="tablist">
+                  <li className="nav-item" role="presentation">
+                    <button
+                      className="nav-link active"
+                      id="bio-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#bio"
+                      type="button"
+                      role="tab"
+                      aria-controls="bio"
+                      aria-selected="true"
                     >
-                      <div className="band-event-venue-date-wraper d-flex flex-column justify-content-center">
-                        <p className="m-0">
-                          {new Date(
-                            eventsByName[index].dates.start.localDate
-                          ).toLocaleString("default", {
-                            month: "short",
-                          })}
-                        </p>
-                        <p className="m-0">
-                          {new Date(eventsByName[index].dates.start.localDate)
-                            .getDate()
-                            .toString()
-                            .padStart(2, "0")}
-                        </p>
-                      </div>
-                      <div className="band-event-location-time ps-2 text-end d-flex flex-column justify-content-between">
-                        {eventsByName && (
-                          <p className="mb-0">{eventsByName[index]?.name}</p>
+                      Bio
+                    </button>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <button
+                      className="nav-link"
+                      id="top-albums-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#top-albums"
+                      type="button"
+                      role="tab"
+                      aria-controls="top-albums"
+                      aria-selected="false"
+                    >
+                      Top Albums
+                    </button>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <button
+                      className="nav-link"
+                      id="top-tracks-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#top-tracks"
+                      type="button"
+                      role="tab"
+                      aria-controls="top-tracks"
+                      aria-selected="false"
+                    >
+                      Top Tracks
+                    </button>
+                  </li>
+                </ul>
+
+                <div className="tab-content mt-4">
+                  <div
+                    className="tab-pane fade show active"
+                    id="bio"
+                    role="tabpanel"
+                    aria-labelledby="bio-tab"
+                  >
+                    {artistBio && (
+                      <p>
+                        {artistBio?.artist?.bio?.summary?.replace(
+                          /<a [^>]+>[^<]*<\/a>/g,
+                          ""
                         )}
-                        {eventsByName && (
-                          <p className="mb-0">
-                            {
-                              eventsByName[index]?._embedded?.venues[0]?.city
-                                ?.name
-                            }
-                          </p>
-                        )}
-                        {eventsByName && (
-                          <p className="mb-0">
-                            {eventsByName[index]?.dates?.start?.localTime
-                              ?.split(":")
-                              .slice(0, 2)
-                              .join(":")}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <p>No results test</p>
-                )}
+                      </p>
+                    )}
+                  </div>
+                  <div
+                    className="tab-pane fade"
+                    id="top-albums"
+                    role="tabpanel"
+                    aria-labelledby="top-albums-tab"
+                  >
+                    <p>Content for Tab 2</p>
+                  </div>
+                  <div
+                    className="tab-pane fade"
+                    id="top-tracks"
+                    role="tabpanel"
+                    aria-labelledby="top-albums-tab"
+                  >
+                    <p>Content for Tab Tracks 3</p>
+                  </div>
+                </div>
+
+                <div className="band-events-wraper px-4 py-3">
+                  {eventsByName.length > 1 && (
+                    <h5 className="more-show-title ">
+                      More shows of {eventsByName[0].name}
+                    </h5>
+                  )}
+                  <div className="more-events-by-band-wraper">
+                    {eventsByName.length > 1 ? (
+                      eventsByName.map((event, index) => (
+                        <div
+                          className="band-event-details-wraper d-flex justify-content-between py-2"
+                          key={index}
+                          onClick={() =>
+                            handleEventUpdate(eventsByName[index].id)
+                          }
+                        >
+                          <div className="band-event-venue-date-wraper d-flex flex-column justify-content-center">
+                            <p className="m-0">
+                              {new Date(
+                                eventsByName[index].dates.start.localDate
+                              ).toLocaleString("default", {
+                                month: "short",
+                              })}
+                            </p>
+                            <p className="m-0">
+                              {new Date(
+                                eventsByName[index].dates.start.localDate
+                              )
+                                .getDate()
+                                .toString()
+                                .padStart(2, "0")}
+                            </p>
+                          </div>
+                          <div className="band-event-location-time ps-2 text-end d-flex flex-column justify-content-between">
+                            {eventsByName && (
+                              <p className="mb-0">
+                                {eventsByName[index]?.name}
+                              </p>
+                            )}
+                            {eventsByName && (
+                              <p className="mb-0">
+                                {
+                                  eventsByName[index]?._embedded?.venues[0]
+                                    ?.city?.name
+                                }
+                              </p>
+                            )}
+                            {eventsByName && (
+                              <p className="mb-0">
+                                {eventsByName[index]?.dates?.start?.localTime
+                                  ?.split(":")
+                                  .slice(0, 2)
+                                  .join(":")}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <p>No results test</p>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
