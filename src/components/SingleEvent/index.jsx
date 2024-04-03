@@ -232,46 +232,49 @@ const SingleEvent = () => {
                               to="single-event"
                               smooth={true}
                               duration={500}
-                              className="event-details-wraper d-flex justify-content-between py-2"
-                              key={index}
-                              onClick={() => handleEventUpdate(event.id)}
                             >
-                              <div className="event-venue-date-wraper">
-                                <div className="event-venue-date d-flex flex-column justify-content-center ">
-                                  <p className="m-0">
-                                    {new Date(
-                                      eventsByVenue._embedded.events[
-                                        index
-                                      ].dates.start.localDate
-                                    ).toLocaleString("default", {
-                                      month: "short",
-                                    })}
-                                  </p>
+                              <div
+                                className="event-details-wraper d-flex justify-content-between py-2"
+                                key={index}
+                                onClick={() => handleEventUpdate(event.id)}
+                              >
+                                <div className="event-venue-date-wraper">
+                                  <div className="event-venue-date d-flex flex-column justify-content-center ">
+                                    <p className="m-0">
+                                      {new Date(
+                                        eventsByVenue._embedded.events[
+                                          index
+                                        ].dates.start.localDate
+                                      ).toLocaleString("default", {
+                                        month: "short",
+                                      })}
+                                    </p>
 
+                                    <p className="m-0">
+                                      {new Date(
+                                        eventsByVenue._embedded.events[
+                                          index
+                                        ].dates.start.localDate
+                                      )
+                                        .getDate()
+                                        .toString()
+                                        .padStart(2, "0")}
+                                    </p>
+                                  </div>
+                                </div>
+                                <div className="event-title-time-wraper ps-2 text-end d-flex flex-column justify-content-between">
                                   <p className="m-0">
-                                    {new Date(
-                                      eventsByVenue._embedded.events[
-                                        index
-                                      ].dates.start.localDate
-                                    )
-                                      .getDate()
-                                      .toString()
-                                      .padStart(2, "0")}
+                                    {eventsByVenue._embedded.events[index].name}
+                                  </p>
+                                  <p className="m-0 ">
+                                    {eventsByVenue._embedded.events[
+                                      index
+                                    ].dates.start.localTime
+                                      .split(":")
+                                      .slice(0, 2)
+                                      .join(":")}
                                   </p>
                                 </div>
-                              </div>
-                              <div className="event-title-time-wraper ps-2 text-end d-flex flex-column justify-content-between">
-                                <p className="m-0">
-                                  {eventsByVenue._embedded.events[index].name}
-                                </p>
-                                <p className="m-0 ">
-                                  {eventsByVenue._embedded.events[
-                                    index
-                                  ].dates.start.localTime
-                                    .split(":")
-                                    .slice(0, 2)
-                                    .join(":")}
-                                </p>
                               </div>
                             </ScrollLink>
                           ))
@@ -444,7 +447,10 @@ const SingleEvent = () => {
                   >
                     {eventsByName.length > 1 ? (
                       eventsByName.map((event, index) => (
-                        <div
+                        <ScrollLink
+                          to="single-event"
+                          smooth={true}
+                          duration={500}
                           className="band-event-details-wraper d-flex justify-content-between py-2"
                           key={index}
                           onClick={() =>
@@ -491,7 +497,7 @@ const SingleEvent = () => {
                               </p>
                             )}
                           </div>
-                        </div>
+                        </ScrollLink>
                       ))
                     ) : (
                       <p>No results test</p>
