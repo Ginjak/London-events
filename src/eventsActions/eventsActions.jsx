@@ -111,7 +111,7 @@ export const fetchLastFmArtistData = async (
   getInfo = "getinfo",
   artistName
 ) => {
-  const apiKey = import.meta.env.VITE_LAST_FM_API;
+  const apiKey = "ca1ab57b95e69724bc082828ee30c493";
   const apiUrl = `https://ws.audioscrobbler.com/2.0/?method=artist.${getInfo}&artist=${artistName}&api_key=${apiKey}&format=json`;
 
   try {
@@ -131,7 +131,7 @@ export const fetchLastFmTrack = async (
   trackName = "Despacito",
   artistName = "Luis Fonsi"
 ) => {
-  const apiKey = import.meta.env.VITE_LAST_FM_API;
+  const apiKey = "ca1ab57b95e69724bc082828ee30c493";
   const apiUrl = `https://ws.audioscrobbler.com/2.0/?method=track.search&track=${trackName}&artist=${artistName}&api_key=${apiKey}&format=json`;
 
   try {
@@ -149,28 +149,24 @@ export const fetchLastFmTrack = async (
 // const lastFmSec = "7247ee743e946b473c12b8ca12288e45";
 // const fourSquareApi = "fsq3r8CxhmSfEdP9dBcJIqMuqU39EeJWWj7+yQeLUjte498=";
 
-export const fetchHotels = async (latitude, longitude) => {
-  const CLIENT_ID = "NOV3GP0I55VOVMRJA3RHJKGEADLPWXVUEEYJPLRBWW0RQF40";
-  const CLIENT_SECRET = "5PLEVDZBAEXX1GANPTQQOFUVU1ALVGV5QCHXQMACRJANHP0P";
-  const VERSION = "20220405"; // Today's date in YYYYMMDD format
+// url to bookig.dom https://www.booking.com/hotel/gb/the-berkeley.en-gb.html
+
+export const fetchHotels = async () => {
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: "fsq3r8CxhmSfEdP9dBcJIqMuqU39EeJWWj7+yQeLUjte498=",
+    },
+  };
+
   try {
     const response = await axios.get(
-      "https://api.foursquare.com/v2/venues/search",
-      {
-        params: {
-          client_id: CLIENT_ID,
-          client_secret: CLIENT_SECRET,
-          v: VERSION,
-          ll: `${latitude},${longitude}`,
-          categoryId: "4bf58dd8d48988d1fa931735", // Category ID for hotels
-          limit: 10, // Limiting to 10 results
-        },
-      }
+      "https://api.foursquare.com/v3/places/search?query=hotel&ll=51.5072%2C0.1276&radius=5000&sort=POPULARITY",
+      options
     );
-
-    return response.data.response.venues;
+    console.log("Fetched hotel data:", response.data);
   } catch (error) {
-    console.error("Error fetching hotels:", error);
-    throw error;
+    console.error(error);
   }
 };

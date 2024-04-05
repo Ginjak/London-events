@@ -14,19 +14,7 @@ import {
 import { imageSizeApi } from "../../eventsActions/utilityFunctions";
 import axios from "axios";
 
-const latitude = 40.7128; // Example latitude (New York City)
-const longitude = -74.006; // Example longitude (New York City)
-
-fetchHotels(latitude, longitude)
-  .then((hotels) => {
-    console.log("Found hotels:");
-    hotels.forEach((hotel) => {
-      console.log(hotel.name);
-    });
-  })
-  .catch((error) => {
-    console.error("Failed to fetch hotels:", error);
-  });
+fetchHotels();
 
 const SingleEvent = () => {
   const navigate = useNavigate();
@@ -40,11 +28,28 @@ const SingleEvent = () => {
   const [artistBio, setArtistBio] = useState("");
   const [artistTopAlbums, setArtistTopAlbums] = useState("");
   const [artistTopTracks, setArtistTopTracks] = useState("");
-
   const [isButtonToggled, setIsButtonToggled] = useState(false);
 
   const handleButtonClick = () => {
     setIsButtonToggled((prevState) => !prevState);
+  };
+  // Function to add active class if Bio or Top Albums is missing to another tab element
+  const checkAndSetActiveTab = () => {
+    const bioTab = document.getElementById("bio-tab");
+    const topAlbumsTab = document.getElementById("top-albums-tab");
+    const topTracksTab = document.getElementById("top-tracks-tab");
+
+    if (!bioTab && !topAlbumsTab) {
+      // Both bio-tab and top-albums-tab are missing, add active class to top-tracks-tab
+      if (topTracksTab) {
+        topTracksTab.classList.add("active");
+      }
+    } else if (!bioTab) {
+      // bio-tab is missing, add active class to top-albums-tab
+      if (topAlbumsTab) {
+        topAlbumsTab.classList.add("active");
+      }
+    }
   };
 
   useEffect(() => {
@@ -73,6 +78,7 @@ const SingleEvent = () => {
           "gettopalbums",
           data.name
         );
+        checkAndSetActiveTab();
         setArtistTopAlbums(artistTopAlb);
 
         // Get artist top Tracks
@@ -308,22 +314,26 @@ const SingleEvent = () => {
               <div className="artist-info px-4 py-3">
                 <div className="artist-info-container">
                   <ul className="nav mt-0" id="myTabs" role="tablist">
-                    {artistBio.artist.bio.summary && (
-                      <li className="nav-item" role="presentation">
-                        <button
-                          className="nav-link active"
-                          id="bio-tab"
-                          data-bs-toggle="tab"
-                          data-bs-target="#bio"
-                          type="button"
-                          role="tab"
-                          aria-controls="bio"
-                          aria-selected="true"
-                        >
-                          Bio
-                        </button>
-                      </li>
-                    )}
+                    {artistBio.artist.bio.summary &&
+                      artistBio.artist.bio.summary !== "" &&
+                      artistBio.artist.bio.summary !==
+                        ` <a href="https://www.last.fm/music/Bronnie">Read more on Last.fm</a>` &&
+                      artistBio.artist.bio.content !== "" && (
+                        <li className="nav-item" role="presentation">
+                          <button
+                            className="nav-link active"
+                            id="bio-tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#bio"
+                            type="button"
+                            role="tab"
+                            aria-controls="bio"
+                            aria-selected="true"
+                          >
+                            Bio
+                          </button>
+                        </li>
+                      )}
                     {artistTopAlbums.topalbums && (
                       <li className="nav-item" role="presentation">
                         <button
@@ -359,29 +369,37 @@ const SingleEvent = () => {
                   </ul>
 
                   <div className="tab-content mt-2">
-                    <div
-                      className="tab-pane fade show active"
-                      id="bio"
-                      role="tabpanel"
-                      aria-labelledby="bio-tab"
-                    >
-                      {artistBio.artist.bio.summary && (
-                        <p className="artist-bio-summary">
-                          {artistBio?.artist?.bio?.summary?.replace(
-                            /<a [^>]+>[^<]*<\/a>/g,
-                            ""
-                          )}
-                        </p>
+                    {artistBio.artist.bio.summary &&
+                      artistBio.artist.bio.summary !== "" &&
+                      artistBio.artist.bio.summary !==
+                        ` <a href="https://www.last.fm/music/Bronnie">Read more on Last.fm</a>` && (
+                        <div
+                          className="tab-pane fade show active"
+                          id="bio"
+                          role="tabpanel"
+                          aria-labelledby="bio-tab"
+                        >
+                          <p className="artist-bio-summary">
+                            {artistBio?.artist?.bio?.summary?.replace(
+                              /<a [^>]+>[^<]*<\/a>/g,
+                              ""
+                            )}
+                          </p>
+                        </div>
                       )}
-                    </div>
+
                     {artistTopAlbums.topalbums && (
                       <div
-                        className="tab-pane fade"
+                        className={`tab-pane fade ${
+                          artistBio.artist.bio.content === ""
+                            ? "show active"
+                            : ""
+                        }`}
                         id="top-albums"
                         role="tabpanel"
                         aria-labelledby="top-albums-tab"
                       >
-                        <div className=" top-albums-wraper row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-2 row-cols-xl-3 g-4">
+                        <div className=" top-albums-wraper row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-2 row-cols-xl-3 g-4 ">
                           {artistTopAlbums.topalbums.album
                             .slice(0, 12)
                             .map((album, index) => {
