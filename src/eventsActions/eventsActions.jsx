@@ -112,7 +112,7 @@ export const fetchLastFmArtistData = async (
   artistName
 ) => {
   const apiKey = import.meta.env.VITE_LAST_FM_API;
-  const apiUrl = `http://ws.audioscrobbler.com/2.0/?method=artist.${getInfo}&artist=${artistName}&api_key=${apiKey}&format=json`;
+  const apiUrl = `https://ws.audioscrobbler.com/2.0/?method=artist.${getInfo}&artist=${artistName}&api_key=${apiKey}&format=json`;
 
   try {
     const response = await axios.get(apiUrl);
@@ -132,7 +132,7 @@ export const fetchLastFmTrack = async (
   artistName = "Luis Fonsi"
 ) => {
   const apiKey = import.meta.env.VITE_LAST_FM_API;
-  const apiUrl = `http://ws.audioscrobbler.com/2.0/?method=track.search&track=${trackName}&artist=${artistName}&api_key=${apiKey}&format=json`;
+  const apiUrl = `https://ws.audioscrobbler.com/2.0/?method=track.search&track=${trackName}&artist=${artistName}&api_key=${apiKey}&format=json`;
 
   try {
     const response = await axios.get(apiUrl);
