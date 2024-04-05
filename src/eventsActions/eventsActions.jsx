@@ -149,7 +149,7 @@ export const fetchLastFmTrack = async (
 // const lastFmSec = "7247ee743e946b473c12b8ca12288e45";
 // const fourSquareApi = "fsq3r8CxhmSfEdP9dBcJIqMuqU39EeJWWj7+yQeLUjte498=";
 
-async function fetchHotels(latitude, longitude) {
+export const fetchHotels = async (latitude, longitude) => {
   const CLIENT_ID = "NOV3GP0I55VOVMRJA3RHJKGEADLPWXVUEEYJPLRBWW0RQF40";
   const CLIENT_SECRET = "5PLEVDZBAEXX1GANPTQQOFUVU1ALVGV5QCHXQMACRJANHP0P";
   const VERSION = "20220405"; // Today's date in YYYYMMDD format
@@ -173,4 +173,4 @@ async function fetchHotels(latitude, longitude) {
     console.error("Error fetching hotels:", error);
     throw error;
   }
-}
+};

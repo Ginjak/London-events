@@ -247,10 +247,10 @@ const SingleEvent = () => {
                               to="single-event"
                               smooth={true}
                               duration={500}
+                              key={index}
                             >
                               <div
                                 className="event-details-wraper d-flex justify-content-between py-2"
-                                key={index}
                                 onClick={() => handleEventUpdate(event.id)}
                               >
                                 <div className="event-venue-date-wraper">
