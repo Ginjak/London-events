@@ -147,3 +147,30 @@ export const fetchLastFmTrack = async (
 
 // const lastFmApi = "ca1ab57b95e69724bc082828ee30c493";
 // const lastFmSec = "7247ee743e946b473c12b8ca12288e45";
+// const fourSquareApi = "fsq3r8CxhmSfEdP9dBcJIqMuqU39EeJWWj7+yQeLUjte498=";
+
+async function fetchHotels(latitude, longitude) {
+  const CLIENT_ID = "NOV3GP0I55VOVMRJA3RHJKGEADLPWXVUEEYJPLRBWW0RQF40";
+  const CLIENT_SECRET = "5PLEVDZBAEXX1GANPTQQOFUVU1ALVGV5QCHXQMACRJANHP0P";
+  const VERSION = "20220405"; // Today's date in YYYYMMDD format
+  try {
+    const response = await axios.get(
+      "https://api.foursquare.com/v2/venues/search",
+      {
+        params: {
+          client_id: CLIENT_ID,
+          client_secret: CLIENT_SECRET,
+          v: VERSION,
+          ll: `${latitude},${longitude}`,
+          categoryId: "4bf58dd8d48988d1fa931735", // Category ID for hotels
+          limit: 10, // Limiting to 10 results
+        },
+      }
+    );
+
+    return response.data.response.venues;
+  } catch (error) {
+    console.error("Error fetching hotels:", error);
+    throw error;
+  }
+}

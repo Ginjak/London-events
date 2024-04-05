@@ -8,10 +8,25 @@ import {
   eventByName,
   fetchLastFmArtistData,
   fetchLastFmTrack,
+  fetchHotels,
 } from "../../eventsActions/eventsActions";
 
 import { imageSizeApi } from "../../eventsActions/utilityFunctions";
 import axios from "axios";
+
+const latitude = 40.7128; // Example latitude (New York City)
+const longitude = -74.006; // Example longitude (New York City)
+
+fetchHotels(latitude, longitude)
+  .then((hotels) => {
+    console.log("Found hotels:");
+    hotels.forEach((hotel) => {
+      console.log(hotel.name);
+    });
+  })
+  .catch((error) => {
+    console.error("Failed to fetch hotels:", error);
+  });
 
 const SingleEvent = () => {
   const navigate = useNavigate();
