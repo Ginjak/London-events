@@ -37,3 +37,16 @@ export const extractText = (str) => {
   // Return the substring before the first occurrence of the matched character
   return str.substring(0, matchIndex);
 };
+
+// Create google maps url to display Place by it's name and address
+
+export const constructGoogleMapsURL = (hotelName, address) => {
+  // Encode hotel name and address for URL
+  const hotelFullName = encodeURIComponent(hotelName);
+  const hotelFullAddress = encodeURIComponent(address);
+
+  // Construct the Google Maps URL
+  const googleMapsURL = `https://www.google.com/maps/search/${hotelFullName}+${hotelFullAddress}`;
+
+  return googleMapsURL;
+};

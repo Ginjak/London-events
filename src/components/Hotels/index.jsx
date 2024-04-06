@@ -1,8 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./hotels.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import {
+  constructGoogleMapsURL,
+  generateRandomNumber,
+} from "../../eventsActions/utilityFunctions";
 
 const CustomPrevArrow = (props) => {
   const { onClick } = props;
@@ -23,7 +28,21 @@ const Hotels = ({ data }) => {
     speed: 500,
     slidesToShow: 3, // Show 3 slides at once
     slidesToScroll: 1,
-    autoplay: true,
+    responsive: [
+      {
+        breakpoint: 1024, // Adjust settings for tablets
+        settings: {
+          slidesToShow: 2, // Show 2 slides on tablets
+        },
+      },
+      {
+        breakpoint: 600, // Adjust settings for smaller screens
+        settings: {
+          slidesToShow: 1, // Show 1 slide on smaller screens (phones)
+        },
+      },
+    ],
+    autoplay: false,
     autoplaySpeed: 5000,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
@@ -34,10 +53,31 @@ const Hotels = ({ data }) => {
       <div className="slider-wraper">
         <Slider {...settings} className="text-white">
           {hotels.map((hotel) => (
-            <div key={hotel.fsq_id} className="hotel-card">
-              <div className="img-container"></div>
-              <h5 className="title">{hotel.name}</h5>
-              <p>{(hotel.distance / 1609.34).toFixed(2)} mi from venue</p>
+            <div key={hotel.fsq_id} className="location-card px-2 ">
+              <div
+                className="img-container position-relative"
+                style={{
+                  backgroundImage: `url("/images/hotels/Hotel_${generateRandomNumber(
+                    9
+                  )}.webp")`,
+                }}
+              ></div>
+              <div className="title-distance-link-wraper p-3">
+                <h5 className="title">{hotel.name}</h5>
+                <p>{(hotel.distance / 1609.34).toFixed(2)} mi from venue</p>
+                <div className="text-end">
+                  <Link
+                    className="dates-btn"
+                    to={constructGoogleMapsURL(
+                      hotel.name,
+                      hotel.location.formatted_address
+                    )}
+                    target="_blank"
+                  >
+                    More details
+                  </Link>
+                </div>
+              </div>
             </div>
           ))}
         </Slider>

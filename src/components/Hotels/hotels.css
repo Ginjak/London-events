@@ -1,9 +1,9 @@
-/* Custom arrow styles */
+/*
 .custom-prev-arrow,
 .custom-next-arrow {
-  width: 50px; /* Adjust width as needed */
-  height: 50px; /* Adjust height as needed */
-  background-color: #ffffff; /* Arrow background color */
+  width: 50px; 
+  height: 50px; 
+  background-color: #ffffff; 
   border: none;
   outline: none;
   cursor: pointer;
@@ -14,23 +14,73 @@
 
 .custom-prev-arrow:before,
 .custom-next-arrow:before {
-  content: ""; /* Empty content for pseudo-element */
-  width: 20px; /* Arrow width */
-  height: 20px; /* Arrow height */
-  border-top: 2px solid #000000; /* Arrow color */
-  border-left: 2px solid #000000; /* Arrow color */
-  transform: rotate(-45deg); /* Rotate arrow */
+  content: ""; 
+  width: 20px; 
+  height: 20px; 
+  border-top: 2px solid #000000; 
+  border-left: 2px solid #000000; 
+  transform: rotate(-45deg); 
 }
 
 .custom-prev-arrow {
-  left: 10px; /* Position arrow from left */
+  left: 10px; 
 }
 
 .custom-next-arrow {
-  right: 10px; /* Position arrow from right */
+  right: 10px;
 }
 
-/* Hide default slick dots */
+
 .slick-dots {
   display: none;
+} 
+*/
+
+.slick-list {
+  display: flex;
+}
+
+.slick-slide {
+  display: flex;
+  flex: 1;
+}
+
+.location-card {
+  flex: 1;
+}
+
+.location-card .img-container {
+  width: 100%;
+  height: 300px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  border-radius: 4px 4px 0 0;
+}
+.location-card .img-container:hover:before {
+  bottom: 0;
+  opacity: 1;
+  transition: all 0.2s linear;
+}
+.location-card .img-container:before {
+  content: "Images are generic placeholders, not indicative of specific hotels";
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  padding: 10px;
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  transition: all 0.2s linear;
+}
+
+.location-card .title-distance-link-wraper {
+  border-radius: 0 0 4px 4px;
+  flex-grow: 1;
+  background: var(--dark-blue);
+}
+
+#sngle-event .location-card .dates-btn a {
+  font-size: 14px;
 }
