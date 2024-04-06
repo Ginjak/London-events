@@ -35,7 +35,9 @@ const Hotels = ({ data }) => {
         <Slider {...settings} className="text-white">
           {hotels.map((hotel) => (
             <div key={hotel.fsq_id} className="hotel-card">
-              {hotel.name}
+              <div className="img-container"></div>
+              <h5 className="title">{hotel.name}</h5>
+              <p>{(hotel.distance / 1609.34).toFixed(2)} mi from venue</p>
             </div>
           ))}
         </Slider>
