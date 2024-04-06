@@ -13,8 +13,7 @@ import {
 
 import { imageSizeApi } from "../../eventsActions/utilityFunctions";
 import axios from "axios";
-
-fetchHotels();
+import Hotels from "../Hotels";
 
 const SingleEvent = () => {
   const navigate = useNavigate();
@@ -29,6 +28,7 @@ const SingleEvent = () => {
   const [artistTopAlbums, setArtistTopAlbums] = useState("");
   const [artistTopTracks, setArtistTopTracks] = useState("");
   const [isButtonToggled, setIsButtonToggled] = useState(false);
+  const [hotels, setHotels] = useState("");
 
   const handleButtonClick = () => {
     setIsButtonToggled((prevState) => !prevState);
@@ -59,6 +59,13 @@ const SingleEvent = () => {
 
         const data = await eventById(eventId, venueEventsNumber);
         setEventData(data);
+        const hotelsData = await fetchHotels(
+          undefined,
+          data._embedded.venues[0].location.latitude,
+          data._embedded.venues[0].location.longitude
+        );
+        setHotels(hotelsData);
+
         // setIsLoading(false);
 
         setEventBgImg(imageSizeApi(data.images, 700));
@@ -93,7 +100,6 @@ const SingleEvent = () => {
         const artistTrackDetails = await fetchLastFmTrack(undefined, undefined);
 
         console.log("Search by ID data:", data);
-
         // console.log("display events value:", displayEvents);
         // console.log("Render events: " + renderEvents);
       } catch (error) {
@@ -544,6 +550,9 @@ const SingleEvent = () => {
           </div>
         </div>
       </div>
+      {hotels && hotels.results && hotels.results.length > 0 && (
+        <Hotels data={hotels} />
+      )}
     </div>
   );
 };

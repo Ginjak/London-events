@@ -151,7 +151,11 @@ export const fetchLastFmTrack = async (
 
 // url to bookig.dom https://www.booking.com/hotel/gb/the-berkeley.en-gb.html
 
-export const fetchHotels = async () => {
+export const fetchHotels = async (
+  category = "4bf58dd8d48988d1fa931735",
+  latitude = 51.5072,
+  longitude = 0.1276
+) => {
   const options = {
     method: "GET",
     headers: {
@@ -162,10 +166,11 @@ export const fetchHotels = async () => {
 
   try {
     const response = await axios.get(
-      "https://api.foursquare.com/v3/places/search?query=hotel&ll=51.5072%2C0.1276&radius=5000&sort=POPULARITY",
+      `https://api.foursquare.com/v3/places/search?categories=${category}&ll=${latitude}%2C${longitude}&radius=5000&sort=POPULARITY`,
       options
     );
     console.log("Fetched hotel data:", response.data);
+    return response.data;
   } catch (error) {
     console.error(error);
   }
