@@ -20,7 +20,7 @@ const CustomNextArrow = (props) => {
   return <button className="custom-next-arrow" onClick={onClick}></button>;
 };
 
-const Hotels = ({ data }) => {
+const Hotels = ({ data, bgImage = "Hotels" }) => {
   const hotels = data && data.results ? data.results : [];
   const settings = {
     dots: false,
@@ -57,9 +57,15 @@ const Hotels = ({ data }) => {
               <div
                 className="img-container position-relative"
                 style={{
-                  backgroundImage: `url("/images/hotels/Hotel_${generateRandomNumber(
-                    9
-                  )}.webp")`,
+                  backgroundImage: `url("${
+                    bgImage === "Hotels"
+                      ? `/images/hotels/Hotel_${generateRandomNumber(9)}.webp`
+                      : bgImage === "Restaurants"
+                      ? `/images/restaurants/Restaurant_${generateRandomNumber(
+                          9
+                        )}.webp`
+                      : ""
+                  }")`,
                 }}
               ></div>
               <div className="title-distance-link-wraper p-3">

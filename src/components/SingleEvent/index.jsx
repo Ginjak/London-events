@@ -29,6 +29,7 @@ const SingleEvent = () => {
   const [artistTopTracks, setArtistTopTracks] = useState("");
   const [isButtonToggled, setIsButtonToggled] = useState(false);
   const [hotels, setHotels] = useState("");
+  const [restaurants, setRestaurants] = useState("");
 
   const handleButtonClick = () => {
     setIsButtonToggled((prevState) => !prevState);
@@ -66,6 +67,13 @@ const SingleEvent = () => {
         );
         setHotels(hotelsData);
 
+        const restaurantsData = await fetchHotels(
+          "4d4b7105d754a06374d81259",
+          data._embedded.venues[0].location.latitude,
+          data._embedded.venues[0].location.longitude
+        );
+        setRestaurants(restaurantsData);
+
         // setIsLoading(false);
 
         setEventBgImg(imageSizeApi(data.images, 700));
@@ -94,10 +102,6 @@ const SingleEvent = () => {
           data.name
         );
         setArtistTopTracks(artistTopTrc);
-
-        // Get track details
-
-        const artistTrackDetails = await fetchLastFmTrack(undefined, undefined);
 
         console.log("Search by ID data:", data);
         // console.log("display events value:", displayEvents);
@@ -552,6 +556,9 @@ const SingleEvent = () => {
       </div>
       {hotels && hotels.results && hotels.results.length > 0 && (
         <Hotels data={hotels} />
+      )}
+      {restaurants && restaurants.results && restaurants.results.length > 0 && (
+        <Hotels data={restaurants} bgImage="Restaurants" />
       )}
     </div>
   );
