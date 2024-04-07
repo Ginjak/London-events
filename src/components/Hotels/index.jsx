@@ -100,7 +100,7 @@ const Hotels = ({ data, bgImage = "Hotels" }) => {
       </div>
     </>
   ) : (
-    <p>No hotel data available</p>
+    ""
   );
 };
 

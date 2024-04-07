@@ -14,6 +14,7 @@ import {
 import { imageSizeApi } from "../../eventsActions/utilityFunctions";
 import axios from "axios";
 import Hotels from "../Hotels";
+import EstablishmentTab from "../EstablishmentTab";
 
 const SingleEvent = () => {
   const navigate = useNavigate();
@@ -554,12 +555,15 @@ const SingleEvent = () => {
           </div>
         </div>
       </div>
-      {hotels && hotels.results && hotels.results.length > 0 && (
-        <Hotels data={hotels} />
-      )}
-      {restaurants && restaurants.results && restaurants.results.length > 0 && (
-        <Hotels data={restaurants} bgImage="Restaurants" />
-      )}
+
+      {hotels &&
+        hotels.results &&
+        hotels.results.length > 0 &&
+        restaurants &&
+        restaurants.results &&
+        restaurants.results.length > 0 && (
+          <EstablishmentTab hotelsTab={hotels} restaurantTab={restaurants} />
+        )}
     </div>
   );
 };
