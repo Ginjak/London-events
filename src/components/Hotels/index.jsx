@@ -11,13 +11,21 @@ import {
 
 const CustomPrevArrow = (props) => {
   const { onClick } = props;
-  return <button className="custom-prev-arrow" onClick={onClick}></button>;
+  return (
+    <button className="custom-prev-arrow" onClick={onClick}>
+      <i className="fa-solid fa-chevron-left"></i>
+    </button>
+  );
 };
 
 // Custom next arrow component
 const CustomNextArrow = (props) => {
   const { onClick } = props;
-  return <button className="custom-next-arrow" onClick={onClick}></button>;
+  return (
+    <button className="custom-next-arrow" onClick={onClick}>
+      <i className="fa-solid fa-chevron-right"></i>
+    </button>
+  );
 };
 
 const Hotels = ({ data, bgImage = "Hotels" }) => {
@@ -51,7 +59,7 @@ const Hotels = ({ data, bgImage = "Hotels" }) => {
   return data && data.results && data.results.length > 0 ? (
     <>
       <div className="slider-wraper">
-        <Slider {...settings} className="text-white">
+        <Slider {...settings} className="text-white position-relative">
           {hotels.map((hotel) => (
             <div key={hotel.fsq_id} className="location-card px-2 ">
               <div
@@ -70,8 +78,10 @@ const Hotels = ({ data, bgImage = "Hotels" }) => {
               ></div>
               <div className="title-distance-link-wraper p-3">
                 <h5 className="title">{hotel.name}</h5>
-                <p>{(hotel.distance / 1609.34).toFixed(2)} mi from venue</p>
-                <div className="text-end">
+                <p className="distance">
+                  {(hotel.distance / 1609.34).toFixed(2)} mi from venue
+                </p>
+                <div className="text-end btn-wraper">
                   <Link
                     className="dates-btn"
                     to={constructGoogleMapsURL(
