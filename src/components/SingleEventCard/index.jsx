@@ -12,6 +12,7 @@ const SingleEventCard = ({
   artistAlbums,
   artistTracks,
 }) => {
+  const [active, setActive] = useState(false);
   const [btnToggled, setbtnToggled] = useState(false);
   const navigate = useNavigate();
 
@@ -219,7 +220,12 @@ const SingleEventCard = ({
                   artistBioDetails.artist.bio.content !== "" && (
                     <li className="nav-item" role="presentation">
                       <button
-                        className="nav-link active"
+                        // className="nav-link"
+                        className={`nav-link ${
+                          artistBioDetails.artist.bio.summary !== ""
+                            ? "active"
+                            : ""
+                        }`}
                         id="bio-tab"
                         data-bs-toggle="tab"
                         data-bs-target="#bio"
@@ -236,7 +242,13 @@ const SingleEventCard = ({
                   artistAlbums.topalbums.album.length > 1 && (
                     <li className="nav-item" role="presentation">
                       <button
-                        className="nav-link"
+                        // className="nav-link"
+                        className={`nav-link ${
+                          artistBioDetails.artist.bio.summary === "" &&
+                          artistAlbums.topalbums.album.length > 1
+                            ? "active"
+                            : ""
+                        }`}
                         id="top-albums-tab"
                         data-bs-toggle="tab"
                         data-bs-target="#top-albums"
@@ -252,7 +264,13 @@ const SingleEventCard = ({
                 {artistTracks.toptracks && (
                   <li className="nav-item" role="presentation">
                     <button
-                      className="nav-link"
+                      // className="nav-link"
+                      className={`nav-link ${
+                        artistAlbums.topalbums.album.length <= 1 &&
+                        artistTracks.toptracks
+                          ? "active"
+                          : ""
+                      }`}
                       id="top-tracks-tab"
                       data-bs-toggle="tab"
                       data-bs-target="#top-tracks"
@@ -273,7 +291,11 @@ const SingleEventCard = ({
                   artistBioDetails.artist.bio.summary !==
                     ` <a href="https://www.last.fm/music/Bronnie">Read more on Last.fm</a>` && (
                     <div
-                      className="tab-pane fade show active"
+                      className={`tab-pane fade ${
+                        artistBioDetails.artist.bio.summary !== ""
+                          ? "show active"
+                          : ""
+                      }`}
                       id="bio"
                       role="tabpanel"
                       aria-labelledby="bio-tab"
@@ -336,7 +358,8 @@ const SingleEventCard = ({
                 {artistTracks.toptracks && (
                   <div
                     className={`tab-pane fade ${
-                      artistAlbums.topalbums.album.length < 0
+                      artistAlbums.topalbums.album.length <= 1 &&
+                      artistTracks.toptracks
                         ? "show active"
                         : ""
                     }`}
