@@ -33,6 +33,9 @@ const SingleEvent = () => {
   const [hotels, setHotels] = useState("");
   const [restaurants, setRestaurants] = useState("");
 
+  const [imageLoading, setImageLoading] = useState(true);
+  const [artistDataLoading, setArtistDataLoading] = useState(true);
+
   const handleButtonClick = () => {
     setIsButtonToggled((prevState) => !prevState);
   };
@@ -77,8 +80,10 @@ const SingleEvent = () => {
         setRestaurants(restaurantsData);
 
         // setIsLoading(false);
+        const imageData = await imageSizeApi(data.images, 700);
+        setEventBgImg(imageData);
+        setImageLoading(false);
 
-        setEventBgImg(imageSizeApi(data.images, 700));
         // setVenueId(data._embedded.venues[0].id);
         const eventDataByName = await eventByName(data.name);
         const filteredEvents = eventDataByName.filter(
@@ -97,7 +102,7 @@ const SingleEvent = () => {
         );
         // checkAndSetActiveTab();
         setArtistTopAlbums(artistTopAlb);
-
+        setArtistDataLoading(false);
         // Get artist top Tracks
         const artistTopTrc = await fetchLastFmArtistData(
           "gettoptracks",
@@ -112,7 +117,6 @@ const SingleEvent = () => {
         console.error(`Test ${error}`);
         // setEvents([]);
       } finally {
-        // setIsLoading(false);
       }
     };
 
@@ -566,6 +570,8 @@ const SingleEvent = () => {
         eventNameDetails={eventsByName}
         artistAlbums={artistTopAlbums}
         artistTracks={artistTopTracks}
+        imgLoading={imageLoading}
+        artistLoading={artistDataLoading}
       />
       {hotels &&
         hotels.results &&

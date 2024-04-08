@@ -5,6 +5,8 @@ import { Link as ScrollLink } from "react-scroll";
 
 const SingleEventCard = ({
   eventBg,
+  imgLoading,
+  artistLoading,
   eventDetails,
   venueDetails,
   artistBioDetails,
@@ -12,7 +14,6 @@ const SingleEventCard = ({
   artistAlbums,
   artistTracks,
 }) => {
-  const [active, setActive] = useState(false);
   const [btnToggled, setbtnToggled] = useState(false);
   const navigate = useNavigate();
 
@@ -23,6 +24,7 @@ const SingleEventCard = ({
   const handleEventUpdate = (updatedEventId) => {
     navigate(`/event/${updatedEventId}`);
   };
+
   return (
     <div className="row single-event-card">
       <div className="col-lg-6 px-0 ">
@@ -30,6 +32,14 @@ const SingleEventCard = ({
           className="text-time-title-wraper position-relative px-4 py-3 d-flex justify-content-center align-items-center"
           style={{ backgroundImage: `url(${eventBg})` }}
         >
+          {imgLoading && (
+            <div className="loading-wraper">
+              <div
+                className="large-spinner spinner-border text-white"
+                role="status"
+              ></div>
+            </div>
+          )}
           <div className="overlay"></div>
           <div className="event-date d-flex flex-column justify-content-center align-items-center">
             <p className="m-0">
@@ -208,7 +218,16 @@ const SingleEventCard = ({
           </div>
         )}
       </div>
-      <div className="col-lg-6 px-0 band-events">
+      <div className="col-lg-6 px-0 band-events position-relative">
+        {artistLoading && (
+          <div className="loading-wraper">
+            <div
+              className="large-spinner spinner-border text-white"
+              role="status"
+            ></div>
+          </div>
+        )}
+
         {artistBioDetails.artist && eventNameDetails.length > 1 ? (
           <div className="artist-info px-4 py-3">
             <div className="artist-info-container">
