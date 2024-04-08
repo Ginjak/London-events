@@ -15,6 +15,7 @@ import { imageSizeApi } from "../../eventsActions/utilityFunctions";
 import axios from "axios";
 import Hotels from "../Hotels";
 import EstablishmentTab from "../EstablishmentTab";
+import SingleEventCard from "../SingleEventCard";
 
 const SingleEvent = () => {
   const navigate = useNavigate();
@@ -36,23 +37,23 @@ const SingleEvent = () => {
     setIsButtonToggled((prevState) => !prevState);
   };
   // Function to add active class if Bio or Top Albums is missing to another tab element
-  const checkAndSetActiveTab = () => {
-    const bioTab = document.getElementById("bio-tab");
-    const topAlbumsTab = document.getElementById("top-albums-tab");
-    const topTracksTab = document.getElementById("top-tracks-tab");
+  // const checkAndSetActiveTab = () => {
+  //   const bioTab = document.getElementById("bio-tab");
+  //   const topAlbumsTab = document.getElementById("top-albums-tab");
+  //   const topTracksTab = document.getElementById("top-tracks-tab");
 
-    if (!bioTab && !topAlbumsTab) {
-      // Both bio-tab and top-albums-tab are missing, add active class to top-tracks-tab
-      if (topTracksTab) {
-        topTracksTab.classList.add("active");
-      }
-    } else if (!bioTab) {
-      // bio-tab is missing, add active class to top-albums-tab
-      if (topAlbumsTab) {
-        topAlbumsTab.classList.add("active");
-      }
-    }
-  };
+  //   if (!bioTab && !topAlbumsTab) {
+  //     // Both bio-tab and top-albums-tab are missing, add active class to top-tracks-tab
+  //     if (topTracksTab) {
+  //       topTracksTab.classList.add("active");
+  //     }
+  //   } else if (!bioTab) {
+  //     // bio-tab is missing, add active class to top-albums-tab
+  //     if (topAlbumsTab) {
+  //       topAlbumsTab.classList.add("active");
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -94,7 +95,7 @@ const SingleEvent = () => {
           "gettopalbums",
           data.name
         );
-        checkAndSetActiveTab();
+        // checkAndSetActiveTab();
         setArtistTopAlbums(artistTopAlb);
 
         // Get artist top Tracks
@@ -132,7 +133,7 @@ const SingleEvent = () => {
 
   return (
     <div className="container-xxl py-5">
-      <div className="text-dark">
+      {/* <div className="text-dark">
         <div className="row single-event-card">
           <div className="col-lg-6 px-0 ">
             <div
@@ -554,8 +555,18 @@ const SingleEvent = () => {
             )}
           </div>
         </div>
-      </div>
+      </div> */}
 
+      <SingleEventCard
+        eventBg={eventBgImg}
+        eventDetails={eventData}
+        buttonToggle={isButtonToggled}
+        venueDetails={eventsByVenue}
+        artistBioDetails={artistBio}
+        eventNameDetails={eventsByName}
+        artistAlbums={artistTopAlbums}
+        artistTracks={artistTopTracks}
+      />
       {hotels &&
         hotels.results &&
         hotels.results.length > 0 &&
