@@ -5,6 +5,7 @@ import { Link as ScrollLink } from "react-scroll";
 
 const SingleEventCard = ({
   eventBg,
+  componentLoading,
   cardLoading,
   eventDetails,
   venueDetails,
@@ -221,7 +222,53 @@ const SingleEventCard = ({
             </div>
           )}
         </div>
+
         <div className="col-lg-6 px-0 band-events position-relative">
+          {componentLoading && (
+            // <div className="loading-wraper ">
+            //   <div
+            //     className="large-spinner spinner-border text-white"
+            //     role="status"
+            //   ></div>
+            // </div>
+            <div className="loading-wraper-placeholder">
+              <p className="card-text placeholder-glow my-4 ">
+                <span className="ms-3 placeholder col-2 me-2 bg-light"></span>
+                <span className="placeholder col-3 me-2 bg-light"></span>
+                <span className="placeholder col-3 bg-light"></span>
+              </p>
+              <p className="card-text placeholder-glow my-4">
+                <span className="ms-3 placeholder col-10 mb-2 bg-light"></span>
+                <span className="ms-3 placeholder col-10 mb-2 bg-light"></span>
+                <span className="ms-3 placeholder col-10 mb-2 bg-light"></span>
+                <span className="ms-3 placeholder col-10 mb-2 bg-light"></span>
+                <span className="ms-3 placeholder col-10 mb-2 bg-light"></span>
+                <span className="ms-3 placeholder col-10 mb-2 bg-light"></span>
+                <span className="ms-3 placeholder col-10 mb-2 bg-light"></span>
+                <span className="ms-3 placeholder col-10 mb-2 bg-light"></span>
+              </p>
+              <p className="card-text placeholder-glow my-4">
+                <span className="ms-3 mt-5 placeholder col-4 mb-2 bg-light"></span>
+              </p>
+
+              <div className="col-10 event-placeholder placeholder-glow d-flex justify-content-between mb-3">
+                <div className="ms-3 round-button placeholder bg-light"></div>
+                <div className="event-details-placheloder col-4 d-flex flex-column align-items-end">
+                  <span className="ms-3 placeholder col-8 mb-2 bg-light"></span>
+                  <span className="ms-3 placeholder col-5 mb-2 bg-light"></span>
+                  <span className="ms-3 placeholder col-4 mb-2 bg-light"></span>
+                </div>
+              </div>
+              <div className="col-10 event-placeholder placeholder-glow d-flex justify-content-between mb-3">
+                <div className="ms-3 round-button placeholder bg-light"></div>
+                <div className="event-details-placheloder col-4 d-flex flex-column align-items-end">
+                  <span className="ms-3 placeholder col-8 mb-2 bg-light"></span>
+                  <span className="ms-3 placeholder col-5 mb-2 bg-light"></span>
+                  <span className="ms-3 placeholder col-4 mb-2 bg-light"></span>
+                </div>
+              </div>
+            </div>
+          )}
           {artistBioDetails.artist && eventNameDetails.length > 1 ? (
             <div className="artist-info px-4 py-3">
               <div className="artist-info-container">

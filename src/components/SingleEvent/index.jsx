@@ -35,6 +35,8 @@ const SingleEvent = () => {
 
   const [eventCardLoading, setEventCardLoading] = useState(true);
 
+  const [componentLoading, setComponentLoading] = useState(false);
+
   const handleButtonClick = () => {
     setIsButtonToggled((prevState) => !prevState);
   };
@@ -61,7 +63,9 @@ const SingleEvent = () => {
     const fetchData = async () => {
       try {
         // setIsLoading(true);
-
+        if (eventCardLoading === false) {
+          setComponentLoading(true);
+        }
         const data = await eventById(eventId, venueEventsNumber);
         setEventData(data);
         const hotelsData = await fetchHotels(
@@ -111,6 +115,7 @@ const SingleEvent = () => {
         console.log("Search by ID data:", data);
         // console.log("display events value:", displayEvents);
         // console.log("Render events: " + renderEvents);
+        setComponentLoading(false);
       } catch (error) {
         console.error(`Test ${error}`);
         // setEvents([]);
@@ -570,6 +575,7 @@ const SingleEvent = () => {
         artistAlbums={artistTopAlbums}
         artistTracks={artistTopTracks}
         cardLoading={eventCardLoading}
+        componentLoading={componentLoading}
       />
       {hotels &&
         hotels.results &&
