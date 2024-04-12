@@ -37,6 +37,8 @@ const SingleEvent = () => {
 
   const [componentLoading, setComponentLoading] = useState(false);
 
+  const [albLoading, setAlbLoading] = useState(true);
+
   const handleButtonClick = () => {
     setIsButtonToggled((prevState) => !prevState);
   };
@@ -578,6 +580,7 @@ const SingleEvent = () => {
         artistTracks={artistTopTracks}
         cardLoading={eventCardLoading}
         componentLoading={componentLoading}
+        albumLoading={albLoading}
       />
       {hotels &&
         hotels.results &&

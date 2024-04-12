@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./singleeventcard.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
@@ -8,6 +8,7 @@ const SingleEventCard = ({
   eventBg,
   componentLoading,
   cardLoading,
+  albumLoading,
   eventDetails,
   venueDetails,
   artistBioDetails,
@@ -16,13 +17,18 @@ const SingleEventCard = ({
   artistTracks,
 }) => {
   const [btnToggled, setbtnToggled] = useState(false);
-  const [topAlbumLoading, setTopAlbumLoading] = useState(true);
+  const imageRef = useRef(null);
   const navigate = useNavigate();
-
+  console.log("this is albumLoading", albumLoading);
+  albumLoading = false;
+  console.log("this is albumLoading after", albumLoading);
   const btnToggle = () => {
     setbtnToggled((prevState) => !prevState);
   };
 
+  const test = () => {
+    albumLoading === false;
+  };
   const handleEventUpdate = (updatedEventId) => {
     navigate(`/event/${updatedEventId}`);
   };
@@ -405,11 +411,11 @@ const SingleEventCard = ({
                                     <div className="album-wraper col">
                                       <div
                                         className="album-image-wraper position-relative"
-                                        style={{
-                                          backgroundImage: `url(${albumImage})`,
-                                        }}
+                                        // style={{
+                                        //   backgroundImage: `url(${albumImage})`,
+                                        // }}
                                       >
-                                        {topAlbumLoading && (
+                                        {albumLoading && (
                                           <div className="album-placeholder"></div>
                                         )}
                                         <p className="album-title mb-0">
@@ -418,13 +424,8 @@ const SingleEventCard = ({
                                         <img
                                           src={albumImage}
                                           alt={albumName}
-                                          onLoad={() =>
-                                            handleImageLoad(
-                                              setTopAlbumLoading,
-                                              false
-                                            )
-                                          }
-                                          style={{ display: "none" }}
+                                          onLoad={() => setTimeout(test, 3000)}
+                                          // style={{ display: "none" }}
                                         />
                                       </div>
                                     </div>
