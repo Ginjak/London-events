@@ -9,6 +9,9 @@ import {
   fetchLastFmArtistData,
   fetchLastFmTrack,
   fetchHotels,
+  fetchEvents,
+  startDateForApi,
+  endDateForApi,
 } from "../../eventsActions/eventsActions";
 
 import { imageSizeApi } from "../../eventsActions/utilityFunctions";
@@ -21,6 +24,7 @@ const SingleEvent = () => {
   const navigate = useNavigate();
   const { eventId } = useParams();
   const [eventData, setEventData] = useState(null);
+  const [allEventsToday, setAllEventsToday] = useState(null);
   const [eventBgImg, setEventBgImg] = useState("");
   const [venueId, setVenueId] = useState(null);
   const [venueEventsNumber, setVenueEventsNumber] = useState(6);
@@ -36,8 +40,6 @@ const SingleEvent = () => {
   const [eventCardLoading, setEventCardLoading] = useState(true);
 
   const [componentLoading, setComponentLoading] = useState(false);
-
-  const [albLoading, setAlbLoading] = useState(true);
 
   const handleButtonClick = () => {
     setIsButtonToggled((prevState) => !prevState);
@@ -96,6 +98,21 @@ const SingleEvent = () => {
         setEventsByName(filteredEvents);
         const dataVenue = await eventByVenue(data._embedded.venues[0].id);
         setEventsByVenue(dataVenue);
+
+        if (data._embedded.venues[0].city.name && !componentLoading) {
+          const today = new Date();
+          const eventsToday = await fetchEvents(
+            undefined,
+            data._embedded.venues[0].city.name,
+            undefined,
+            undefined,
+            undefined,
+            10
+          );
+          console.log("check how date displayed ", startDateForApi(today));
+          console.log("check how date displayed end", endDateForApi(today));
+          setAllEventsToday(eventsToday);
+        }
         // Get artist Bio data
         const artistBioData = await fetchLastFmArtistData(undefined, data.name);
         setArtistBio(artistBioData);
@@ -580,7 +597,7 @@ const SingleEvent = () => {
         artistTracks={artistTopTracks}
         cardLoading={eventCardLoading}
         componentLoading={componentLoading}
-        albumLoading={albLoading}
+        eventsToday={allEventsToday}
       />
       {hotels &&
         hotels.results &&

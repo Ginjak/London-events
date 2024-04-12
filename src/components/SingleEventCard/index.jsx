@@ -1,15 +1,14 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import "./singleeventcard.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
-import { handleImageLoad } from "../../eventsActions/utilityFunctions";
 
 const SingleEventCard = ({
   eventBg,
   componentLoading,
   cardLoading,
-  albumLoading,
   eventDetails,
+  eventsToday,
   venueDetails,
   artistBioDetails,
   eventNameDetails,
@@ -17,18 +16,12 @@ const SingleEventCard = ({
   artistTracks,
 }) => {
   const [btnToggled, setbtnToggled] = useState(false);
-  const imageRef = useRef(null);
   const navigate = useNavigate();
-  console.log("this is albumLoading", albumLoading);
-  albumLoading = false;
-  console.log("this is albumLoading after", albumLoading);
+  console.log("this is a data to check ", eventsToday);
   const btnToggle = () => {
     setbtnToggled((prevState) => !prevState);
   };
 
-  const test = () => {
-    albumLoading === false;
-  };
   const handleEventUpdate = (updatedEventId) => {
     navigate(`/event/${updatedEventId}`);
   };
@@ -411,23 +404,10 @@ const SingleEventCard = ({
                                     <div className="album-wraper col">
                                       <div
                                         className="album-image-wraper position-relative"
-                                        // style={{
-                                        //   backgroundImage: `url(${albumImage})`,
-                                        // }}
-                                      >
-                                        {albumLoading && (
-                                          <div className="album-placeholder"></div>
-                                        )}
-                                        <p className="album-title mb-0">
-                                          {albumName}
-                                        </p>
-                                        <img
-                                          src={albumImage}
-                                          alt={albumName}
-                                          onLoad={() => setTimeout(test, 3000)}
-                                          // style={{ display: "none" }}
-                                        />
-                                      </div>
+                                        style={{
+                                          backgroundImage: `url(${albumImage})`,
+                                        }}
+                                      ></div>
                                     </div>
                                   </a>
                                 );
@@ -482,68 +462,110 @@ const SingleEventCard = ({
                   className="more-events-by-band-wraper"
                   style={{ height: btnToggled ? "500px" : "182px" }}
                 >
-                  {eventNameDetails.length > 1 ? (
-                    eventNameDetails.map((event, index) => (
-                      <ScrollLink
-                        to="single-event"
-                        smooth={true}
-                        duration={500}
-                        className="band-event-details-wraper d-flex justify-content-between py-2"
-                        key={index}
-                        onClick={() =>
-                          handleEventUpdate(eventNameDetails[index].id)
-                        }
-                      >
-                        <div className="band-event-venue-date-wraper d-flex flex-column justify-content-center">
-                          <p className="m-0">
-                            {new Date(
-                              eventNameDetails[index].dates.start.localDate
-                            ).toLocaleString("default", {
-                              month: "short",
-                            })}
-                          </p>
-                          <p className="m-0">
-                            {new Date(
-                              eventNameDetails[index].dates.start.localDate
-                            )
-                              .getDate()
-                              .toString()
-                              .padStart(2, "0")}
-                          </p>
-                        </div>
-                        <div className="band-event-location-time ps-2 text-end d-flex flex-column justify-content-between">
-                          {eventNameDetails && (
-                            <p className="mb-0">
-                              {eventNameDetails[index]?.name}
+                  {eventNameDetails.length > 1
+                    ? eventNameDetails.map((event, index) => (
+                        <ScrollLink
+                          to="single-event"
+                          smooth={true}
+                          duration={500}
+                          className="band-event-details-wraper d-flex justify-content-between py-2"
+                          key={index}
+                          onClick={() =>
+                            handleEventUpdate(eventNameDetails[index].id)
+                          }
+                        >
+                          <div className="band-event-venue-date-wraper d-flex flex-column justify-content-center">
+                            <p className="m-0">
+                              {new Date(
+                                eventNameDetails[index].dates.start.localDate
+                              ).toLocaleString("default", {
+                                month: "short",
+                              })}
                             </p>
-                          )}
-                          {eventNameDetails && (
-                            <p className="mb-0">
-                              {
-                                eventNameDetails[index]?._embedded?.venues[0]
-                                  ?.city?.name
-                              }
+                            <p className="m-0">
+                              {new Date(
+                                eventNameDetails[index].dates.start.localDate
+                              )
+                                .getDate()
+                                .toString()
+                                .padStart(2, "0")}
                             </p>
-                          )}
-                          {eventNameDetails && (
-                            <p className="mb-0">
-                              {eventNameDetails[index]?.dates?.start?.localTime
-                                ?.split(":")
-                                .slice(0, 2)
-                                .join(":")}
-                            </p>
-                          )}
-                        </div>
-                      </ScrollLink>
-                    ))
-                  ) : (
-                    <p>No results test</p>
-                  )}
+                          </div>
+                          <div className="band-event-location-time ps-2 text-end d-flex flex-column justify-content-between">
+                            {eventNameDetails && (
+                              <p className="mb-0">
+                                {eventNameDetails[index]?.name}
+                              </p>
+                            )}
+                            {eventNameDetails && (
+                              <p className="mb-0">
+                                {
+                                  eventNameDetails[index]?._embedded?.venues[0]
+                                    ?.city?.name
+                                }
+                              </p>
+                            )}
+                            {eventNameDetails && (
+                              <p className="mb-0">
+                                {eventNameDetails[
+                                  index
+                                ]?.dates?.start?.localTime
+                                  ?.split(":")
+                                  .slice(0, 2)
+                                  .join(":")}
+                              </p>
+                            )}
+                          </div>
+                        </ScrollLink>
+                      ))
+                    : ""}
                 </div>
               </div>
             </div>
           ) : (
-            <p>No Data</p>
+            eventsToday &&
+            eventsToday.map((event, index) => (
+              <ScrollLink
+                to="single-event"
+                smooth={true}
+                duration={500}
+                className="band-event-details-wraper d-flex justify-content-between py-2"
+                key={index}
+                onClick={() => handleEventUpdate(eventsToday[index].id)}
+              >
+                <div className="band-event-venue-date-wraper d-flex flex-column justify-content-center">
+                  <p className="m-0">
+                    {new Date(
+                      eventsToday[index].dates.start.localDate
+                    ).toLocaleString("default", { month: "short" })}
+                  </p>
+                  <p className="m-0">
+                    {new Date(eventsToday[index].dates.start.localDate)
+                      .getDate()
+                      .toString()
+                      .padStart(2, "0")}
+                  </p>
+                </div>
+                <div className="band-event-location-time ps-2 text-end d-flex flex-column justify-content-between">
+                  {eventsToday && (
+                    <p className="mb-0">{eventsToday[index]?.name}</p>
+                  )}
+                  {eventsToday && (
+                    <p className="mb-0">
+                      {eventsToday[index]?._embedded?.venues[0]?.city?.name}
+                    </p>
+                  )}
+                  {eventsToday && (
+                    <p className="mb-0">
+                      {eventsToday[index]?.dates?.start?.localTime
+                        ?.split(":")
+                        .slice(0, 2)
+                        .join(":")}
+                    </p>
+                  )}
+                </div>
+              </ScrollLink>
+            ))
           )}
         </div>
       </div>

@@ -13,7 +13,7 @@ export const startDateForApi = (date) => {
   const isoString = new Date(date).toISOString();
   // Set time to 00:01:01
   const formattedDate = new Date(isoString);
-  formattedDate.setHours(0, 1, 1);
+  formattedDate.setHours(1, 1, 1);
   // Return date with correct format for ticketmaster API
   return formattedDate.toISOString().slice(0, -5) + "Z";
 };
@@ -69,6 +69,7 @@ export const eventById = async (eventId = "") => {
   try {
     const response = await axios.get(apiUrl);
     const data = response.data;
+    console.log("This event by id data", data);
     return data;
   } catch (error) {
     console.error("API Error:", error);
@@ -82,6 +83,7 @@ export const eventByVenue = async (venueId = "KovZ9177kof") => {
   const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?venueId=${venueId}&apikey=${apiKey}&countryCode=GB&sort=date,asc`;
   try {
     const response = await axios.get(apiUrl);
+    console.log("This is event data", response.data);
     return response.data;
   } catch (error) {
     console.error("API Error:", error);
