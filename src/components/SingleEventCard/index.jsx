@@ -15,6 +15,7 @@ const SingleEventCard = ({
   artistTracks,
 }) => {
   const [btnToggled, setbtnToggled] = useState(false);
+  const [topAlbumLoading, setTopAlbumLoading] = useState(true);
   const navigate = useNavigate();
 
   const btnToggle = () => {
@@ -23,6 +24,10 @@ const SingleEventCard = ({
 
   const handleEventUpdate = (updatedEventId) => {
     navigate(`/event/${updatedEventId}`);
+  };
+
+  const handleImageLoad = () => {
+    setTopAlbumLoading(false);
   };
 
   return (
@@ -407,9 +412,18 @@ const SingleEventCard = ({
                                           backgroundImage: `url(${albumImage})`,
                                         }}
                                       >
+                                        {topAlbumLoading && (
+                                          <div className="album-placeholder"></div>
+                                        )}
                                         <p className="album-title mb-0">
                                           {albumName}
                                         </p>
+                                        <img
+                                          src={albumImage}
+                                          alt={albumName}
+                                          onLoad={handleImageLoad}
+                                          style={{ display: "none" }}
+                                        />
                                       </div>
                                     </div>
                                   </a>

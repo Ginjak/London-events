@@ -102,6 +102,7 @@ const SingleEvent = () => {
           "gettopalbums",
           data.name
         );
+        setComponentLoading(true);
         // checkAndSetActiveTab();
         setArtistTopAlbums(artistTopAlb);
 
@@ -134,6 +135,7 @@ const SingleEvent = () => {
   const handleEventUpdate = (updatedEventId) => {
     navigate(`/event/${updatedEventId}`);
   };
+
   // Render loading indicator while fetching data
   if (!eventData) {
     return <div className="text-white">Loading...</div>;
