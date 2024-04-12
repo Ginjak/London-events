@@ -50,3 +50,8 @@ export const constructGoogleMapsURL = (hotelName, address) => {
 
   return googleMapsURL;
 };
+
+// onLoad function, to change state when image loads
+export const handleImageLoad = (setState, newState) => {
+  setState(newState);
+};

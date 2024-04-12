@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./singleeventcard.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
+import { handleImageLoad } from "../../eventsActions/utilityFunctions";
 
 const SingleEventCard = ({
   eventBg,
@@ -24,10 +25,6 @@ const SingleEventCard = ({
 
   const handleEventUpdate = (updatedEventId) => {
     navigate(`/event/${updatedEventId}`);
-  };
-
-  const handleImageLoad = () => {
-    setTopAlbumLoading(false);
   };
 
   return (
@@ -421,7 +418,12 @@ const SingleEventCard = ({
                                         <img
                                           src={albumImage}
                                           alt={albumName}
-                                          onLoad={handleImageLoad}
+                                          onLoad={() =>
+                                            handleImageLoad(
+                                              setTopAlbumLoading,
+                                              false
+                                            )
+                                          }
                                           style={{ display: "none" }}
                                         />
                                       </div>
