@@ -247,6 +247,12 @@
   font-weight: 500;
   font-family: "Raleway", sans-serif;
   font-size: 16px;
+  transition: color 0.2s linear;
+}
+.top-tracks-list a:hover,
+.top-tracks-list .track:hover {
+  color: var(--grey);
+  transition: color 0.2s linear;
 }
 
 /* More shows of a artist */

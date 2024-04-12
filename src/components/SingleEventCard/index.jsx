@@ -439,7 +439,7 @@ const SingleEventCard = ({
                             const trackUrl = track.url;
                             if (trackName !== "(null)" && trackName !== "") {
                               return (
-                                <li key={index}>
+                                <li className="track" key={index}>
                                   <a href={trackUrl} target="_blank">
                                     {trackName}
                                   </a>
