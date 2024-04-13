@@ -100,17 +100,14 @@ const SingleEvent = () => {
         setEventsByVenue(dataVenue);
 
         if (data._embedded.venues[0].city.name && !componentLoading) {
-          const today = new Date();
           const eventsToday = await fetchEvents(
             undefined,
             data._embedded.venues[0].city.name,
             undefined,
             undefined,
-            undefined,
+            "",
             10
           );
-          console.log("check how date displayed ", startDateForApi(today));
-          console.log("check how date displayed end", endDateForApi(today));
           setAllEventsToday(eventsToday);
         }
         // Get artist Bio data
