@@ -43,6 +43,7 @@
 #single-event .event-details-wraper {
   padding-bottom: 24px !important;
 }
+
 #single-event .event-details-wraper,
 #single-event .events-by-venue,
 #single-event .event-by-venue-title button {
@@ -267,7 +268,8 @@
   overflow: auto;
 }
 
-#single-event .more-events-by-band-wraper .band-event-details-wraper {
+#single-event .more-events-by-band-wraper .band-event-details-wraper,
+#single-event .future-events-wraper .band-event-details-wraper {
   padding-right: 13px;
 }
 /* Scroll bar in event */
@@ -308,6 +310,16 @@
   #single-event .artist-info-container::-webkit-scrollbar,
   #single-event .more-events-by-band-wraper::-webkit-scrollbar {
     display: none;
+  }
+
+  #single-event .future-events-wraper {
+    height: 323px !important;
+  }
+  #single-event .band-events-wraper {
+    height: 232px !important;
+  }
+  #single-event .more-events-by-band-wraper {
+    height: 182px !important;
   }
 }
 @media (max-width: 400px) {

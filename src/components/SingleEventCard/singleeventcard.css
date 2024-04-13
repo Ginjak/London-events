@@ -31,3 +31,13 @@
   background: red;
   z-index: 2;
 }
+
+/* Future events wraper */
+.future-events-wraper {
+  overflow: hidden;
+}
+
+.future-event-container {
+  height: 100%;
+  overflow-y: auto;
+}

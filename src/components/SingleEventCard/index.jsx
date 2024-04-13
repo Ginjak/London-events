@@ -526,54 +526,62 @@ const SingleEventCard = ({
               </div>
             </div>
           ) : (
-            <div className="artist-info px-4 py-3">
+            <div
+              className="future-events-wraper px-4 py-3"
+              style={{ height: btnToggled ? "890px" : "590px" }}
+            >
               <h5 className="more-show-title">
                 Upcoming event in{" "}
                 {eventDetails?._embedded?.venues?.[0].city?.name}
               </h5>
-              {eventsToday &&
-                eventsToday.map((event, index) => (
-                  <ScrollLink
-                    to="single-event"
-                    smooth={true}
-                    duration={500}
-                    className="band-event-details-wraper d-flex justify-content-between py-2"
-                    key={index}
-                    onClick={() => handleEventUpdate(eventsToday[index].id)}
-                  >
-                    <div className="band-event-venue-date-wraper d-flex flex-column justify-content-center">
-                      <p className="m-0">
-                        {new Date(
-                          eventsToday[index].dates.start.localDate
-                        ).toLocaleString("default", { month: "short" })}
-                      </p>
-                      <p className="m-0">
-                        {new Date(eventsToday[index].dates.start.localDate)
-                          .getDate()
-                          .toString()
-                          .padStart(2, "0")}
-                      </p>
-                    </div>
-                    <div className="band-event-location-time ps-2 text-end d-flex flex-column justify-content-between">
-                      {eventsToday && (
-                        <p className="mb-0">{eventsToday[index]?.name}</p>
-                      )}
-                      {eventsToday && (
-                        <p className="mb-0">
-                          {eventsToday[index]?._embedded?.venues[0]?.city?.name}
+              <div className="future-event-container">
+                {eventsToday &&
+                  eventsToday.map((event, index) => (
+                    <ScrollLink
+                      to="single-event"
+                      smooth={true}
+                      duration={500}
+                      className="band-event-details-wraper d-flex justify-content-between py-2"
+                      key={index}
+                      onClick={() => handleEventUpdate(eventsToday[index].id)}
+                    >
+                      <div className="band-event-venue-date-wraper d-flex flex-column justify-content-center">
+                        <p className="m-0">
+                          {new Date(
+                            eventsToday[index].dates.start.localDate
+                          ).toLocaleString("default", { month: "short" })}
                         </p>
-                      )}
-                      {eventsToday && (
-                        <p className="mb-0">
-                          {eventsToday[index]?.dates?.start?.localTime
-                            ?.split(":")
-                            .slice(0, 2)
-                            .join(":")}
+                        <p className="m-0">
+                          {new Date(eventsToday[index].dates.start.localDate)
+                            .getDate()
+                            .toString()
+                            .padStart(2, "0")}
                         </p>
-                      )}
-                    </div>
-                  </ScrollLink>
-                ))}
+                      </div>
+                      <div className="band-event-location-time ps-2 text-end d-flex flex-column justify-content-between">
+                        {eventsToday && (
+                          <p className="mb-0">{eventsToday[index]?.name}</p>
+                        )}
+                        {eventsToday && (
+                          <p className="mb-0">
+                            {
+                              eventsToday[index]?._embedded?.venues[0]?.city
+                                ?.name
+                            }
+                          </p>
+                        )}
+                        {eventsToday && (
+                          <p className="mb-0">
+                            {eventsToday[index]?.dates?.start?.localTime
+                              ?.split(":")
+                              .slice(0, 2)
+                              .join(":")}
+                          </p>
+                        )}
+                      </div>
+                    </ScrollLink>
+                  ))}
+              </div>
             </div>
           )}
         </div>
