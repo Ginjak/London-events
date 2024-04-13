@@ -83,10 +83,13 @@ const SingleEventCard = ({
                 </div>
                 {eventDetails?.url && (
                   <div className="tickets-btn-wraper mb-0">
-                    {eventDetails?.priceRanges?.[0].min && (
+                    {eventDetails?.priceRanges?.[0].min &&
+                    eventDetails?.priceRanges?.[0].min !== 0 ? (
                       <p className="price-from mb-2 mb-sm-1">
                         From £<span>{eventDetails?.priceRanges[0]?.min}</span>
                       </p>
+                    ) : (
+                      ""
                     )}
                     <Link
                       to={eventDetails?.url}
