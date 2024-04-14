@@ -306,11 +306,11 @@
 }
 
 @media (max-width: 992px) {
-  #single-event ::-webkit-scrollbar,
+  /* #single-event ::-webkit-scrollbar,
   #single-event .artist-info-container::-webkit-scrollbar,
   #single-event .more-events-by-band-wraper::-webkit-scrollbar {
     display: none;
-  }
+  } */
 
   #single-event .future-events-wraper {
     height: 323px !important;

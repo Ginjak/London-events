@@ -40,4 +40,5 @@
 .future-event-container {
   height: 100%;
   overflow-y: auto;
+  padding-bottom: 20px;
 }

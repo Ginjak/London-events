@@ -34,24 +34,26 @@ const Hotels = ({ data, bgImage = "Hotels" }) => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 3, // Show 3 slides at once
+    slidesToShow: 3,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000, // Adjust autoplay speed as needed
     responsive: [
       {
-        breakpoint: 1024, // Adjust settings for tablets
+        breakpoint: 1024,
         settings: {
-          slidesToShow: 2, // Show 2 slides on tablets
+          slidesToShow: 2,
+          slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 600, // Adjust settings for smaller screens
+        breakpoint: 600,
         settings: {
-          slidesToShow: 1, // Show 1 slide on smaller screens (phones)
+          slidesToShow: 1,
+          slidesToScroll: 1,
         },
       },
     ],
-    autoplay: false,
-    autoplaySpeed: 5000,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
   };
