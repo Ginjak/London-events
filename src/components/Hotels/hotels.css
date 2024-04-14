@@ -116,6 +116,21 @@
   margin-bottom: 12px;
 }
 
+.establishment-card-placeholder {
+  position: absolute;
+  left: 8px;
+  right: -8px;
+  width: calc(100% - 16px);
+  height: 100%;
+  background: #000;
+  z-index: 2;
+}
+
+.establishments-img {
+  object-fit: cover;
+  width: 100%;
+}
+
 #sngle-event .location-card .dates-btn a {
   font-size: 14px;
 }

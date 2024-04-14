@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "./establishmenttab.css";
 import Hotels from "../Hotels";
 
 const EstablishmentTab = ({ hotelsTab, restaurantTab }) => {
+  const [activeTab, setActiveTab] = useState("hotel-tab");
+
+  const handleTabChange = (tabId) => {
+    setActiveTab(tabId);
+  };
+
   return (
     <div className="hotel-restaurant-tabs-wraper">
       <h2 className="establishments-title mb-4">
@@ -11,28 +17,22 @@ const EstablishmentTab = ({ hotelsTab, restaurantTab }) => {
       <ul className="nav mb-3" id="hotels-restaurants-tab" role="tablist">
         <li className="nav-item" role="presentation">
           <button
-            className="nav-link active dates-btn me-3"
+            className={`nav-link dates-btn me-3 ${
+              activeTab === "hotel-tab" ? "active" : ""
+            }`}
             id="hotels-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#hotel-tab"
-            type="button"
-            role="tab"
-            aria-controls="hotels"
-            aria-selected="true"
+            onClick={() => handleTabChange("hotel-tab")}
           >
             Hotels
           </button>
         </li>
         <li className="nav-item" role="presentation">
           <button
-            className="nav-link dates-btn"
+            className={`nav-link dates-btn ${
+              activeTab === "restaurant-tab" ? "active" : ""
+            }`}
             id="restaurants-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#restaurant-tab"
-            type="button"
-            role="tab"
-            aria-controls="restaurants"
-            aria-selected="false"
+            onClick={() => handleTabChange("restaurant-tab")}
           >
             Restaurants
           </button>
@@ -40,20 +40,22 @@ const EstablishmentTab = ({ hotelsTab, restaurantTab }) => {
       </ul>
       <div className="tab-content" id="establishments-content">
         <div
-          className="tab-pane fade show active text-white"
+          className={`tab-pane fade ${
+            activeTab === "hotel-tab" ? "show active" : ""
+          } text-white`}
           id="hotel-tab"
-          role="tabpanel"
-          aria-labelledby="hotels-tab"
         >
-          <Hotels data={hotelsTab} />
+          {activeTab === "hotel-tab" && <Hotels data={hotelsTab} />}
         </div>
         <div
-          className="tab-pane fade text-white"
+          className={`tab-pane fade ${
+            activeTab === "restaurant-tab" ? "show active" : ""
+          } text-white`}
           id="restaurant-tab"
-          role="tabpanel"
-          aria-labelledby="restaurants-tab"
         >
-          <Hotels data={restaurantTab} bgImage="Restaurants" />
+          {activeTab === "restaurant-tab" && (
+            <Hotels data={restaurantTab} bgImage="Restaurants" />
+          )}
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./hotels.css";
 import Slider from "react-slick";
@@ -29,6 +29,7 @@ const CustomNextArrow = (props) => {
 };
 
 const Hotels = ({ data, bgImage = "Hotels" }) => {
+  const [load, setLoad] = useState(true);
   const hotels = data && data.results ? data.results : [];
   const settings = {
     dots: false,
@@ -61,44 +62,71 @@ const Hotels = ({ data, bgImage = "Hotels" }) => {
   return data && data.results && data.results.length > 0 ? (
     <>
       <div className="slider-wraper">
-        <Slider {...settings} className="text-white position-relative">
-          {hotels.map((hotel) => (
-            <div key={hotel.fsq_id} className="location-card px-2 ">
+        {hotels && (
+          <Slider {...settings} className="text-white position-relative">
+            {hotels.map((hotel) => (
               <div
-                className="img-container position-relative"
-                style={{
-                  backgroundImage: `url("${
-                    bgImage === "Hotels"
-                      ? `/images/hotels/Hotel_${generateRandomNumber(9)}.webp`
-                      : bgImage === "Restaurants"
-                      ? `/images/restaurants/Restaurant_${generateRandomNumber(
-                          9
-                        )}.webp`
-                      : ""
-                  }")`,
-                }}
-              ></div>
-              <div className="title-distance-link-wraper p-3">
-                <h5 className="title">{hotel.name}</h5>
-                <p className="distance">
-                  {(hotel.distance / 1609.34).toFixed(2)} mi from venue
-                </p>
-                <div className="text-end btn-wraper">
-                  <Link
-                    className="dates-btn"
-                    to={constructGoogleMapsURL(
-                      hotel.name,
-                      hotel.location.formatted_address
-                    )}
-                    target="_blank"
-                  >
-                    More details
-                  </Link>
+                key={hotel.fsq_id}
+                className="location-card px-2 position-relative"
+              >
+                {load && (
+                  <div className="establishment-card-placeholder d-flex justify-content-center align-items-center">
+                    <div class="spinner-border" role="status">
+                      <span class="visually-hidden"></span>
+                    </div>
+                  </div>
+                )}
+                <div
+                  className="img-container position-relative"
+                  // style={{
+                  //   backgroundImage: `url("${
+                  //     bgImage === "Hotels"
+                  //       ? `/images/hotels/Hotel_${generateRandomNumber(9)}.webp`
+                  //       : bgImage === "Restaurants"
+                  //       ? `/images/restaurants/Restaurant_${generateRandomNumber(
+                  //           9
+                  //         )}.webp`
+                  //       : ""
+                  //   }")`,
+                  // }}
+                >
+                  <img
+                    src={
+                      bgImage === "Hotels"
+                        ? `/images/hotels/Hotel_${generateRandomNumber(9)}.webp`
+                        : bgImage === "Restaurants"
+                        ? `/images/restaurants/Restaurant_${generateRandomNumber(
+                            9
+                          )}.webp`
+                        : ""
+                    }
+                    className="establishments-img"
+                    onLoad={() => setLoad(false)}
+                    alt="Hotel or Restaurant"
+                  />
+                </div>
+                <div className="title-distance-link-wraper p-3">
+                  <h5 className="title">{hotel.name}</h5>
+                  <p className="distance">
+                    {(hotel.distance / 1609.34).toFixed(2)} mi from venue
+                  </p>
+                  <div className="text-end btn-wraper">
+                    <Link
+                      className="dates-btn"
+                      to={constructGoogleMapsURL(
+                        hotel.name,
+                        hotel.location.formatted_address
+                      )}
+                      target="_blank"
+                    >
+                      More details
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </Slider>
+            ))}
+          </Slider>
+        )}
       </div>
     </>
   ) : (

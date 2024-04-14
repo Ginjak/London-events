@@ -37,31 +37,13 @@ const SingleEvent = () => {
   const [hotels, setHotels] = useState("");
   const [restaurants, setRestaurants] = useState("");
 
+  // Loading states
   const [eventCardLoading, setEventCardLoading] = useState(true);
-
   const [componentLoading, setComponentLoading] = useState(false);
 
   const handleButtonClick = () => {
     setIsButtonToggled((prevState) => !prevState);
   };
-  // Function to add active class if Bio or Top Albums is missing to another tab element
-  // const checkAndSetActiveTab = () => {
-  //   const bioTab = document.getElementById("bio-tab");
-  //   const topAlbumsTab = document.getElementById("top-albums-tab");
-  //   const topTracksTab = document.getElementById("top-tracks-tab");
-
-  //   if (!bioTab && !topAlbumsTab) {
-  //     // Both bio-tab and top-albums-tab are missing, add active class to top-tracks-tab
-  //     if (topTracksTab) {
-  //       topTracksTab.classList.add("active");
-  //     }
-  //   } else if (!bioTab) {
-  //     // bio-tab is missing, add active class to top-albums-tab
-  //     if (topAlbumsTab) {
-  //       topAlbumsTab.classList.add("active");
-  //     }
-  //   }
-  // };
 
   useEffect(() => {
     const fetchData = async () => {
