@@ -41,14 +41,14 @@ const Hotels = ({ data, bgImage = "Hotels" }) => {
     autoplaySpeed: 5000, // Adjust autoplay speed as needed
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 992,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 768,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -71,8 +71,8 @@ const Hotels = ({ data, bgImage = "Hotels" }) => {
               >
                 {load && (
                   <div className="establishment-card-placeholder d-flex justify-content-center align-items-center">
-                    <div class="spinner-border" role="status">
-                      <span class="visually-hidden"></span>
+                    <div className="spinner-border" role="status">
+                      <span className="visually-hidden"></span>
                     </div>
                   </div>
                 )}
