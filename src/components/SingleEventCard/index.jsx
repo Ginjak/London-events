@@ -560,7 +560,11 @@ const SingleEventCard = ({
                       </div>
                       <div className="band-event-location-time ps-2 text-end d-flex flex-column justify-content-between">
                         {eventsToday && (
-                          <p className="mb-0">{eventsToday[index]?.name}</p>
+                          <p className="mb-0">
+                            {window.innerWidth < 500
+                              ? eventsToday[index]?.name.slice(0, 20) + "..."
+                              : eventsToday[index]?.name}
+                          </p>
                         )}
                         {eventsToday && (
                           <p className="mb-0">
