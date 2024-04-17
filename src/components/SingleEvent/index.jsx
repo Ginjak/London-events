@@ -136,28 +136,30 @@ const SingleEvent = () => {
   }
 
   return (
-    <div className="container-xxl py-5">
-      <SingleEventCard
-        eventBg={eventBgImg}
-        eventDetails={eventData}
-        buttonToggle={isButtonToggled}
-        venueDetails={eventsByVenue}
-        artistBioDetails={artistBio}
-        eventNameDetails={eventsByName}
-        artistAlbums={artistTopAlbums}
-        artistTracks={artistTopTracks}
-        cardLoading={eventCardLoading}
-        componentLoading={componentLoading}
-        eventsToday={allEventsToday}
-      />
+    <>
+      <div className="container-xxl py-5">
+        <SingleEventCard
+          eventBg={eventBgImg}
+          eventDetails={eventData}
+          buttonToggle={isButtonToggled}
+          venueDetails={eventsByVenue}
+          artistBioDetails={artistBio}
+          eventNameDetails={eventsByName}
+          artistAlbums={artistTopAlbums}
+          artistTracks={artistTopTracks}
+          cardLoading={eventCardLoading}
+          componentLoading={componentLoading}
+          eventsToday={allEventsToday}
+        />
 
-      <EstablishmentTab
-        hotelsTab={hotels}
-        restaurantTab={restaurants}
-        hotelLoading={hotelLoading}
-      />
+        <EstablishmentTab
+          hotelsTab={hotels}
+          restaurantTab={restaurants}
+          hotelLoading={hotelLoading}
+        />
+      </div>
       <MultipleSlider popularEvents={allEventsToday} />
-    </div>
+    </>
   );
 };
 
