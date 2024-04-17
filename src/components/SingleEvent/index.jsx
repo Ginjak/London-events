@@ -57,16 +57,16 @@ const SingleEvent = () => {
         setEventData(data);
         const hotelsData = await fetchHotels(
           undefined,
-          data._embedded.venues[0].location.latitude,
-          data._embedded.venues[0].location.longitude
+          data?._embedded.venues?.[0].location?.latitude,
+          data?._embedded?.venues?.[0].location?.longitude
         );
         setHotels(hotelsData);
         setHotelLoading(true);
 
         const restaurantsData = await fetchHotels(
           "4d4b7105d754a06374d81259",
-          data._embedded.venues[0].location.latitude,
-          data._embedded.venues[0].location.longitude
+          data?._embedded?.venues?.[0].location?.latitude,
+          data?._embedded?.venues?.[0].location?.longitude
         );
         setRestaurants(restaurantsData);
 
