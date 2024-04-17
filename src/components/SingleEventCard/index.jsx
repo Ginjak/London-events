@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./singleeventcard.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
@@ -16,6 +16,13 @@ const SingleEventCard = ({
   artistTracks,
 }) => {
   const [btnToggled, setbtnToggled] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(true);
+  useEffect(() => {
+    setImageLoaded(true);
+    setTimeout(() => {
+      setImageLoaded(false);
+    }, 4000);
+  }, [eventDetails]);
   const navigate = useNavigate();
   console.log("this is a data to check ", eventsToday);
   const btnToggle = () => {
@@ -38,10 +45,18 @@ const SingleEventCard = ({
           </div>
         )}
         <div className="col-lg-6 px-0 ">
-          <div
-            className="text-time-title-wraper position-relative px-4 py-3 d-flex justify-content-center align-items-center"
-            style={{ backgroundImage: `url(${eventBg})` }}
-          >
+          <div className="text-time-title-wraper position-relative px-4 py-3 d-flex justify-content-center align-items-center">
+            {imageLoaded && (
+              <div className="placeholder-img d-flex justify-content-center align-items-center">
+                <div className="spinner-border text-white" role="status"></div>
+              </div>
+            )}
+            <img
+              src={eventBg}
+              className="singlecard-img"
+              alt={`Artist -  ${eventDetails.name} image`}
+              onLoad={() => setImageLoaded(false)}
+            />
             <div className="overlay"></div>
             <div className="event-date d-flex flex-column justify-content-center align-items-center">
               <p className="m-0">

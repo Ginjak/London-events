@@ -64,7 +64,7 @@ export const fetchEvents = async (
 // Fetching event by ID
 export const eventById = async (eventId = "") => {
   const apiKey = import.meta.env.VITE_TM_KEY;
-  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=${apiKey}&countryCode=GB
+  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=${apiKey}&classificationName=music&countryCode=GB
   `;
   try {
     const response = await axios.get(apiUrl);
@@ -80,7 +80,7 @@ export const eventById = async (eventId = "") => {
 // Fetching event by Venue
 export const eventByVenue = async (venueId = "KovZ9177kof") => {
   const apiKey = import.meta.env.VITE_TM_KEY;
-  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?venueId=${venueId}&apikey=${apiKey}&countryCode=GB&sort=date,asc`;
+  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?venueId=${venueId}&apikey=${apiKey}&classificationName=music&countryCode=GB&sort=date,asc`;
   try {
     const response = await axios.get(apiUrl);
     console.log("This is event data", response.data);
@@ -94,7 +94,7 @@ export const eventByVenue = async (venueId = "KovZ9177kof") => {
 // Fething event by name
 export const eventByName = async (eventName = "") => {
   const apiKey = import.meta.env.VITE_TM_KEY;
-  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events?keyword=${eventName}&apikey=${apiKey}&countryCode=GB&sort=date,asc`;
+  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events?keyword=${eventName}&apikey=${apiKey}&classificationName=music&countryCode=GB&sort=date,asc`;
 
   try {
     const response = await axios.get(apiUrl);

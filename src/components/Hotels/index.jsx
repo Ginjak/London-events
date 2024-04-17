@@ -76,20 +76,7 @@ const Hotels = ({ data, bgImage = "Hotels" }) => {
                     </div>
                   </div>
                 )}
-                <div
-                  className="img-container position-relative"
-                  // style={{
-                  //   backgroundImage: `url("${
-                  //     bgImage === "Hotels"
-                  //       ? `/images/hotels/Hotel_${generateRandomNumber(9)}.webp`
-                  //       : bgImage === "Restaurants"
-                  //       ? `/images/restaurants/Restaurant_${generateRandomNumber(
-                  //           9
-                  //         )}.webp`
-                  //       : ""
-                  //   }")`,
-                  // }}
-                >
+                <div className="img-container position-relative">
                   <img
                     src={
                       bgImage === "Hotels"
