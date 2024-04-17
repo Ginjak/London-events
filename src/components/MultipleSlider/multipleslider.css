@@ -1,0 +1,7 @@
+.slick-slider:hover .slick-slide {
+  transition: none !important; /* Disable transition on hover */
+}
+
+.slick-slider:hover .slick-slider {
+  animation-play-state: paused; /* Pause autoplay on hover */
+}

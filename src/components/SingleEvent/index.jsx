@@ -7,11 +7,8 @@ import {
   eventByVenue,
   eventByName,
   fetchLastFmArtistData,
-  fetchLastFmTrack,
   fetchHotels,
   fetchEvents,
-  startDateForApi,
-  endDateForApi,
 } from "../../eventsActions/eventsActions";
 
 import { imageSizeApi } from "../../eventsActions/utilityFunctions";
@@ -19,6 +16,7 @@ import axios from "axios";
 import Hotels from "../Hotels";
 import EstablishmentTab from "../EstablishmentTab";
 import SingleEventCard from "../SingleEventCard";
+import MultipleSlider from "../MultipleSlider";
 
 const SingleEvent = () => {
   const navigate = useNavigate();
@@ -158,6 +156,7 @@ const SingleEvent = () => {
         restaurantTab={restaurants}
         hotelLoading={hotelLoading}
       />
+      <MultipleSlider popularEvents={allEventsToday} />
     </div>
   );
 };
