@@ -73,13 +73,30 @@ const MultipleSlider = ({ popularEvents, title }) => {
       {popularEvents && (
         <div className="multislider-wraper postion-relative">
           {loading && (
-            <div className="multislider-placeholder">
+            <>
               <div className="container-xxl">
-                <p class="card-text placeholder-glow ">
-                  <span class="placeholder bg-white col-7"></span>
-                </p>
+                <div className="multislider-placeholder placeholder-glow  title mb-4">
+                  <span className="placeholder bg-white col-5"></span>
+                </div>
               </div>
-            </div>
+              <div className="multislider-placeholder-card-wraper d-flex">
+                {Array.from({ length: 5 }, (_, index) => (
+                  <div
+                    className={`multislider-placeholder-card placeholder-${index} d-flex flex-column justify-content-between`}
+                    key={index}
+                  >
+                    <h5 className="multislider-placeholder-title placeholder-glow px-3 mt-3">
+                      <span className="placeholder bg-white col-12"></span>
+                    </h5>
+                    <div className="multislider-placeholder-genre-wraper">
+                      <p className="card-text placeholder-glow d-flex align-items-center h-100 ps-3">
+                        <span className="placeholder bg-white col-6"></span>
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
           )}
           {title && (
             <div className="container-xxl">

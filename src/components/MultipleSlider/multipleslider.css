@@ -145,6 +145,27 @@
   transition: opacity 0.2s linear;
 }
 
-.test {
-  position: absolute;
+/* Loading placeholder */
+.multislider-placeholder.title span {
+  height: 50px;
+}
+.multislider-placeholder-card-wraper {
+  width: 100%;
+}
+.multislider-placeholder-card {
+  min-height: 350px;
+  width: 100%;
+  background: #2c314b;
+  border: 1px solid var(--white);
+}
+
+.multislider-placeholder-title .placeholder {
+  height: 32px;
+}
+.multislider-placeholder-genre-wraper {
+  height: 70px;
+  background: #1e2233;
+}
+.multislider-placeholder-genre-wraper .placeholder {
+  height: 26px;
 }
