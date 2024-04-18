@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./multipleslider.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -23,7 +23,9 @@ const CustomNextArrow = (props) => {
   );
 };
 
-const MultipleSlider = ({ popularEvents }) => {
+const MultipleSlider = ({ popularEvents, title }) => {
+  const [loading, setLoading] = useState(true);
+
   const settings = {
     dots: false,
     infinite: true,
@@ -34,14 +36,28 @@ const MultipleSlider = ({ popularEvents }) => {
     pauseOnHover: true,
     responsive: [
       {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+        },
+      },
+      {
         breakpoint: 992,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 768,
+        breakpoint: 580,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -53,59 +69,81 @@ const MultipleSlider = ({ popularEvents }) => {
   };
 
   return (
-    <div>
+    <>
       {popularEvents && (
-        <Slider {...settings} className="text-white position-relative">
-          {popularEvents.slice(0, 10).map((event) => (
-            <div className="card-event-wraper overflow-hidden " key={event.id}>
-              <div className="img-card-wraper position-relative ">
-                <div className="overlay"></div>
-                <img
-                  src={imageSizeApi(event?.images, 350)}
-                  alt={`Artist - ${event?.name} image`}
-                  className="card-event-img"
-                />
-                <h5 className="event-card-title">{event?.name}</h5>
-                <div className="event-card-genre-wraper d-flex justify-content-between">
-                  <p className="event-card-genre m-0">
-                    {event?.classifications?.[0].genre?.name}
-                  </p>
-                </div>
-                <div className="event-card-details-wraper d-flex justify-content-between">
-                  <div className="event-date-wraper d-flex flex-column justify-content-center align-items-center">
-                    <p className="m-0">
-                      {new Date(event?.dates?.start?.dateTime).toLocaleString(
-                        "default",
-                        {
-                          month: "short",
-                        }
-                      )}
-                    </p>
-                    <p className="m-0">
-                      {new Date(event?.dates?.start?.dateTime)
-                        .getDate()
-                        .toString()
-                        .padStart(2, "0")}
+        <div className="multislider-wraper postion-relative">
+          {loading && (
+            <div className="multislider-placeholder">
+              <div className="container-xxl">
+                <p class="card-text placeholder-glow ">
+                  <span class="placeholder bg-white col-7"></span>
+                </p>
+              </div>
+            </div>
+          )}
+          {title && (
+            <div className="container-xxl">
+              <h2 className="multislider-title mb-4">{title}</h2>
+            </div>
+          )}
+          <Slider
+            {...settings}
+            className=" multislider text-white position-relative "
+          >
+            {popularEvents.slice(0, 10).map((event) => (
+              <div
+                className="card-event-wraper overflow-hidden "
+                key={event.id}
+              >
+                <div className="img-card-wraper position-relative ">
+                  <div className="overlay"></div>
+                  <img
+                    src={imageSizeApi(event?.images, 350)}
+                    alt={`Artist - ${event?.name} image`}
+                    className="card-event-img"
+                  />
+                  <h5 className="event-card-title px-2">{event?.name}</h5>
+                  <div className="event-card-genre-wraper d-flex justify-content-between">
+                    <p className="event-card-genre m-0">
+                      {event?.classifications?.[0].genre?.name}
                     </p>
                   </div>
-                  <div className="event-card-time-venue-wraper d-flex flex-column justify-content-between">
-                    <p className="event-card-venue m-0">
-                      {event?._embedded?.venues?.[0].name}
-                    </p>
-                    <p className="event-card-time text-end m-0">
-                      {event.dates.start.localTime
-                        .split(":")
-                        .slice(0, 2)
-                        .join(":")}
-                    </p>
+                  <div className="event-card-details-wraper d-flex justify-content-between">
+                    <div className="event-date-wraper d-flex flex-column justify-content-center align-items-center">
+                      <p className="m-0">
+                        {new Date(event?.dates?.start?.dateTime).toLocaleString(
+                          "default",
+                          {
+                            month: "short",
+                          }
+                        )}
+                      </p>
+                      <p className="m-0">
+                        {new Date(event?.dates?.start?.dateTime)
+                          .getDate()
+                          .toString()
+                          .padStart(2, "0")}
+                      </p>
+                    </div>
+                    <div className="event-card-time-venue-wraper d-flex flex-column justify-content-between">
+                      <p className="event-card-venue m-0">
+                        {event?._embedded?.venues?.[0].name}
+                      </p>
+                      <p className="event-card-time text-end m-0">
+                        {event.dates.start.localTime
+                          .split(":")
+                          .slice(0, 2)
+                          .join(":")}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </Slider>
+            ))}
+          </Slider>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

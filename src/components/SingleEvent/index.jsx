@@ -158,7 +158,10 @@ const SingleEvent = () => {
           hotelLoading={hotelLoading}
         />
       </div>
-      <MultipleSlider popularEvents={allEventsToday} />
+      <MultipleSlider
+        popularEvents={allEventsToday}
+        title={"This is a title"}
+      />
     </>
   );
 };

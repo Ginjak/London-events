@@ -6,6 +6,12 @@
   animation-play-state: paused; /* Pause autoplay on hover */
 }
 
+/* Section title */
+.multislider-title {
+  font-size: 58px;
+  color: var(--white);
+}
+
 /* Events slider */
 
 #single-event .card-event-wraper .overlay {
@@ -96,4 +102,49 @@
   line-height: 1;
   font-size: 14px;
   font-weight: 600;
+}
+
+/* Arrows */
+.multislider .custom-prev-arrow {
+  position: absolute;
+  left: 0px;
+  top: 50%;
+  transform: translate(-0%, -50%);
+  z-index: 2;
+  background: none;
+  border: none;
+  font-size: 50px;
+  opacity: 0.4;
+  transition: opacity 0.2s linear;
+  height: 100%;
+  padding-left: 10px;
+}
+
+.multislider .custom-prev-arrow i,
+.multislider .custom-next-arrow i {
+  color: var(--white);
+}
+
+.multislider .custom-next-arrow {
+  right: 0;
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translate(0px, -50%);
+  background: none;
+  border: none;
+  font-size: 50px;
+  opacity: 0.4;
+  transition: opacity 0.2s linear;
+  height: 100%;
+  padding-right: 10px;
+}
+.multislider .custom-prev-arrow:hover,
+.multislider .custom-next-arrow:hover {
+  opacity: 1;
+  transition: opacity 0.2s linear;
+}
+
+.test {
+  position: absolute;
 }
