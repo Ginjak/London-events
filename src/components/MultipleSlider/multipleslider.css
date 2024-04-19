@@ -169,3 +169,24 @@
 .multislider-placeholder-genre-wraper .placeholder {
   height: 26px;
 }
+
+@media screen and (max-width: 1200px) {
+  .multislider-placeholder-card.placeholder-0 {
+    display: none !important;
+  }
+}
+@media screen and (max-width: 992px) {
+  .multislider-placeholder-card.placeholder-1 {
+    display: none !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  .multislider-placeholder-card.placeholder-2 {
+    display: none !important;
+  }
+}
+@media screen and (max-width: 580px) {
+  .multislider-placeholder-card.placeholder-3 {
+    display: none !important;
+  }
+}

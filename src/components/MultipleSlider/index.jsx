@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { scroller } from "react-scroll";
 import "./multipleslider.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -24,6 +26,19 @@ const CustomNextArrow = (props) => {
 };
 
 const MultipleSlider = ({ popularEvents, title }) => {
+  const navigate = useNavigate();
+  const handleEventUpdate = (updatedEventId) => {
+    navigate(`/event/${updatedEventId}`);
+  };
+
+  const scrollToElement = () => {
+    scroller.scrollTo("single-event", {
+      duration: 500,
+      delay: 0,
+      smooth: true,
+    });
+  };
+
   const [loading, setLoading] = useState(true);
   const handleImageLoad = () => {
     setLoading(false);
@@ -108,14 +123,19 @@ const MultipleSlider = ({ popularEvents, title }) => {
                 <h2 className="multislider-title mb-4">{title}</h2>
               </div>
             )}
+
             <Slider
               {...settings}
               className=" multislider text-white position-relative "
             >
-              {popularEvents.slice(0, 10).map((event) => (
+              {popularEvents.slice(0, 20).map((event) => (
                 <div
                   className="card-event-wraper overflow-hidden "
                   key={event.id}
+                  onClick={() => {
+                    handleEventUpdate(event.id);
+                    scrollToElement();
+                  }}
                 >
                   <div className="img-card-wraper position-relative ">
                     <div className="overlay"></div>
@@ -128,7 +148,9 @@ const MultipleSlider = ({ popularEvents, title }) => {
                     <h5 className="event-card-title px-2">{event?.name}</h5>
                     <div className="event-card-genre-wraper d-flex justify-content-between">
                       <p className="event-card-genre m-0">
-                        {event?.classifications?.[0].genre?.name}
+                        {event?.classifications?.[0].genre?.name !== "Undefined"
+                          ? event?.classifications?.[0].genre?.name
+                          : event?.classifications?.[0].segment?.name}
                       </p>
                     </div>
                     <div className="event-card-details-wraper d-flex justify-content-between">

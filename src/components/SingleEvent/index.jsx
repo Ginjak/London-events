@@ -160,7 +160,7 @@ const SingleEvent = () => {
       </div>
       <MultipleSlider
         popularEvents={allEventsToday}
-        title={`Popular events in ${eventData?._embedded?.venues?.[0].city?.name}`}
+        title={`More events ${eventData?._embedded?.venues?.[0].city?.name}`}
       />
     </>
   );
