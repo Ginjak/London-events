@@ -48,6 +48,7 @@
   font-weight: 600;
   cursor: pointer;
 }
+
 .event-film,
 .event-music,
 .category-theater {
@@ -397,6 +398,9 @@
   }
   .event-category-wraper {
     gap: 10px;
+  }
+  .event-category-wraper label {
+    border-radius: 4px;
   }
 }
 
