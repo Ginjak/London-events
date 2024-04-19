@@ -104,7 +104,7 @@ const Hero = () => {
                     <p className="m-0">{eventVenue}</p>
                   </div>
                 </div>
-                <div className="ms-3 more-info-wraper white col-12 col-sm-6 col-md-7 col-xl-8 col-xxl-9 start d-flex justify-content-center justify-content-sm-start">
+                <div className="ps-3 more-info-wraper white col-12 col-sm-6 col-md-7 col-xl-8 col-xxl-9 start d-flex justify-content-center justify-content-sm-start">
                   <Link
                     onClick={() => getEventId(eventId)}
                     to={`/event/${eventId}`}
