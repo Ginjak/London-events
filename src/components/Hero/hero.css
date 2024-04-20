@@ -8,12 +8,20 @@
   background-size: cover !important;
   background-position: center center !important;
 }
+
+.hero-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .hero:before {
   content: "";
   position: absolute;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
 }
 .loading-wraper {
   position: fixed;
@@ -34,6 +42,7 @@
 /* Hero event details */
 .hero-details-wraper {
   margin-top: -130px;
+  z-index: 2;
 }
 .hero-title {
   color: var(--white);
@@ -41,6 +50,9 @@
   line-height: 1em;
 }
 
+.event-date {
+  z-index: 2;
+}
 .event-date p,
 .event-time p,
 .event-city p,

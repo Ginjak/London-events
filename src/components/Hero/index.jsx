@@ -29,7 +29,7 @@ const Hero = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setIsLoading(true); // Set isLoading to true when fetching data
+        setIsLoading(true);
         const data = await fetchEvents(undefined, formCity);
         setEvents(data);
         if (data.length > 0) {
@@ -46,7 +46,6 @@ const Hero = () => {
       } catch (error) {
         console.error(error);
       } finally {
-        setIsLoading(false); // Set isLoading to false after data is fetched
       }
     };
 
@@ -54,9 +53,10 @@ const Hero = () => {
     fetchData();
   }, [formCity]); // Update when formCity changes
 
-  const heroBgUrl = {
-    background: `url(${heroBg})`,
+  const handleImageLoad = () => {
+    setIsLoading(false);
   };
+
   const getEventId = (eventId) => {
     console.log(eventId);
   };
@@ -72,7 +72,14 @@ const Hero = () => {
           </div>
         </div>
       )}
-      <div className="hero" style={heroBgUrl}>
+      <div className="hero position-relative">
+        <img
+          className="hero-background"
+          src={heroBg}
+          alt="Hero image"
+          onLoad={handleImageLoad}
+        />
+
         <div className="container-xxl position-relative hero-wraper ">
           <div className="h-100 d-flex flex-column justify-content-center py-5">
             <div className="hero-details-wraper">
