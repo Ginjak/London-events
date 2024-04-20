@@ -1,3 +1,10 @@
+.fetch-data {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background: var(--rasin-black);
+}
+
 #single-event {
   background: var(--rasin-black);
 }

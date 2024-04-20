@@ -133,7 +133,7 @@ const SingleEvent = () => {
 
   // Render loading indicator while fetching data
   if (!eventData) {
-    return <div className="text-white">Loading...</div>;
+    return <div className="fetch-data"></div>;
   }
 
   return (

@@ -13,9 +13,8 @@
 }
 
 /* Events slider */
-
-#single-event .card-event-wraper .overlay {
-  border-radius: 0;
+.card-event-wraper .overlay {
+  border-radius: 0 !important;
 }
 
 .img-card-wraper {

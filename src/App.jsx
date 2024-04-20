@@ -8,6 +8,7 @@ import { EventIdProvider } from "./context/EventIdContext";
 import EventsByCategory from "./components/EventsByCategory";
 import EventsSection from "./components/EventsSection";
 import SingleEventPage from "./components/Pages/SingleEventPage";
+import MultiSliderByCity from "./components/MultiSliderByCity";
 
 function App() {
   return (
@@ -21,9 +22,14 @@ function App() {
               <Route
                 path="/"
                 element={
-                  <EventsSection id="events">
-                    <EventsByCategory />
-                  </EventsSection>
+                  <>
+                    <EventsSection id="events">
+                      <EventsByCategory />
+                    </EventsSection>
+                    <EventsSection id="multi-slider-by-city">
+                      <MultiSliderByCity />
+                    </EventsSection>
+                  </>
                 }
               />
               <Route

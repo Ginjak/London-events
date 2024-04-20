@@ -12,7 +12,6 @@ import {
   startDateForApi,
   endDateForApi,
 } from "../../eventsActions/eventsActions";
-import { imageSizeApi } from "../../eventsActions/utilityFunctions";
 import EventsResultsCards from "../EventsResultsCards";
 
 const EventsByCategory = () => {

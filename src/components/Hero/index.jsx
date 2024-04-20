@@ -67,16 +67,14 @@ const Hero = () => {
           <div
             className="large-spinner spinner-border text-white"
             role="status"
-          >
-            <span className="visually-hidden">Loading...</span>
-          </div>
+          ></div>
         </div>
       )}
       <div className="hero position-relative">
         <img
           className="hero-background"
           src={heroBg}
-          alt="Hero image"
+          alt={`${eventName} image`}
           onLoad={handleImageLoad}
         />
 
