@@ -98,7 +98,7 @@
   border-radius: 5px;
   background: url("../../../public/images/uk_flag.svg");
   background-size: cover;
-  background-position: 177px center;
+  background-position: 177px;
   transition: background-position 0.1s linear 0.3s;
   height: 400px;
   padding: 25px;
@@ -311,7 +311,7 @@
   /* Calendar */
 
   .custom-card {
-    background-position: 0px center;
+    background-position: 0px 75px;
   }
 
   .custom-card:before {

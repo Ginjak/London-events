@@ -53,6 +53,50 @@ const SingleEvent = () => {
         }
         const data = await eventById(eventId, venueEventsNumber);
         setEventData(data);
+
+        const imageData = await imageSizeApi(data.images, 700);
+        setEventBgImg(imageData);
+
+        // setVenueId(data._embedded.venues[0].id);
+        const eventDataByName = await eventByName(data.name);
+        const filteredEvents = eventDataByName.filter(
+          (event) => event.name === data.name
+        );
+        setEventsByName(filteredEvents);
+        const dataVenue = await eventByVenue(data._embedded.venues[0].id);
+        setEventsByVenue(dataVenue);
+
+        // Get artist Bio data
+        const artistBioData = await fetchLastFmArtistData(undefined, data.name);
+        setArtistBio(artistBioData);
+        // Get artist top Album
+        const artistTopAlb = await fetchLastFmArtistData(
+          "gettopalbums",
+          data.name
+        );
+        setArtistTopAlbums(artistTopAlb);
+
+        // Get artist top Tracks
+        const artistTopTrc = await fetchLastFmArtistData(
+          "gettoptracks",
+          data.name
+        );
+        setArtistTopTracks(artistTopTrc);
+        console.log("Search by ID data:", data);
+        setComponentLoading(false);
+
+        if (data._embedded.venues[0].city.name && !componentLoading) {
+          const eventsToday = await fetchEvents(
+            undefined,
+            data._embedded.venues[0].city.name,
+            undefined,
+            undefined,
+            "",
+            10
+          );
+          setAllEventsToday(eventsToday);
+        }
+
         const hotelsData = await fetchHotels(
           undefined,
           data?._embedded.venues?.[0].location?.latitude,
@@ -67,49 +111,6 @@ const SingleEvent = () => {
           data?._embedded?.venues?.[0].location?.longitude
         );
         setRestaurants(restaurantsData);
-
-        const imageData = await imageSizeApi(data.images, 700);
-        setEventBgImg(imageData);
-
-        // setVenueId(data._embedded.venues[0].id);
-        const eventDataByName = await eventByName(data.name);
-        const filteredEvents = eventDataByName.filter(
-          (event) => event.name === data.name
-        );
-        setEventsByName(filteredEvents);
-        const dataVenue = await eventByVenue(data._embedded.venues[0].id);
-        setEventsByVenue(dataVenue);
-
-        if (data._embedded.venues[0].city.name && !componentLoading) {
-          const eventsToday = await fetchEvents(
-            undefined,
-            data._embedded.venues[0].city.name,
-            undefined,
-            undefined,
-            "",
-            10
-          );
-          setAllEventsToday(eventsToday);
-        }
-        // Get artist Bio data
-        const artistBioData = await fetchLastFmArtistData(undefined, data.name);
-        setArtistBio(artistBioData);
-        // Get artist top Album
-        const artistTopAlb = await fetchLastFmArtistData(
-          "gettopalbums",
-          data.name
-        );
-        setComponentLoading(true);
-        setArtistTopAlbums(artistTopAlb);
-
-        // Get artist top Tracks
-        const artistTopTrc = await fetchLastFmArtistData(
-          "gettoptracks",
-          data.name
-        );
-        setArtistTopTracks(artistTopTrc);
-        console.log("Search by ID data:", data);
-        setComponentLoading(false);
       } catch (error) {
         console.error(`Test ${error}`);
         // setEvents([]);
