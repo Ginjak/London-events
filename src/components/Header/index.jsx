@@ -5,7 +5,8 @@ import Hero from "../Hero";
 
 function Header() {
   const location = useLocation();
-  const showHero = !location.pathname.startsWith("/event/");
+  const showHero =
+    !location.pathname.startsWith("/event/") && location.pathname !== "/search";
 
   return (
     <>

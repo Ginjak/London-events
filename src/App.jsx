@@ -9,6 +9,7 @@ import EventsByCategory from "./components/EventsByCategory";
 import EventsSection from "./components/EventsSection";
 import SingleEventPage from "./components/Pages/SingleEventPage";
 import MultiSliderByCity from "./components/MultiSliderByCity";
+import Search from "./components/Pages/Search";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
                 path="/event/:eventId"
                 element={<SingleEventPage id="single-event" />}
               />
+              <Route path="/search" element={<Search />} />
             </Routes>
           </EventIdProvider>
         </CityProvider>
