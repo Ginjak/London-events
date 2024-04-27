@@ -106,6 +106,26 @@ export const eventByName = async (eventName = "") => {
   }
 };
 
+// Fetching by event input name
+export const fetchEventsByInput = async (
+  eventName,
+  startDate = startDateForApi(new Date()),
+  endDate = futureDayForApi(365)
+) => {
+  const apiKey = import.meta.env.VITE_TM_KEY;
+  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apiKey}&countryCode=GB&classificationName=music&startDateTime=${startDate}&endDateTime=${endDate}&keyword=${eventName}&size=200&sort=name,asc
+  `;
+  try {
+    const response = await axios.get(apiUrl);
+    const data = response.data._embedded.events;
+    console.log("All events ", data);
+    return data;
+  } catch (error) {
+    console.error("API Error:", error);
+    throw error;
+  }
+};
+
 // Last.fm API
 
 // Fetch Last.fm details about artis depending on selected "getInfo"
