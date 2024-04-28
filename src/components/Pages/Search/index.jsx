@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./search.css";
 import { fetchEventsByInput } from "../../../eventsActions/eventsActions";
+import { imageSizeApi } from "../../../eventsActions/utilityFunctions";
 
 const Search = () => {
   const [inputValue, setInputValue] = useState("");
@@ -75,13 +76,28 @@ const Search = () => {
                   <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
               </form>
-              {filteredEvents &&
-                inputValue.length > 3 &&
-                filteredEvents.map((event, index) => (
-                  <p className="text-white" key={index}>
-                    {event.name}
-                  </p>
-                ))}
+              <div className="result-wraper">
+                <h4 className="result-heading m-0">Suggestions</h4>
+                {filteredEvents &&
+                  inputValue.length > 3 &&
+                  filteredEvents.map((event) => (
+                    <>
+                      <div className="result d-flex" key={event.id}>
+                        <img
+                          className="result-img"
+                          src={imageSizeApi(event.images, 100)}
+                          alt={`${event.name} image`}
+                        />
+                        <div className="result-details d-flex flex-column justify-content-between">
+                          <h5 className="result-title m-0">{event.name}</h5>
+                          <p className="genre m-0">
+                            {event.classifications[0].genre.name}
+                          </p>
+                        </div>
+                      </div>
+                    </>
+                  ))}
+              </div>
             </div>
           </div>
         </div>

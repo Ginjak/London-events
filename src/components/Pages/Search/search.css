@@ -56,3 +56,37 @@
   color: var(--light-blue);
   transition: transform 0.2s linear;
 }
+
+/* Result box */
+
+.result-wraper {
+  position: absolute;
+  left: 50%;
+  top: 45px;
+  transform: translate(-50%, 0);
+  width: 50%;
+  background: var(--dark-blue);
+  color: var(--white);
+}
+
+.result-wraper .result-heading {
+  padding: 5px;
+}
+.result {
+  padding: 5px;
+}
+
+.result .result-img {
+  max-width: 100px;
+  object-fit: cover;
+  object-position: center center;
+}
+.result .result-details {
+  padding: 5px;
+}
+.result .result-details .result-title {
+  font-size: 14px;
+}
+.result .result-details .genre {
+  font-size: 12px;
+}
