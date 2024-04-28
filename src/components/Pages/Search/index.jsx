@@ -8,6 +8,7 @@ const Search = () => {
   const [tempInputValue, setTempInputValue] = useState("");
   const [allEvents, setAllEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState();
+  const [loading, setLoading] = useState(false);
 
   const getInputValue = (e) => {
     console.log(e.target.value);
@@ -17,12 +18,10 @@ const Search = () => {
   function filterByPropertyName(arr, word) {
     const uniqueNames = new Set(); // Set to store unique names
     return arr.filter((item) => {
-      // Check if the property name contains the word "pink" and if the name is not a duplicate
       if (item.name.toLowerCase().includes(word.toLowerCase())) {
         if (!uniqueNames.has(item.name.toLowerCase())) {
-          // Check if the name is not already encountered
-          uniqueNames.add(item.name.toLowerCase()); // Add the name to the set
-          return true; // Return true to keep the item
+          uniqueNames.add(item.name.toLowerCase());
+          return true;
         }
       }
       return false; // Return false to filter out duplicates or items without the name property
@@ -41,18 +40,16 @@ const Search = () => {
       }
     };
     fetchApiData();
-    // if (allEvents && allEvents.length > 0 && inputValue.length > 3) {
-    //   const filteredData = filterByPropertyName(allEvents, inputValue);
-    //   console.log("All events array filtered ", filteredData);
-    // }
   });
 
   useEffect(() => {
     const fetchDataAndFilter = async () => {
       if (allEvents.length > 0 && inputValue.length > 3) {
+        setLoading(true);
         const filteredData = await filterByPropertyName(allEvents, inputValue);
         console.log("All events array filtered ", filteredData);
-        setFilteredEvents(filteredData); // setFilteredEvents after filteredData is fetched
+        setFilteredEvents(filteredData);
+        setLoading(false);
       }
     };
 
@@ -77,7 +74,10 @@ const Search = () => {
                 </button>
               </form>
               <div className="result-wraper">
-                <h4 className="result-heading m-0">Suggestions</h4>
+                {loading && <p>Test</p>}
+                {filteredEvents && inputValue.length > 3 && (
+                  <h4 className="result-heading m-0">Suggestions</h4>
+                )}
                 {filteredEvents &&
                   inputValue.length > 3 &&
                   filteredEvents.map((event) => (
