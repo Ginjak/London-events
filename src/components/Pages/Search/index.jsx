@@ -8,12 +8,19 @@ const Search = () => {
   const [tempInputValue, setTempInputValue] = useState("");
   const [allEvents, setAllEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState();
+  const [filteredEventsByName, setFilteredEventsByName] = useState("");
   const [loading, setLoading] = useState(false);
 
   const getInputValue = (e) => {
     console.log(e.target.value);
     setInputValue(e.target.value);
   };
+
+  function filterByName(arr, word) {
+    return arr.filter((item) => {
+      return item.name.toLowerCase().includes(word.toLowerCase());
+    });
+  }
 
   function filterByPropertyName(arr, word) {
     const uniqueNames = new Set(); // Set to store unique names
@@ -33,6 +40,12 @@ const Search = () => {
       if (inputValue.length === 4) {
         setTempInputValue(inputValue);
       }
+      if (
+        inputValue.length < 4 &&
+        inputValue !== tempInputValue.substring(0, inputValue.length)
+      ) {
+        setAllEvents("");
+      }
       if (inputValue.length === 4 && inputValue !== tempInputValue) {
         setLoading(true);
         console.log(inputValue);
@@ -47,10 +60,12 @@ const Search = () => {
     const fetchDataAndFilter = async () => {
       if (allEvents.length > 0 && inputValue.length > 3) {
         const filteredData = await filterByPropertyName(allEvents, inputValue);
-
         console.log("All events array filtered ", filteredData);
         setFilteredEvents(filteredData);
         setLoading(false);
+        const filteredDataByName = await filterByName(allEvents, inputValue);
+        console.log("testing data", filteredDataByName);
+        setFilteredEventsByName(filteredDataByName);
       }
     };
 
@@ -73,6 +88,18 @@ const Search = () => {
                 <button className="search-submit-btn" type="submit">
                   <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
+                {allEvents.length > 0 && inputValue.length > 3 && (
+                  <div className="m-0 all-event-length d-flex flex-column justify-content-center align-items-center">
+                    <span>All events </span>
+                    {inputValue.length === 4 ? (
+                      <span>{allEvents.length}</span>
+                    ) : (
+                      inputValue.length > 4 && (
+                        <span>{filteredEventsByName.length}</span>
+                      )
+                    )}
+                  </div>
+                )}
               </form>
               <div className="result-wraper">
                 {loading && (
