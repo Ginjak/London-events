@@ -34,6 +34,7 @@ const Search = () => {
         setTempInputValue(inputValue);
       }
       if (inputValue.length === 4 && inputValue !== tempInputValue) {
+        setLoading(true);
         console.log(inputValue);
         const fullEvents = await fetchEventsByInput(inputValue);
         setAllEvents(fullEvents);
@@ -44,12 +45,9 @@ const Search = () => {
 
   useEffect(() => {
     const fetchDataAndFilter = async () => {
-      if (inputValue.length > 3) {
-        setLoading(true);
-        console.log(loading);
-      }
       if (allEvents.length > 0 && inputValue.length > 3) {
         const filteredData = await filterByPropertyName(allEvents, inputValue);
+
         console.log("All events array filtered ", filteredData);
         setFilteredEvents(filteredData);
         setLoading(false);
@@ -77,12 +75,20 @@ const Search = () => {
                 </button>
               </form>
               <div className="result-wraper">
-                {loading && <p>Test</p>}
-                {/* {filteredEvents &&
+                {loading && (
+                  <div className="search-loading-wraper d-flex align-items-center">
+                    <div
+                      className="spinner-border text-light"
+                      role="status"
+                    ></div>
+                    <p className="mb-0 ms-2">Fetching data...</p>
+                  </div>
+                )}
+                {filteredEvents &&
                   filteredEvents.length > 0 &&
                   inputValue.length > 3 && (
                     <h4 className="result-heading m-0">Suggestions</h4>
-                  )} */}
+                  )}
                 {filteredEvents &&
                   inputValue.length > 3 &&
                   filteredEvents.map((event) => (
@@ -95,7 +101,9 @@ const Search = () => {
                       <div className="result-details d-flex flex-column justify-content-between">
                         <h5 className="result-title m-0">{event.name}</h5>
                         <p className="genre m-0">
-                          {event.classifications[0].genre.name}
+                          {event.classifications[0].genre.name !== "Undefined"
+                            ? event.classifications[0].genre.name
+                            : "Music"}
                         </p>
                       </div>
                     </div>

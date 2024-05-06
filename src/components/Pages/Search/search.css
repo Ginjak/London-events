@@ -59,6 +59,17 @@
 
 /* Result box */
 
+.search-loading-wraper {
+  padding: 5px;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.search-loading-wraper .spinner-border {
+  width: 20px;
+  height: 20px;
+  border-width: 3px;
+}
 .result-wraper {
   position: absolute;
   left: 50%;
