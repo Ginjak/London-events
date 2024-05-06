@@ -44,8 +44,11 @@ const Search = () => {
 
   useEffect(() => {
     const fetchDataAndFilter = async () => {
-      if (allEvents.length > 0 && inputValue.length > 3) {
+      if (inputValue.length > 3) {
         setLoading(true);
+        console.log(loading);
+      }
+      if (allEvents.length > 0 && inputValue.length > 3) {
         const filteredData = await filterByPropertyName(allEvents, inputValue);
         console.log("All events array filtered ", filteredData);
         setFilteredEvents(filteredData);
@@ -75,27 +78,27 @@ const Search = () => {
               </form>
               <div className="result-wraper">
                 {loading && <p>Test</p>}
-                {filteredEvents && inputValue.length > 3 && (
-                  <h4 className="result-heading m-0">Suggestions</h4>
-                )}
+                {/* {filteredEvents &&
+                  filteredEvents.length > 0 &&
+                  inputValue.length > 3 && (
+                    <h4 className="result-heading m-0">Suggestions</h4>
+                  )} */}
                 {filteredEvents &&
                   inputValue.length > 3 &&
                   filteredEvents.map((event) => (
-                    <>
-                      <div className="result d-flex" key={event.id}>
-                        <img
-                          className="result-img"
-                          src={imageSizeApi(event.images, 100)}
-                          alt={`${event.name} image`}
-                        />
-                        <div className="result-details d-flex flex-column justify-content-between">
-                          <h5 className="result-title m-0">{event.name}</h5>
-                          <p className="genre m-0">
-                            {event.classifications[0].genre.name}
-                          </p>
-                        </div>
+                    <div className="result d-flex" key={event.id}>
+                      <img
+                        className="result-img"
+                        src={imageSizeApi(event.images, 100)}
+                        alt={`${event.name} image`}
+                      />
+                      <div className="result-details d-flex flex-column justify-content-between">
+                        <h5 className="result-title m-0">{event.name}</h5>
+                        <p className="genre m-0">
+                          {event.classifications[0].genre.name}
+                        </p>
                       </div>
-                    </>
+                    </div>
                   ))}
               </div>
             </div>
