@@ -58,6 +58,12 @@ const Search = () => {
 
   useEffect(() => {
     const fetchDataAndFilter = async () => {
+      if (
+        inputValue.length < 4 &&
+        inputValue !== tempInputValue.substring(0, inputValue.length)
+      ) {
+        setFilteredEvents("");
+      }
       if (allEvents.length > 0 && inputValue.length > 3) {
         const filteredData = await filterByPropertyName(allEvents, inputValue);
         console.log("All events array filtered ", filteredData);
@@ -101,7 +107,7 @@ const Search = () => {
                   </div>
                 )}
               </form>
-              <div className="result-wraper">
+              <div className="result-wraper px-2">
                 {loading && (
                   <div className="search-loading-wraper d-flex align-items-center">
                     <div
@@ -113,28 +119,37 @@ const Search = () => {
                 )}
                 {filteredEvents &&
                   filteredEvents.length > 0 &&
-                  inputValue.length > 3 && (
-                    <h4 className="result-heading m-0">Suggestions</h4>
-                  )}
-                {filteredEvents &&
                   inputValue.length > 3 &&
-                  filteredEvents.map((event) => (
-                    <div className="result d-flex" key={event.id}>
-                      <img
-                        className="result-img"
-                        src={imageSizeApi(event.images, 100)}
-                        alt={`${event.name} image`}
-                      />
-                      <div className="result-details d-flex flex-column justify-content-between">
-                        <h5 className="result-title m-0">{event.name}</h5>
-                        <p className="genre m-0">
-                          {event.classifications[0].genre.name !== "Undefined"
-                            ? event.classifications[0].genre.name
-                            : "Music"}
-                        </p>
+                  !loading && (
+                    <>
+                      <h4 className="result-heading m-0">Suggestions</h4>
+
+                      <div className="results-event-wraper">
+                        {filteredEvents &&
+                          inputValue.length > 3 &&
+                          filteredEvents.map((event) => (
+                            <div className="result d-flex" key={event.id}>
+                              <img
+                                className="result-img"
+                                src={imageSizeApi(event.images, 100)}
+                                alt={`${event.name} image`}
+                              />
+                              <div className="result-details d-flex flex-column justify-content-between">
+                                <h5 className="result-title m-0">
+                                  {event.name}
+                                </h5>
+                                <p className="genre m-0">
+                                  {event.classifications[0].genre.name !==
+                                  "Undefined"
+                                    ? event.classifications[0].genre.name
+                                    : "Music"}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
                       </div>
-                    </div>
-                  ))}
+                    </>
+                  )}
               </div>
             </div>
           </div>

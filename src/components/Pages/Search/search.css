@@ -88,10 +88,20 @@
   position: absolute;
   left: 50%;
   top: 45px;
+  border-radius: 4px;
   transform: translate(-50%, 0);
   width: 50%;
   background: var(--dark-blue);
   color: var(--white);
+  /* height: 235px; */
+  /* overflow: hidden; */
+  /* overflow-y: auto; */
+}
+
+.results-event-wraper {
+  max-height: 330px;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .result-wraper .result-heading {
@@ -114,6 +124,23 @@
 }
 .result .result-details .genre {
   font-size: 12px;
+}
+
+#search-page ::-webkit-scrollbar {
+  width: 3px;
+  cursor: pointer;
+}
+
+/* Track */
+
+#search-page ::-webkit-scrollbar-track {
+  background: var(--white);
+}
+
+/* Handle */
+#search-page ::-webkit-scrollbar-thumb {
+  background: var(--light-blue);
+  cursor: pointer;
 }
 
 /* Media queries */
