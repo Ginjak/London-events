@@ -157,4 +157,7 @@
   .result-wraper {
     width: 100%;
   }
+  .results-event-wraper {
+    max-height: 198px;
+  }
 }
