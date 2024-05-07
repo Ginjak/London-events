@@ -38,6 +38,22 @@ const Search = () => {
     setEventId(eventId);
   };
 
+  let dataFetchInfo;
+  if (loading && allEvents !== undefined && inputValue.length === 4) {
+    dataFetchInfo = (
+      <div className="search-loading-wraper d-flex align-items-center">
+        <div className="spinner-border text-light" role="status"></div>
+        <p className="mb-0 ms-2">Fetching data...</p>
+      </div>
+    );
+  } else if (loading && allEvents === undefined) {
+    dataFetchInfo = (
+      <div className="search-loading-wraper d-flex align-items-center">
+        <p className="mb-0 ms-2">No results...</p>
+      </div>
+    );
+  }
+
   function filterByName(arr, word) {
     return arr.filter((item) => {
       return item.name.toLowerCase().includes(word.toLowerCase());
@@ -86,7 +102,7 @@ const Search = () => {
       ) {
         setFilteredEvents("");
       }
-      if (allEvents.length > 0 && inputValue.length > 3) {
+      if (allEvents?.length > 0 && inputValue?.length > 3) {
         const filteredData = await filterByPropertyName(allEvents, inputValue);
         console.log("All events array filtered ", filteredData);
         setFilteredEvents(filteredData);
@@ -118,7 +134,7 @@ const Search = () => {
                 <button className="search-submit-btn" type="submit">
                   <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
-                {allEvents.length > 0 && inputValue.length > 3 && (
+                {allEvents?.length > 0 && inputValue?.length > 3 && (
                   <label
                     className="m-0 all-event-length d-flex flex-column justify-content-center align-items-center"
                     htmlFor="search-input"
@@ -135,15 +151,7 @@ const Search = () => {
                 )}
               </form>
               <div className="result-wraper px-2">
-                {loading && (
-                  <div className="search-loading-wraper d-flex align-items-center">
-                    <div
-                      className="spinner-border text-light"
-                      role="status"
-                    ></div>
-                    <p className="mb-0 ms-2">Fetching data...</p>
-                  </div>
-                )}
+                {dataFetchInfo}
                 {filteredEvents &&
                   filteredEvents.length > 0 &&
                   inputValue.length > 3 &&
