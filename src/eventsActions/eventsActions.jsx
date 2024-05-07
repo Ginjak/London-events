@@ -113,7 +113,7 @@ export const fetchEventsByInput = async (
   endDate = futureDayForApi(365)
 ) => {
   const apiKey = import.meta.env.VITE_TM_KEY;
-  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apiKey}&countryCode=GB&classificationName=music&startDateTime=${startDate}&endDateTime=${endDate}&keyword=${eventName}&size=200&sort=name,asc
+  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apiKey}&countryCode=GB&classificationName=music&startDateTime=${startDate}&endDateTime=${endDate}&keyword=${eventName}&size=200&sort=date,asc
   `;
   try {
     const response = await axios.get(apiUrl);

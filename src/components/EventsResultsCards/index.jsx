@@ -8,7 +8,7 @@ const EventsResultsCards = ({ events, loadMore, renderEvents, getEventId }) => {
     <>
       {events && events.length > 0 ? (
         <div className="row cards-wraper row-cols-1 row-cols-lg-2 g-3">
-          {events?.slice(0, renderEvents).map((event, index) => (
+          {events?.slice(0, renderEvents).map((event) => (
             <div className="col" key={event.id}>
               <div
                 className="custom-card row g-0"
@@ -20,7 +20,7 @@ const EventsResultsCards = ({ events, loadMore, renderEvents, getEventId }) => {
                 <div className="date-location-wraper col-12 col-sm-3 d-flex flex-sm-column justify-content-between">
                   <div className="date position-relative mb-3">
                     <p className="m-0">
-                      {new Date(event.dates.start.dateTime).toLocaleString(
+                      {new Date(event.dates.start.localDate).toLocaleString(
                         "default",
                         {
                           month: "short",
@@ -28,7 +28,7 @@ const EventsResultsCards = ({ events, loadMore, renderEvents, getEventId }) => {
                       )}
                     </p>
                     <p className="m-0">
-                      {new Date(event.dates.start.dateTime)
+                      {new Date(event.dates.start.localDate)
                         .getDate()
                         .toString()
                         .padStart(2, "0")}
@@ -42,12 +42,14 @@ const EventsResultsCards = ({ events, loadMore, renderEvents, getEventId }) => {
                     <p className="card-info">
                       {event._embedded.venues[0].name}
                     </p>
-                    <p className="card-info">
-                      {event.dates.start.localTime
-                        .split(":")
-                        .slice(0, 2)
-                        .join(":")}
-                    </p>
+                    {event.dates.start.localTime && (
+                      <p className="card-info">
+                        {event.dates.start.localTime
+                          .split(":")
+                          .slice(0, 2)
+                          .join(":")}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="title-wraper col-12 col-sm-9 overflow-hidden position-relative">

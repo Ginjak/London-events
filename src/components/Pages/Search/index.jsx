@@ -3,6 +3,7 @@ import "./search.css";
 import { fetchEventsByInput } from "../../../eventsActions/eventsActions";
 import { imageSizeApi } from "../../../eventsActions/utilityFunctions";
 import EventsResultsCards from "../../EventsResultsCards";
+import { useEventId } from "../../../context/EventIdContext";
 
 const Search = () => {
   const [inputValue, setInputValue] = useState("");
@@ -12,6 +13,9 @@ const Search = () => {
   const [filteredEventsByName, setFilteredEventsByName] = useState("");
   const [loading, setLoading] = useState(false);
   const [formSubmit, setFormSubmit] = useState(false);
+  const { eventId, setEventId } = useEventId();
+  const [displayEvents, setDisplayEvents] = useState(20);
+  const [renderEvents, setRenderEvents] = useState(8);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -23,6 +27,15 @@ const Search = () => {
   const getInputValue = (e) => {
     console.log(e.target.value);
     setInputValue(e.target.value);
+  };
+
+  const loadMore = () => {
+    setDisplayEvents(displayEvents + 8);
+    setRenderEvents(renderEvents + 8);
+  };
+
+  const getEventId = (eventId) => {
+    setEventId(eventId);
   };
 
   function filterByName(arr, word) {
@@ -173,9 +186,9 @@ const Search = () => {
             {formSubmit && (
               <EventsResultsCards
                 events={allEvents}
-                // loadMore={loadMore}
-                // renderEvents={renderEvents}
-                // getEventId={getEventId}
+                loadMore={loadMore}
+                renderEvents={renderEvents}
+                getEventId={getEventId}
               />
             )}
           </div>
