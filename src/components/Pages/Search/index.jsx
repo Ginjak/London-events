@@ -88,7 +88,8 @@ const Search = () => {
         setLoading(true);
         console.log(inputValue);
         const fullEvents = await fetchEventsByInput(inputValue);
-        setAllEvents(fullEvents);
+        const eventsByName = await filterByName(fullEvents, inputValue);
+        setAllEvents(eventsByName);
       }
     };
     fetchApiData();
@@ -193,7 +194,7 @@ const Search = () => {
           <div className="container-xxl">
             {formSubmit && (
               <EventsResultsCards
-                events={allEvents}
+                events={filteredEventsByName}
                 loadMore={loadMore}
                 renderEvents={renderEvents}
                 getEventId={getEventId}
