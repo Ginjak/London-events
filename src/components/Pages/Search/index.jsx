@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./search.css";
 import { fetchEventsByInput } from "../../../eventsActions/eventsActions";
 import { imageSizeApi } from "../../../eventsActions/utilityFunctions";
@@ -16,12 +16,15 @@ const Search = () => {
   const { eventId, setEventId } = useEventId();
   const [displayEvents, setDisplayEvents] = useState(20);
   const [renderEvents, setRenderEvents] = useState(8);
+  const [hasRendered, setHasRendered] = useState(false);
+  const resultsRef = useRef(null);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     setFormSubmit(true);
     setInputValue("");
     setTempInputValue("");
+    setHasRendered(false);
   };
 
   const getInputValue = (e) => {
@@ -36,6 +39,12 @@ const Search = () => {
 
   const getEventId = (eventId) => {
     setEventId(eventId);
+  };
+
+  const scrollToResultsSection = () => {
+    if (resultsRef.current && formSubmit) {
+      resultsRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   let dataFetchInfo;
@@ -117,6 +126,19 @@ const Search = () => {
     fetchDataAndFilter();
   }, [allEvents, inputValue]);
 
+  useEffect(() => {
+    if (formSubmit && !hasRendered) {
+      setHasRendered(true);
+      scrollToResultsSection();
+    }
+  }, [formSubmit, hasRendered]);
+
+  useEffect(() => {
+    if (hasRendered) {
+      scrollToResultsSection();
+    }
+  }, [hasRendered]);
+
   return (
     <>
       <div id="search-page">
@@ -132,13 +154,17 @@ const Search = () => {
                   value={inputValue}
                   onChange={getInputValue}
                 />
+
                 <button
                   className="search-submit-btn"
                   type="submit"
                   disabled={inputValue.length < 4}
+                  to="search-main-results"
+                  onClick={scrollToResultsSection}
                 >
                   <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
+
                 {allEvents?.length > 0 && inputValue?.length > 3 && (
                   <label
                     className="m-0 all-event-length d-flex flex-column justify-content-center align-items-center"
@@ -168,7 +194,11 @@ const Search = () => {
                         {filteredEvents &&
                           inputValue.length > 3 &&
                           filteredEvents.slice(0, 10).map((event) => (
-                            <div className="result d-flex" key={event.id}>
+                            <div
+                              className="result d-flex"
+                              key={event.id}
+                              onClick={() => setInputValue(event.name)}
+                            >
                               <img
                                 className="result-img"
                                 src={imageSizeApi(event.images, 100)}
@@ -194,7 +224,7 @@ const Search = () => {
             </div>
           </div>
         </div>
-        <div id="search-main-results">
+        <div id="search-main-results" ref={resultsRef}>
           <div className="container-xxl">
             {formSubmit && (
               <EventsResultsCards
