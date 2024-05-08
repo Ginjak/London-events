@@ -4,6 +4,7 @@ import { fetchEventsByInput } from "../../../eventsActions/eventsActions";
 import { imageSizeApi } from "../../../eventsActions/utilityFunctions";
 import EventsResultsCards from "../../EventsResultsCards";
 import { useEventId } from "../../../context/EventIdContext";
+import { all } from "axios";
 
 const Search = () => {
   const [inputValue, setInputValue] = useState("");
@@ -12,6 +13,7 @@ const Search = () => {
   const [filteredEvents, setFilteredEvents] = useState();
   const [filteredEventsByName, setFilteredEventsByName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [eventLoading, setEventLoading] = useState(true);
   const [formSubmit, setFormSubmit] = useState(false);
   const { eventId, setEventId } = useEventId();
   const [displayEvents, setDisplayEvents] = useState(20);
@@ -48,14 +50,17 @@ const Search = () => {
   };
 
   let dataFetchInfo;
-  if (loading && allEvents !== undefined && inputValue.length === 4) {
+  if (loading && inputValue.length === 4 && allEvents !== undefined) {
     dataFetchInfo = (
       <div className="search-loading-wraper d-flex align-items-center">
         <div className="spinner-border text-light" role="status"></div>
         <p className="mb-0 ms-2">Fetching data...</p>
       </div>
     );
-  } else if (loading && allEvents === undefined) {
+  } else if (
+    (!loading && inputValue.length >= 4 && filteredEventsByName.length === 0) ||
+    (inputValue.length >= 4 && allEvents === undefined)
+  ) {
     dataFetchInfo = (
       <div className="search-loading-wraper d-flex align-items-center">
         <p className="mb-0 ms-2">No results...</p>
@@ -63,8 +68,12 @@ const Search = () => {
     );
   }
 
+  function eventLoadingCompleted() {
+    setEventLoading(false);
+  }
+
   function filterByName(arr, word) {
-    return arr.filter((item) => {
+    return arr?.filter((item) => {
       return item.name.toLowerCase().includes(word.toLowerCase());
     });
   }
@@ -122,7 +131,6 @@ const Search = () => {
         setFilteredEventsByName(filteredDataByName);
       }
     };
-
     fetchDataAndFilter();
   }, [allEvents, inputValue]);
 
@@ -158,7 +166,9 @@ const Search = () => {
                 <button
                   className="search-submit-btn"
                   type="submit"
-                  disabled={inputValue.length < 4}
+                  disabled={
+                    inputValue.length < 4 || filteredEventsByName.length === 0
+                  }
                   to="search-main-results"
                   onClick={scrollToResultsSection}
                 >
@@ -195,14 +205,23 @@ const Search = () => {
                           inputValue.length > 3 &&
                           filteredEvents.slice(0, 10).map((event) => (
                             <div
-                              className="result d-flex"
+                              className="result d-flex position-relative"
                               key={event.id}
                               onClick={() => setInputValue(event.name)}
                             >
+                              {eventLoading && (
+                                <div className="single-event-placeholder d-flex justify-content-center align-items-center">
+                                  <div
+                                    className=" spinner-border text-white"
+                                    role="status"
+                                  ></div>
+                                </div>
+                              )}
                               <img
                                 className="result-img"
                                 src={imageSizeApi(event.images, 100)}
                                 alt={`${event.name} image`}
+                                onLoad={eventLoadingCompleted}
                               />
                               <div className="result-details d-flex flex-column justify-content-between">
                                 <h5 className="result-title m-0">
