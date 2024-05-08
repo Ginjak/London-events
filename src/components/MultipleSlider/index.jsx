@@ -88,7 +88,7 @@ const MultipleSlider = ({ popularEvents, title }) => {
 
   return (
     <>
-      <div className="multislider-wraper postion-relative">
+      <div className="multislider-wraper postion-relative py-3 py-md-5">
         {loading && (
           <>
             <div className="container-xxl">
@@ -120,7 +120,9 @@ const MultipleSlider = ({ popularEvents, title }) => {
           <>
             {title && (
               <div className="container-xxl">
-                <h2 className="multislider-title mb-4">{title}</h2>
+                <h2 className="multislider-title text-center text-sm-start mb-4">
+                  {title}
+                </h2>
               </div>
             )}
 

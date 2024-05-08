@@ -2,7 +2,7 @@
   background: var(--rasin-black);
 }
 
-.hero-wraper:before {
+.hero-wraper-search:before {
   content: "";
   position: absolute;
   width: 100%;
@@ -14,7 +14,8 @@
   opacity: 0.05;
 }
 .search-hero {
-  height: 100svh;
+  min-height: 100svh;
+  /* min-height: 500px; */
 }
 
 /* Form */

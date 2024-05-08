@@ -150,7 +150,7 @@ const Search = () => {
   return (
     <>
       <div id="search-page">
-        <div className="hero-wraper position-relative">
+        <div className="hero-wraper-search position-relative">
           <div className="search-hero container-xxl d-flex justify-content-center align-items-center">
             <div className="form-wraper position-relative d-flex">
               <form className="position-relative" onSubmit={handleFormSubmit}>
@@ -244,7 +244,7 @@ const Search = () => {
           </div>
         </div>
         <div id="search-main-results" ref={resultsRef}>
-          <div className="container-xxl">
+          <div className="container-xxl pb-5">
             {formSubmit && (
               <EventsResultsCards
                 events={filteredEventsByName}

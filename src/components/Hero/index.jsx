@@ -1,5 +1,5 @@
 // Hero.js
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link as ScrollLink } from "react-scroll";
 import { Link } from "react-router-dom";
 import "./hero.css";
@@ -25,6 +25,7 @@ const Hero = () => {
   const [eventDate, setEventDate] = useState("");
   const [eventTime, setEventTime] = useState("");
   const [eventGenre, setEventGenre] = useState("");
+  const imgRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,6 +54,12 @@ const Hero = () => {
     fetchData();
   }, [formCity]); // Update when formCity changes
 
+  useEffect(() => {
+    if (imgRef.current && isLoading) {
+      imgRef.current.onload = () => setIsLoading(false);
+    }
+  }, [isLoading]);
+
   const handleImageLoad = () => {
     setIsLoading(false);
   };
@@ -76,6 +83,7 @@ const Hero = () => {
           src={heroBg}
           alt={`${eventName} image`}
           onLoad={handleImageLoad}
+          // ref={imgRef}
         />
 
         <div className="container-xxl position-relative hero-wraper ">

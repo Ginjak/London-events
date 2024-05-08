@@ -29,7 +29,10 @@ const MultiSliderByCity = () => {
   }, [formCity]);
   return (
     <>
-      <MultipleSlider popularEvents={events} title={`This is my new slider`} />
+      <MultipleSlider
+        popularEvents={events}
+        title={`More events ${formCity}`}
+      />
     </>
   );
 };

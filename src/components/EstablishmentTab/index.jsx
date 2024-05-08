@@ -70,7 +70,7 @@ const EstablishmentTab = ({ hotelsTab, restaurantTab, hotelLoading }) => {
         </div>
       ) : (
         <div className="hotel-restaurant-tabs-wraper">
-          <h2 className="establishments-title mb-4">
+          <h2 className="establishments-title mb-4 text-center text-sm-start">
             Nearby accommodations and dining options
           </h2>
           <ul className="nav mb-3" id="hotels-restaurants-tab" role="tablist">
