@@ -49,6 +49,10 @@
   border: none;
 }
 
+.search-submit-btn:disabled {
+  opacity: 0.3;
+}
+
 .search-submit-btn:hover i {
   color: var(--dark-blue);
   transition: color 0.2s linear;

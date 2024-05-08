@@ -132,7 +132,11 @@ const Search = () => {
                   value={inputValue}
                   onChange={getInputValue}
                 />
-                <button className="search-submit-btn" type="submit">
+                <button
+                  className="search-submit-btn"
+                  type="submit"
+                  disabled={inputValue.length < 4}
+                >
                   <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
                 {allEvents?.length > 0 && inputValue?.length > 3 && (
