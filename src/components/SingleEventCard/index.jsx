@@ -5,11 +5,10 @@ import { Link as ScrollLink } from "react-scroll";
 import {
   FacebookShareButton,
   TwitterShareButton,
-  LineShareButton,
   FacebookIcon,
   LinkedinIcon,
-  TwitterIcon,
   XIcon,
+  LinkedinShareButton,
 } from "react-share";
 
 const SingleEventCard = ({
@@ -614,9 +613,43 @@ const SingleEventCard = ({
             </div>
           )}
         </div>
-        <FacebookShareButton url={shareUrl}>
-          <FacebookIcon size={40} />
-        </FacebookShareButton>
+        <div className="social-icons-share-wraper mt-2 py-2 d-flex flex-column align-items-end">
+          <div className="share-wraper mb-2">
+            <p className="share-txt text-white mb-0 me-1 pt-2">Share</p>
+          </div>
+          <div className="icons-wraper d-flex justify-content-end gap-2">
+            <div className="social-icon facebook">
+              <FacebookShareButton url={shareUrl}>
+                <FacebookIcon
+                  size={40}
+                  round={true}
+                  quote={"Uk event"}
+                  bgStyle={{ fill: "var(--dark-blue)" }}
+                />
+              </FacebookShareButton>
+            </div>
+            <div className="social-icon twitter">
+              <TwitterShareButton url={shareUrl}>
+                <XIcon
+                  size={40}
+                  round={true}
+                  quote={"Uk event"}
+                  bgStyle={{ fill: "var(--dark-blue)" }}
+                />
+              </TwitterShareButton>
+            </div>
+            <div className="social-icon linkedin">
+              <LinkedinShareButton url={shareUrl}>
+                <LinkedinIcon
+                  size={40}
+                  round={true}
+                  quote={"Uk event"}
+                  bgStyle={{ fill: "var(--dark-blue)" }}
+                />
+              </LinkedinShareButton>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
