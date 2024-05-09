@@ -2,6 +2,15 @@ import React, { useState, useEffect } from "react";
 import "./singleeventcard.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  LineShareButton,
+  FacebookIcon,
+  LinkedinIcon,
+  TwitterIcon,
+  XIcon,
+} from "react-share";
 
 const SingleEventCard = ({
   eventBg,
@@ -15,6 +24,7 @@ const SingleEventCard = ({
   artistAlbums,
   artistTracks,
 }) => {
+  const shareUrl = window.location.href;
   const [btnToggled, setbtnToggled] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(true);
   useEffect(() => {
@@ -604,6 +614,9 @@ const SingleEventCard = ({
             </div>
           )}
         </div>
+        <FacebookShareButton url={shareUrl}>
+          <FacebookIcon size={40} />
+        </FacebookShareButton>
       </div>
     </>
   );
