@@ -3,7 +3,8 @@
   border-radius: 4px;
 }
 
-.city {
+.city,
+.menu-item {
   text-decoration: none;
   color: #fff;
   text-transform: uppercase;
@@ -11,6 +12,20 @@
   font-weight: 700;
   letter-spacing: 1.6px;
   transition: color 0.2s ease-in-out;
+}
+
+.menu-item {
+  font-size: 14px;
+  color: var(--grey);
+}
+
+.menu-item:hover {
+  color: var(--white);
+}
+
+.menu-divider {
+  border-right: 3px solid var(--dark-blue);
+  cursor: default;
 }
 .city:hover {
   color: #ddd;

@@ -52,33 +52,49 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="navigation py-3 px-2 fixed-top container-xxl">
+      <nav
+        id="main-nav"
+        className="navigation py-3 px-2 fixed-top container-xxl"
+      >
         <div className="brand-wraper d-flex justify-content-between">
-          <Link to="/" className="brand-logo text-primary">
-            AAA
-          </Link>
-          <div className="menu text-primary d-flex">
-            <img
-              className="uk-flag me-3"
-              src="/images/uk_flag.svg"
-              alt="United Kingdom Flag"
-            />
+          <div className="brand">
+            <Link to="/" className="brand-logo text-primary">
+              AAA
+            </Link>
+          </div>
+          <div id="main-nav-a" className="nav-city-wraper d-flex">
+            <div className="navigation-main-menu">
+              <Link className="menu-item me-3" to="/search">
+                Search
+              </Link>
+              <Link className="menu-item me-3" to="/contact">
+                Contact
+              </Link>
+              <Link className="menu-divider me-3"></Link>
+            </div>
+            <div className="menu text-primary d-flex">
+              <img
+                className="uk-flag me-3"
+                src="/images/uk_flag.svg"
+                alt="United Kingdom Flag"
+              />
 
-            <a
-              className="city"
-              data-bs-toggle="offcanvas"
-              href="#offcanvasCity"
-              role="button"
-              aria-controls="offcanvasCity"
-            >
-              <i className="fa-solid fa-location-dot me-2"></i>
-              {formCity}
-            </a>
-
+              <a
+                className="city"
+                data-bs-toggle="offcanvas"
+                href="#offcanvasCity"
+                role="button"
+                aria-controls="offcanvasCity"
+              >
+                <i className="fa-solid fa-location-dot me-2"></i>
+                {formCity}
+              </a>
+            </div>
             <div
               className="offcanvas offcanvas-end"
               data-bs-backdrop="false"
               tabIndex="-1"
+              data-bs-scroll="true"
               id="offcanvasCity"
               aria-labelledby="offcanvasCityLabel"
             >
