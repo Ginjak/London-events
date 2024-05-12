@@ -8,7 +8,6 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Submit form data here
     try {
       const response = await fetch("/", {
         method: "POST",
