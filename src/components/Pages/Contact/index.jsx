@@ -7,22 +7,10 @@ const Contact = () => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const formData = new FormData(e.target);
-
-  //   try {
-  //     await fetch("/contact", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  //       body: new URLSearchParams(formData).toString(),
-  //     });
-  //     navigate("/search"); // Navigate to "/search" route after successful form submission
-  //   } catch (error) {
-  //     console.error("Error submitting form:", error);
-  //     alert("An error occurred. Please try again later.");
-  //   }
-  // };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    navigate("/search");
+  };
 
   return (
     <div id="contact-page">
@@ -31,7 +19,7 @@ const Contact = () => {
         name="contact"
         method="POST"
         className="mt-5"
-        // onSubmit={handleSubmit}
+        onSubmit={handleSubmit}
       >
         <input type="hidden" name="form-name" value="contact" />
         <div>
