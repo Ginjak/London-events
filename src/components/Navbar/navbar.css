@@ -50,6 +50,10 @@
   animation: fadeIn 0.2s ease forwards;
 }
 
+.large-nav .active {
+  color: var(--white);
+}
+
 /* Mobile menu */
 
 .hamburger-menu {
@@ -112,6 +116,9 @@
   background-color: rgba(22, 25, 37, 0.7);
   transition: right 0.5s ease-in-out;
 }
+.mobile-menu-wraper .active {
+  color: var(--white);
+}
 
 .mobile-menu-wraper.show {
   right: 0;
@@ -139,6 +146,7 @@ label.btn {
   border-radius: 4px;
   color: var(--white);
   transition: all 0.2s linear;
+  letter-spacing: 1.2px;
 }
 
 label.btn:hover {
@@ -157,6 +165,8 @@ label.btn:hover {
   border-radius: 4px;
   background: var(--dark-blue);
   font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
   line-height: 1.5;
   transition: all 0.2s linear;
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useFormCity } from "../../context/CityContext";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { fetchEvents } from "../../eventsActions/eventsActions";
 import "./navbar.css";
 
@@ -10,6 +10,12 @@ const Navbar = () => {
   const [citySelected, setCitySelected] = useState(true);
   const [mobilemenu, setMobileMenu] = useState(false);
   const [mobileIsVisible, setMobileIsVisible] = useState(false);
+
+  const currentPath = window.location.pathname;
+  const diplayCity = currentPath === "/";
+  // const activeState =
+  //   currentPath === "/" ||
+  //   currentPath === "/search" || currentPath === "/contact";
 
   const mobileMenuToggle = () => {
     setMobileIsVisible(!mobileIsVisible);
@@ -73,12 +79,19 @@ const Navbar = () => {
             <div id="main-nav-a" className="nav-city-wraper d-flex">
               <div className="navigation-main-menu d-flex align-items-center">
                 <div className="large-nav d-none d-md-block">
-                  <Link className="menu-item me-3" to="/search">
+                  <NavLink
+                    className="menu-item me-3"
+                    // activeClassName="active"
+                    to="/"
+                  >
+                    Home
+                  </NavLink>
+                  <NavLink className="menu-item me-3" to="/search">
                     Search
-                  </Link>
-                  <Link className="menu-item me-3" to="/contact">
+                  </NavLink>
+                  <NavLink className="menu-item me-3" to="/contact">
                     Contact
-                  </Link>
+                  </NavLink>
                   <Link className="menu-divider me-3"></Link>
                 </div>
                 <div className="mobile-navigation-wraper d-block d-md-none">
@@ -100,7 +113,7 @@ const Navbar = () => {
                 />
 
                 <a
-                  className="city"
+                  className={`city ${diplayCity ? "d-flex" : "d-none"}`}
                   data-bs-toggle="offcanvas"
                   href="#offcanvasCity"
                   role="button"
@@ -230,12 +243,27 @@ const Navbar = () => {
               mobileIsVisible ? "show" : "hide"
             }`}
           >
-            <Link className="menu-item me-3" to="/search">
+            <NavLink
+              className="menu-item me-3"
+              to="/"
+              onClick={mobileMenuToggle}
+            >
+              Home
+            </NavLink>
+            <NavLink
+              className="menu-item me-3"
+              to="/search"
+              onClick={mobileMenuToggle}
+            >
               Search
-            </Link>
-            <Link className="menu-item me-3" to="/contact">
+            </NavLink>
+            <NavLink
+              className="menu-item me-3"
+              to="/contact"
+              onClick={mobileMenuToggle}
+            >
               Contact
-            </Link>
+            </NavLink>
           </div>
         </div>
       </nav>
