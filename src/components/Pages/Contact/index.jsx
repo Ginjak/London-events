@@ -9,7 +9,7 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("/", {
+      const response = await fetch("https://ukevents.netlify.app/", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
