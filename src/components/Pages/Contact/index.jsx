@@ -7,19 +7,10 @@ const Contact = () => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async () => {
-    navigate("/search");
-  };
-
   return (
     <div id="contact-page">
       <div className="contact-test"></div>
-      <form
-        name="contact"
-        method="POST"
-        className="mt-5"
-        onSubmit={handleSubmit}
-      >
+      <form name="contact" method="POST" className="mt-5">
         <input type="hidden" name="form-name" value="contact" />
         <div>
           <label>
