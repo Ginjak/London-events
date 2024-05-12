@@ -98,16 +98,13 @@ const Navbar = () => {
               id="offcanvasCity"
               aria-labelledby="offcanvasCityLabel"
             >
-              <div className="offcanvas-header">
-                <h5
-                  className="offcanvas-title text-uppercase"
-                  id="offcanvasCityLabel"
-                >
-                  Select your city!
+              <div className="offcanvas-header mt-4">
+                <h5 className="offcanvas-title" id="offcanvasCityLabel">
+                  Choose your city!
                 </h5>
                 <button
                   type="button"
-                  className="btn-close text-reset"
+                  className="btn-close btn-close-white text-reset"
                   data-bs-dismiss="offcanvas"
                   aria-label="Close"
                 ></button>
@@ -122,7 +119,7 @@ const Navbar = () => {
                       id="London"
                       autoComplete="off"
                     />
-                    <label className="btn btn-secondary" htmlFor="London">
+                    <label className="btn" htmlFor="London">
                       London
                     </label>
                   </div>
@@ -134,7 +131,7 @@ const Navbar = () => {
                       id="Manchester"
                       autoComplete="off"
                     />
-                    <label className="btn btn-secondary" htmlFor="Manchester">
+                    <label className="btn" htmlFor="Manchester">
                       Manchester
                     </label>
                   </div>
@@ -146,7 +143,7 @@ const Navbar = () => {
                       id="Liverpool"
                       autoComplete="off"
                     />
-                    <label className="btn btn-secondary" htmlFor="Liverpool">
+                    <label className="btn" htmlFor="Liverpool">
                       Liverpool
                     </label>
                   </div>
@@ -158,7 +155,7 @@ const Navbar = () => {
                       id="Birmingham"
                       autoComplete="off"
                     />
-                    <label className="btn btn-secondary" htmlFor="Birmingham">
+                    <label className="btn" htmlFor="Birmingham">
                       Birmingham
                     </label>
                   </div>
@@ -170,7 +167,7 @@ const Navbar = () => {
                       id="Bristol"
                       autoComplete="off"
                     />
-                    <label className="btn btn-secondary" htmlFor="Bristol">
+                    <label className="btn" htmlFor="Bristol">
                       Bristol
                     </label>
                   </div>
@@ -182,26 +179,26 @@ const Navbar = () => {
                       id="Leeds"
                       autoComplete="off"
                     />
-                    <label className="btn btn-secondary" htmlFor="Leeds">
+                    <label className="btn" htmlFor="Leeds">
                       Leeds
                     </label>
                   </div>
                   {/* Add other city options */}
                   <button
                     type="submit"
-                    className="btn btn-primary"
+                    className="offcanvas-submit"
                     data-bs-dismiss="offcanvas"
                     aria-label="Close"
                   >
-                    Submit
+                    Let's go
                   </button>
-                  {!citySelected && (
+                  {/* {!citySelected && (
                     <div className="container-xxl mt-3 ">
                       <div className="alert alert-danger fade-in" role="alert">
                         Select a city
                       </div>
                     </div>
-                  )}
+                  )} */}
                 </form>
               </div>
             </div>

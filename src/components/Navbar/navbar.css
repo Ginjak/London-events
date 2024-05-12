@@ -37,6 +37,50 @@
   animation: fadeIn 0.2s ease forwards;
 }
 
+/* Offcanvas */
+
+.offcanvas {
+  background-color: rgba(28, 110, 140, 0.95) !important;
+  color: var(--white) !important;
+}
+.btn-close {
+  transition: all 0.2s linear;
+}
+.btn-close:hover {
+  transform: rotate(90deg);
+  transition: all 0.2s linear;
+}
+
+label.btn {
+  border-radius: 4px;
+  color: var(--white);
+  transition: all 0.2s linear;
+}
+
+label.btn:hover {
+  color: #fff !important;
+  border: 1px solid #fff !important;
+  transition: all 0.2s linear;
+}
+
+.offcanvas-submit {
+  color: var(--white);
+  text-transform: uppercase;
+  width: 100%;
+  display: block;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  background: var(--dark-blue);
+  font-size: 16px;
+  line-height: 1.5;
+  transition: all 0.2s linear;
+}
+
+.offcanvas-submit:hover {
+  background: rgba(39, 65, 86, 0.9);
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+}
 /* Animation */
 @keyframes fadeIn {
   from {
