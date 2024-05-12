@@ -6,18 +6,24 @@ const Contact = () => {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    let myForm = document.getElementById("contact-form");
-    let formData = new FormData(myForm);
-    fetch("/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData).toString(),
-    })
-      .then(() => navigate("/search"))
-      .catch((error) => alert(error));
+    const formData = new FormData(e.target);
+
+    try {
+      await fetch("/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString(),
+      });
+      navigate("/search"); // Navigate to "/search" route after successful form submission
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("An error occurred. Please try again later.");
+    }
   };
+
   return (
     <div id="contact-page">
       <div className="contact-test"></div>
