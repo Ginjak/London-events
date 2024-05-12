@@ -13,9 +13,6 @@ const Navbar = () => {
 
   const currentPath = window.location.pathname;
   const diplayCity = currentPath === "/";
-  // const activeState =
-  //   currentPath === "/" ||
-  //   currentPath === "/search" || currentPath === "/contact";
 
   const mobileMenuToggle = () => {
     setMobileIsVisible(!mobileIsVisible);
