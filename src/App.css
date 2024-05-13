@@ -4,6 +4,7 @@
   font-family: "Roboto", sans-serif;
 } */
 :root {
+  --white-opacity: rgba(251, 252, 255, 0.6);
   --white: #fbfcff;
   --grey: #d0ccd0;
   --light-blue: #1c6e8c;

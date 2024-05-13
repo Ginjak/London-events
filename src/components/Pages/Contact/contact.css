@@ -1,3 +1,22 @@
-.contact-test {
-  margin-top: 100px;
+#contact-page {
+  min-height: 100svh;
+  background: var(--rasin-black);
+}
+
+.contact-form-wraper {
+  color: var(--white);
+  max-width: 768px;
+}
+.name-email-wraper input {
+  width: 100%;
+}
+
+.form-input {
+  padding: 6px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--white-opacity);
+}
+.form-input::placeholder {
+  color: var(--white-opacity);
 }
