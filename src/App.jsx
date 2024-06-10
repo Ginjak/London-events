@@ -11,6 +11,7 @@ import SingleEventPage from "./components/Pages/SingleEventPage";
 import MultiSliderByCity from "./components/MultiSliderByCity";
 import Search from "./components/Pages/Search";
 import Contact from "./components/Pages/Contact";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -19,7 +20,6 @@ function App() {
         <CityProvider>
           <EventIdProvider>
             <Header></Header>
-
             <Routes>
               <Route
                 path="/"
@@ -43,6 +43,7 @@ function App() {
             </Routes>
           </EventIdProvider>
         </CityProvider>
+        <Footer />
       </Router>
     </>
   );

@@ -23,6 +23,9 @@ const Contact = () => {
     if (countdown === 0) {
       setSubmitted(false);
       setCountdown(5);
+      setMessage("");
+      setName("");
+      setEmail("");
     }
   }, [countdown]);
 
