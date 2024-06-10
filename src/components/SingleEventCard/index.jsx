@@ -69,7 +69,7 @@ const SingleEventCard = ({
             <div className="overlay"></div>
             <div className="event-date d-flex flex-column justify-content-center align-items-center">
               <p className="m-0">
-                {new Date(eventDetails.dates.start.dateTime).toLocaleString(
+                {new Date(eventDetails.dates.start.localDate).toLocaleString(
                   "default",
                   {
                     month: "short",
@@ -77,7 +77,7 @@ const SingleEventCard = ({
                 )}
               </p>
               <p className="m-0">
-                {new Date(eventDetails.dates.start.dateTime)
+                {new Date(eventDetails.dates.start.localDate)
                   .getDate()
                   .toString()
                   .padStart(2, "0")}
