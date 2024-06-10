@@ -4,7 +4,11 @@ import "./footer.css";
 const Footer = () => {
   return (
     <>
-      <p className="text-white">Testing footer</p>
+      <div id="footer">
+        <div className="container-xxl">
+          <p className="text-white mb-0">tasd</p>
+        </div>
+      </div>
     </>
   );
 };
