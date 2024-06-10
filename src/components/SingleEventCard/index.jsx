@@ -85,8 +85,8 @@ const SingleEventCard = ({
             </div>
             <div className="time-location-wraper">
               <p className="card-info mb-0 position-relative">
-                {eventDetails.dates.start.localTime
-                  .split(":")
+                {eventDetails?.dates?.start?.localTime
+                  ?.split(":")
                   .slice(0, 2)
                   .join(":")}
               </p>
@@ -229,10 +229,10 @@ const SingleEventCard = ({
                                   {venueDetails._embedded.events[index].name}
                                 </p>
                                 <p className="m-0 ">
-                                  {venueDetails._embedded.events[
+                                  {venueDetails?._embedded.events[
                                     index
-                                  ].dates.start.localTime
-                                    .split(":")
+                                  ]?.dates?.start?.localTime
+                                    ?.split(":")
                                     .slice(0, 2)
                                     .join(":")}
                                 </p>

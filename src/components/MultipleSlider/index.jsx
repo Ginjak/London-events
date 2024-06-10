@@ -176,8 +176,8 @@ const MultipleSlider = ({ popularEvents, title }) => {
                           {event?._embedded?.venues?.[0].name}
                         </p>
                         <p className="event-card-time text-end m-0">
-                          {event.dates.start.localTime
-                            .split(":")
+                          {event?.dates?.start?.localTime
+                            ?.split(":")
                             .slice(0, 2)
                             .join(":")}
                         </p>
