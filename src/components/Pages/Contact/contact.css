@@ -29,3 +29,7 @@ textarea.form-input {
   border-bottom: 2px solid var(--white);
   transition: border-color 0.2s linear;
 }
+
+.thank-you-message {
+  color: var(--white);
+}

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./contact.css";
+import MultipleSlider from "../../MultipleSlider";
 
 const Contact = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [submitted, setSubmitted] = useState(true);
+  const [submitted, setSubmitted] = useState(false);
   const [countdown, setCountdown] = useState(5);
 
   useEffect(() => {
@@ -48,13 +49,13 @@ const Contact = () => {
   return (
     <div
       id="contact-page"
-      className="d-flex justify-content-center align-items-center"
+      className="d-flex justify-content-center align-items-center flex-column"
     >
       {submitted ? (
-        <div className="thank-you-message">
-          <h2>Thank you for your message!</h2>
-          <p>We'll get back to you as soon as possible.</p>
-          <p>Returning to form in {countdown} seconds...</p>
+        <div className="thank-you-message text-center">
+          <h2 className="mb-3">Thank you for your message!</h2>
+          <p className="mb-3">We'll get back to you as soon as possible.</p>
+          <p className="mb-0">Returning to page in {countdown} seconds...</p>
         </div>
       ) : (
         <div className="contact-form-wraper">
