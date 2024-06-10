@@ -4,11 +4,14 @@
 }
 
 .contact-form-wraper {
+  padding: 0 12px;
   color: var(--white);
   max-width: 768px;
 }
-.name-email-wraper input {
+.name-email-wraper input,
+textarea.form-input {
   width: 100%;
+  color: var(--white);
 }
 
 .form-input {
@@ -16,7 +19,13 @@
   background: transparent;
   border: none;
   border-bottom: 2px solid var(--white-opacity);
+  transition: border-color 0.2s linear;
 }
 .form-input::placeholder {
   color: var(--white-opacity);
+}
+.form-input:focus {
+  outline: none;
+  border-bottom: 2px solid var(--white);
+  transition: border-color 0.2s linear;
 }

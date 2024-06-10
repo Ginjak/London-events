@@ -69,8 +69,8 @@ const Contact = () => {
             onSubmit={handleSubmit}
           >
             <input type="hidden" name="form-name" value="contact" />
-            <div className="name-email-wraper d-flex gap-2">
-              <div className="w-100">
+            <div className="name-email-wraper flex-column flex-sm-row d-flex gap-2">
+              <div className="w-100 mb-3">
                 <label className="w-100">
                   <input
                     className="form-input"
@@ -83,7 +83,7 @@ const Contact = () => {
                   />
                 </label>
               </div>
-              <div className="w-100">
+              <div className="w-100  mb-3">
                 <label className="w-100">
                   <input
                     className="form-input"
@@ -98,9 +98,10 @@ const Contact = () => {
               </div>
             </div>
             <div>
-              <label className="w-100 mt-2">
+              <label className="w-100 mb-3">
                 <textarea
                   className="w-100 form-input"
+                  rows="3"
                   name="message"
                   id="message"
                   value={message}
@@ -109,7 +110,9 @@ const Contact = () => {
                 />
               </label>
             </div>
-            <button type="submit">Submit</button>
+            <button className="dates-btn w-100" type="submit">
+              Submit
+            </button>
           </form>
         </div>
       )}
