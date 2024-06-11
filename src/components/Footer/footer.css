@@ -8,6 +8,10 @@
 .api-data-logo {
   width: 30%;
 }
+
+.footer-data-title {
+  color: var(--grey);
+}
 .information-form-wraper {
   width: 70%;
 }
@@ -44,6 +48,14 @@
   max-width: 200px;
 }
 
+#footer .footer-divider {
+  border-right: 3px solid var(--grey);
+  cursor: default;
+}
+
+#footer .copyrigth {
+  color: var(--grey);
+}
 @media (max-width: 768px) {
   .footer-container {
     flex-direction: column;

@@ -3,8 +3,11 @@ import "./footer.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   const settings = {
     dots: false,
     arrows: false,
@@ -41,19 +44,19 @@ const Footer = () => {
     <div id="footer">
       <div className="container-xxl footer-container">
         <div className="api-data-logo">
-          <h5>Information and Data Powered By</h5>
+          <h5 className="footer-data-title">Information and Data Powered By</h5>
           <div className="slider-wraper">
             <Slider {...settings}>
               {sliderImgArray.map((img) => (
-                <a href={img.url} key={img.id} target="_blank">
+                <Link to={img.url} key={img.id} target="_blank">
                   <img src={img.imgUrl} alt={`${img.name} logo`} />
-                </a>
+                </Link>
               ))}
             </Slider>
           </div>
         </div>
-        <div className="information-form-wraper  d-flex justify-content-center align-items-center">
-          <div className="info-form pb-5">
+        <div className="information-form-wraper  d-flex flex-column justify-content-center align-items-center">
+          <div className="info-form pb-3">
             <form action="" className="row g-0 d-flex ">
               <div className="col-auto">
                 <input
@@ -67,7 +70,19 @@ const Footer = () => {
               </button>
             </form>
           </div>
+          <div className="footer-menu d-flex">
+            <Link to="/search" className="menu-item me-3">
+              Search
+            </Link>
+            <div className="footer-divider me-3"></div>
+            <Link to="/contact" className="menu-item">
+              Contact
+            </Link>
+          </div>
         </div>
+      </div>
+      <div className="copyrigth text-center py-2">
+        &copy; {currentYear} LiveGigUk. All rights reserved.
       </div>
     </div>
   );
