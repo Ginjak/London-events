@@ -68,7 +68,7 @@ const Navbar = () => {
               <Link to="/" className="brand-logo text-primary">
                 <img
                   className="logo"
-                  src="/images/search_image.webp"
+                  src="/images/Logo_lug.png"
                   alt="UK Events Logo"
                 />
               </Link>

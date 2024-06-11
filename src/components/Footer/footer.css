@@ -1,5 +1,6 @@
 #footer {
   background: var(--rasin-black);
+  border-top: 2px solid #0a0b11;
 }
 
 #footer .footer-container {

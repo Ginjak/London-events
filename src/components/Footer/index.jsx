@@ -66,7 +66,7 @@ const Footer = () => {
   };
 
   return (
-    <div id="footer">
+    <div id="footer" className="pt-5 pb-3">
       <div className="container-xxl footer-container">
         <div className="api-data-logo">
           <h5 className="footer-data-title">Information and Data Powered By</h5>
@@ -120,7 +120,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="copyrigth text-center py-2">
-        &copy; {currentYear} LiveGigUk. All rights reserved.
+        &copy; {currentYear} LiveUkGig. All rights reserved.
       </div>
     </div>
   );
