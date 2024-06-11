@@ -11,6 +11,10 @@ const Contact = () => {
   const [countdown, setCountdown] = useState(5);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     let interval;
     if (submitted) {
       interval = setInterval(() => {
@@ -68,7 +72,7 @@ const Contact = () => {
           <p className="mb-0">Returning to page in {countdown} seconds...</p>
         </div>
       ) : (
-        <div className="contact-form-wraper">
+        <div id="contact-form-id" className="contact-form-wraper">
           <h2>Contact us</h2>
           <h5>
             Got any questions or suggestions? Fill out this form to reach out

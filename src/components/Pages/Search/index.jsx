@@ -7,6 +7,10 @@ import { useEventId } from "../../../context/EventIdContext";
 import { all } from "axios";
 
 const Search = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [inputValue, setInputValue] = useState("");
   const [tempInputValue, setTempInputValue] = useState("");
   const [allEvents, setAllEvents] = useState([]);
