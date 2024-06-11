@@ -18,6 +18,9 @@
   height: 100%;
   z-index: 4;
 }
+.single-event-card {
+  padding-top: 37px !important;
+}
 .single-event-card .loading-wraper {
   position: absolute;
   width: 100%;
