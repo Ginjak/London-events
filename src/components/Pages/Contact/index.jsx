@@ -6,6 +6,7 @@ const Contact = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [emptyField, setEmptyField] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [countdown, setCountdown] = useState(5);
 
@@ -31,22 +32,27 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({
-          "form-name": "contact",
-          name,
-          email,
-          message,
-        }).toString(),
-      });
+    if (name === "" || email === "" || message === "") {
+      setEmptyField(true);
+    } else {
+      try {
+        await fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({
+            "form-name": "contact",
+            name,
+            email,
+            message,
+          }).toString(),
+        });
 
-      setSubmitted(true); // Set submitted to true after successful submission
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      alert("An error occurred. Please try again later.");
+        setSubmitted(true); // Set submitted to true after successful submission
+        setEmptyField(true);
+      } catch (error) {
+        console.error("Error submitting form:", error);
+        alert("An error occurred. Please try again later.");
+      }
     }
   };
 
@@ -115,6 +121,7 @@ const Contact = () => {
                 />
               </label>
             </div>
+            {emptyField && <p>Please complete all required fields.</p>}
             <button className="dates-btn w-100" type="submit">
               Send
             </button>
