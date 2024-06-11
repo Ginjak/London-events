@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import "./footer.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -7,6 +8,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [email, setEmail] = useState();
 
   const settings = {
     dots: false,
@@ -48,8 +50,7 @@ const Footer = () => {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams({
           "form-name": "contact",
-          name,
-          message,
+          email,
         }).toString(),
       });
     } catch (error) {
@@ -83,9 +84,12 @@ const Footer = () => {
             >
               <div className="col-auto">
                 <input
-                  type="text"
+                  type="email"
+                  name="email"
                   className="form-input"
                   placeholder="Your e-mail"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 ></input>
               </div>
               <button className="dates-btn newsletter" type="submit">
