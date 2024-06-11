@@ -40,6 +40,24 @@ const Footer = () => {
     },
   ];
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          "form-name": "contact",
+          name,
+          message,
+        }).toString(),
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("An error occurred. Please try again later.");
+    }
+  };
+
   return (
     <div id="footer">
       <div className="container-xxl footer-container">
@@ -57,7 +75,12 @@ const Footer = () => {
         </div>
         <div className="information-form-wraper  d-flex flex-column justify-content-center align-items-center">
           <div className="info-form pb-3">
-            <form action="" className="row g-0 d-flex ">
+            <form
+              name="contact"
+              method="POST"
+              onSubmit={handleSubmit}
+              className="row g-0 d-flex "
+            >
               <div className="col-auto">
                 <input
                   type="text"
