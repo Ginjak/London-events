@@ -2,7 +2,9 @@
   background: var(--rasin-black);
   border-top: 2px solid #0a0b11;
 }
-
+#footer .col-auto {
+  width: auto;
+}
 #footer .footer-container {
   display: flex;
 }
@@ -69,8 +71,22 @@
   .information-form-wraper {
     width: 100%;
   }
+}
 
-  /* #footer .form-input {
-    width: auto;
-  } */
+@media (max-width: 576px) {
+  #footer .col-auto {
+    width: 100%;
+  }
+  #footer .form-input {
+    width: 100%;
+    border-right: 2px solid var(--white-opacity);
+    padding: 16px 10px;
+    font-size: 18px;
+  }
+  #footer .form-input::placeholder {
+    font-size: 18px;
+  }
+  #footer .newsletter {
+    width: 100%;
+  }
 }

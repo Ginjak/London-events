@@ -161,6 +161,9 @@
 }
 
 @media (max-width: 767px) {
+  .form-wraper {
+    margin-top: 0;
+  }
   .form-wraper form,
   .result-wraper {
     width: 100%;

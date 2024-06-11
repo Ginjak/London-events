@@ -81,7 +81,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="information-form-wraper  d-flex flex-column justify-content-center align-items-center">
-          <div className="info-form pb-3">
+          <div className="info-form pb-3 mb-3 mb-md-0">
             <form
               name="contact"
               method="POST"
@@ -108,7 +108,7 @@ const Footer = () => {
               </div>
             )}
           </div>
-          <div className="footer-menu d-flex">
+          <div className="footer-menu d-flex mb-3 mb-md-0">
             <Link to="/search" className="menu-item me-3">
               Search
             </Link>
