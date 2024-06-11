@@ -115,7 +115,7 @@ const Contact = () => {
               </label>
             </div>
             <button className="dates-btn w-100" type="submit">
-              Submit
+              Send
             </button>
           </form>
         </div>
