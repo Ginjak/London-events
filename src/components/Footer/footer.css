@@ -53,6 +53,9 @@
   cursor: default;
 }
 
+#footer .email-sent {
+  color: var(--grey);
+}
 #footer .copyrigth {
   color: var(--grey);
 }

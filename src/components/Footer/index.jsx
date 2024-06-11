@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState();
+  const [emailSent, setEmailSent] = useState(false);
 
   const settings = {
     dots: false,
@@ -53,6 +54,7 @@ const Footer = () => {
           email,
         }).toString(),
       });
+      setEmail("");
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("An error occurred. Please try again later.");
@@ -96,6 +98,11 @@ const Footer = () => {
                 Subscribe!
               </button>
             </form>
+            {emailSent && (
+              <div className="email-sent-wraper">
+                <p className="email-sent">Thank you for subscribing!</p>
+              </div>
+            )}
           </div>
           <div className="footer-menu d-flex">
             <Link to="/search" className="menu-item me-3">
