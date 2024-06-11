@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState();
+  const [emptyField, setEmptyField] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
 
   const settings = {
@@ -45,23 +46,28 @@ const Footer = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({
-          "form-name": "contact",
-          email,
-        }).toString(),
-      });
-      setEmail("");
-      setEmailSent(true);
-      setTimeout(() => {
-        setEmailSent(false);
-      }, 4000);
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      alert("An error occurred. Please try again later.");
+    if (email === "") {
+      setEmptyField(true);
+    } else {
+      try {
+        await fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({
+            "form-name": "contact",
+            email,
+          }).toString(),
+        });
+        setEmail("");
+        setEmptyField(false);
+        setEmailSent(true);
+        setTimeout(() => {
+          setEmailSent(false);
+        }, 4000);
+      } catch (error) {
+        console.error("Error submitting form:", error);
+        alert("An error occurred. Please try again later.");
+      }
     }
   };
 
@@ -102,6 +108,11 @@ const Footer = () => {
                 Subscribe!
               </button>
             </form>
+            {emptyField && (
+              <div className="email-sent-wraper mt-1">
+                <p className="email-sent">Please provide your email address.</p>
+              </div>
+            )}
             {emailSent && (
               <div className="email-sent-wraper mt-1">
                 <p className="email-sent">Thank you for subscribing!</p>
