@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState();
-  const [emailSent, setEmailSent] = useState(false);
+  const [emailSent, setEmailSent] = useState(true);
 
   const settings = {
     dots: false,
@@ -55,6 +55,10 @@ const Footer = () => {
         }).toString(),
       });
       setEmail("");
+      setEmailSent(true);
+      setTimeout(() => {
+        setEmailSent(false);
+      }, 4000);
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("An error occurred. Please try again later.");
@@ -99,7 +103,7 @@ const Footer = () => {
               </button>
             </form>
             {emailSent && (
-              <div className="email-sent-wraper">
+              <div className="email-sent-wraper mt-1">
                 <p className="email-sent">Thank you for subscribing!</p>
               </div>
             )}
