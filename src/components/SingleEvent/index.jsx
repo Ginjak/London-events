@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./singleevent.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
+import { Helmet } from "react-helmet-async";
 import {
   eventById,
   eventByVenue,
@@ -113,7 +114,6 @@ const SingleEvent = () => {
         setRestaurants(restaurantsData);
       } catch (error) {
         console.error(`Test ${error}`);
-        // setEvents([]);
       } finally {
         setEventCardLoading(false);
         setHotelLoading(false);
@@ -136,8 +136,52 @@ const SingleEvent = () => {
     return <div className="fetch-data"></div>;
   }
 
+  const { name, description, images, _embedded } = eventData;
+  const venue = _embedded.venues[0];
+  const imageUrl = images[0]?.url || "";
+
   return (
     <>
+      <Helmet>
+        <title>
+          {name} - Music Event in {venue.city.name}, UK
+        </title>
+        <meta
+          name="description"
+          content={
+            description || "Join us for an amazing music event in the UK."
+          }
+        />
+        <meta
+          name="keywords"
+          content={`music event, ${venue.city.name}, ${name}, UK, concerts, ${eventData.classifications[0].genre.name}`}
+        />
+        <meta
+          property="og:title"
+          content={`${name} - Music Event in ${venue.city.name}, UK`}
+        />
+        <meta
+          property="og:description"
+          content={
+            description || "Join us for an amazing music event in the UK."
+          }
+        />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={window.location.href} />
+        <meta property="og:image" content={imageUrl} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content={`${name} - Music Event in ${venue.city.name}, UK`}
+        />
+        <meta
+          name="twitter:description"
+          content={
+            description || "Join us for an amazing music event in the UK."
+          }
+        />
+        <meta name="twitter:image" content={imageUrl} />
+      </Helmet>
       <div className="container-xxl py-5">
         <SingleEventCard
           eventBg={eventBgImg}

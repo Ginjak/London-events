@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 import "./App.css";
 import Header from "./components/Header";
@@ -15,11 +16,22 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <>
+    <HelmetProvider>
+      <Helmet>
+        <title>Discover Music Events in the UK | Music Events UK</title>
+        <meta
+          name="description"
+          content="Discover upcoming music events in the UK. Explore concerts, festivals, and live performances. Stay updated with the latest music scene and find your next favorite event."
+        />
+        <meta
+          name="keywords"
+          content="music events UK, music concerts, music festivals, live performances, upcoming events, UK events, music scene, event discovery"
+        />
+      </Helmet>
       <Router>
         <CityProvider>
           <EventIdProvider>
-            <Header></Header>
+            <Header />
             <Routes>
               <Route
                 path="/"
@@ -45,7 +57,7 @@ function App() {
         </CityProvider>
         <Footer />
       </Router>
-    </>
+    </HelmetProvider>
   );
 }
 

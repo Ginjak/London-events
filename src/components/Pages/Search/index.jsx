@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Helmet } from "react-helmet-async";
 import "./search.css";
 import { fetchEventsByInput } from "../../../eventsActions/eventsActions";
 import { imageSizeApi } from "../../../eventsActions/utilityFunctions";
 import EventsResultsCards from "../../EventsResultsCards";
 import { useEventId } from "../../../context/EventIdContext";
-import { all } from "axios";
 
 const Search = () => {
   useEffect(() => {
@@ -34,7 +34,6 @@ const Search = () => {
   };
 
   const getInputValue = (e) => {
-    console.log(e.target.value);
     setInputValue(e.target.value);
   };
 
@@ -108,7 +107,6 @@ const Search = () => {
       }
       if (inputValue.length === 4 && inputValue !== tempInputValue) {
         setLoading(true);
-        console.log(inputValue);
         const fullEvents = await fetchEventsByInput(inputValue);
         const eventsByName = await filterByName(fullEvents, inputValue);
         setAllEvents(eventsByName);
@@ -127,11 +125,9 @@ const Search = () => {
       }
       if (allEvents?.length > 0 && inputValue?.length > 3) {
         const filteredData = await filterByPropertyName(allEvents, inputValue);
-        console.log("All events array filtered ", filteredData);
         setFilteredEvents(filteredData);
         setLoading(false);
         const filteredDataByName = await filterByName(allEvents, inputValue);
-        console.log("testing data", filteredDataByName);
         setFilteredEventsByName(filteredDataByName);
       }
     };
@@ -153,6 +149,20 @@ const Search = () => {
 
   return (
     <>
+      <Helmet>
+        <title>
+          Search Music Events - Find Events by Artist, Genre, or Date | Music
+          Events UK
+        </title>
+        <meta
+          name="description"
+          content="Search for upcoming music events in the UK. Find events by artist name, genre, or date. Discover concerts, festivals, and more. Start planning your next musical experience!"
+        />
+        <meta
+          name="keywords"
+          content="search music events, music events UK, music concerts, music festivals, upcoming events, artist search, event search, concert search"
+        />
+      </Helmet>
       <div id="search-page">
         <div className="hero-wraper-search position-relative">
           <div className="search-hero container-xxl d-flex justify-content-center align-items-center">
@@ -216,7 +226,7 @@ const Search = () => {
                               {eventLoading && (
                                 <div className="single-event-placeholder d-flex justify-content-center align-items-center">
                                   <div
-                                    className=" spinner-border text-white"
+                                    className="spinner-border text-white"
                                     role="status"
                                   ></div>
                                 </div>
